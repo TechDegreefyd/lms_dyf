@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 const INITIAL_CALLBACKS = [
-  { id: "L-9042", name: "Ananya Iyer", college: "BITS Pilani", course: "M.Sc Economics", date: "Today", time: "12:45 PM", notes: "Ask for parents contact" },
+  { id: "L-9042", name: "Aditya shah", college: "BITS Pilani", course: "M.Sc Economics", date: "Today", time: "12:45 PM", notes: "Ask for parents contact" },
   { id: "L-9037", name: "Rahul Varma", college: "SRM Chennai", course: "B.Tech ECE", date: "Today", time: "02:00 PM", notes: "Provide fee structure" },
   { id: "L-9034", name: "Priya Nair", college: "Symbiosis Pune", course: "BBA LLB", date: "Today", time: "04:30 PM", notes: "Send hostel brochures" },
   { id: "L-9029", name: "Vikram Sethi", college: "Amity Noida", course: "B.Arch", date: "Tomorrow", time: "11:00 AM", notes: "Wants scholarship info" },
