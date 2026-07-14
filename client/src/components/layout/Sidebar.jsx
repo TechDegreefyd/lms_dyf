@@ -85,7 +85,7 @@ export default function Sidebar({ collapsed, onToggle }) {
   const pathname = usePathname();
 
   return (
-    <aside className={`h-full bg-white flex flex-col justify-between items-start border-r border-[#E5E9EC] py-[16px] px-0 font-poppins shrink-0 relative transition-all duration-300 ${
+    <aside className={`h-[calc(100vh-76px)] bg-white flex flex-col justify-between items-start border-r border-[#E5E9EC] py-[16px] px-0 font-poppins shrink-0 relative transition-all duration-300 ${
       collapsed ? "w-0 border-r-0" : "w-[264px]"
     }`}>
       
@@ -128,7 +128,7 @@ export default function Sidebar({ collapsed, onToggle }) {
         </div>
 
         {/* Bottom Section - Contains Take a Break + Log Out */}
-        <div className="w-full flex flex-col items-start px-[16px] pb-[16px] gap-[20px] self-stretch mt-auto">
+        <div className="w-full flex flex-col items-start px-[16px] pb-0 gap-[20px] self-stretch mt-auto">
           {/* Take a break */}
           <button className="group py-[8px] px-[16px] flex items-center gap-[10px] rounded-[8px] w-full transition-all duration-200 border border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-left cursor-pointer text-[14px] font-normal font-poppins">
             <span className="text-slate-400 group-hover:text-slate-600">
