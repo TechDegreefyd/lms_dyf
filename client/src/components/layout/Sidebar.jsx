@@ -33,8 +33,11 @@ const HEART_ICON = (
 );
 
 const BROCHURE_ICON = (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-    <path d="M13.6001 4V8.8H18.4001M12.0001 16.8V12M14.4001 14.4L12.0001 16.8L9.6001 14.4M14.0001 4H7.2001C6.77575 4 6.36878 4.16857 6.06873 4.46863C5.76867 4.76869 5.6001 5.17565 5.6001 5.6V18.4C5.6001 18.8243 5.76867 19.2313 6.06873 19.5314C6.36878 19.8314 6.77575 20 7.2001 20H16.8001C17.2244 20 17.6314 19.8314 17.9315 19.5314C18.2315 19.2313 18.4001 18.8243 18.4001 18.4V8.4L14.0001 4Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <polyline points="14 2 14 8 20 8" />
+    <line x1="12" y1="18" x2="12" y2="12" />
+    <polyline points="9 15 12 18 15 15" />
   </svg>
 );
 
@@ -68,13 +71,13 @@ const LOGOUT_ICON = (
   </svg>
 );
 
-// Combined single list as per Figma spec, demarcated by hasBorder parameter
+// Sidebar Navigation Items list (Replicating exact 7 items in order from Image 13)
 const NAV_ITEMS = [
   { name: "Dashboard", path: "/dashboard", icon: DASHBOARD_ICON, hasBorder: true },
   { name: "Fresh Leads", path: "/dashboard/fresh-leads", icon: LEAF_ICON, hasBorder: true },
   { name: "Call Back Leads", path: "/dashboard/callback-leads", icon: CALLBACK_ICON, hasBorder: true },
   { name: "Wishlist", path: "/dashboard/wishlist", icon: HEART_ICON, hasBorder: true },
-  { name: "College Brochures", path: "/dashboard/college-brochures", icon: BROCHURE_ICON, hasBorder: true },
+  { name: "College Brochures", path: "/dashboard/college-brochures", icon: BROCHURE_ICON, hasBorder: true }, 
   { name: "WhatsApp Chat", path: "/dashboard/whatsapp-chat", icon: WHATSAPP_ICON, hasBorder: false },
   { name: "Website Chat", path: "/dashboard/website-chat", icon: CHAT_ICON, hasBorder: false },
 ];
@@ -88,8 +91,8 @@ export default function Sidebar() {
       {/* Top Section */}
       <div className="w-full flex flex-col items-start">
         
-        {/* Brand logo container - height aligns exactly with top header bottom border */}
-        <div className="h-[76px] flex items-center px-6 border-b border-[#CFD8DE] w-full mb-4">
+        {/* Brand logo container - height aligned exactly with top header bottom border */}
+        <div className="h-[104px] flex items-center px-6 border-b border-[#CFD8DE] w-full mb-2">
           <div className="relative w-[130px] h-[36px]">
             <Image
               src="/logo.png"
@@ -102,13 +105,13 @@ export default function Sidebar() {
           </div>
         </div>
 
-        {/* Continuous Single List Navigation - 10px Gap, Padding 8px 16px */}
-        <nav className="flex px-[16px] py-[8px] flex-col items-start gap-[10px] self-stretch">
-          {NAV_ITEMS.map((item) => {
+        {/* Continuous Single List Navigation - 10px Gap, Padding 12px top/bottom, 16px left/right */}
+        <nav className="flex px-[16px] pt-[12px] pb-[12px] flex-col items-start gap-[10px] self-stretch">
+          {NAV_ITEMS.map((item, idx) => {
             const isActive = pathname === item.path;
             return (
               <Link
-                key={item.name}
+                key={`${item.name}-${idx}`}
                 href={item.path}
                 className={`group py-[8px] px-[16px] flex items-center gap-[10px] rounded-[8px] w-full transition-all duration-200 border text-[14px] font-normal font-poppins ${
                   item.hasBorder
@@ -134,8 +137,8 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      {/* Bottom Section */}
-      <div className="w-full flex flex-col items-start px-[16px] gap-[10px] self-stretch mt-auto">
+      {/* Bottom Section - Contains Take a Break + Log Out */}
+      <div className="w-full flex flex-col items-start px-[16px] pb-[16px] gap-[8px] self-stretch mt-auto">
         {/* Take a break */}
         <button className="group py-[8px] px-[16px] flex items-center gap-[10px] rounded-[8px] w-full transition-all duration-200 border border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-left cursor-pointer text-[14px] font-normal font-poppins">
           <span className="text-slate-400 group-hover:text-slate-600">
@@ -149,7 +152,7 @@ export default function Sidebar() {
           <span className="text-[#BC3B3B]">
             {LOGOUT_ICON}
           </span>
-          <span className="leading-none">Log Out</span>
+          <span className="leading-none font-medium">Log Out</span>
         </button>
       </div>
 
