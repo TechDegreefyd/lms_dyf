@@ -128,7 +128,7 @@ export default function Sidebar({ collapsed, onToggle }) {
         </div>
 
         {/* Bottom Section - Contains Take a Break + Log Out */}
-        <div className="w-full flex flex-col items-start px-[16px] pb-[16px] gap-[8px] self-stretch mt-auto">
+        <div className="w-full flex flex-col items-start px-[16px] pb-[16px] gap-[20px] self-stretch mt-auto">
           {/* Take a break */}
           <button className="group py-[8px] px-[16px] flex items-center gap-[10px] rounded-[8px] w-full transition-all duration-200 border border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-left cursor-pointer text-[14px] font-normal font-poppins">
             <span className="text-slate-400 group-hover:text-slate-600">
