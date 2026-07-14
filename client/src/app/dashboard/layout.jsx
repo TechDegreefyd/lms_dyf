@@ -1,7 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import Sidebar from "@/components/layout/Sidebar";
 import Header from "@/components/layout/Header";
 
 export default function DashboardLayout({ children }) {
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 font-poppins">
       
@@ -10,8 +15,8 @@ export default function DashboardLayout({ children }) {
 
       {/* Main Container: Sidebar + Main Workspace */}
       <div className="flex flex-1 min-w-0">
-        <Sidebar />
-        <main className="flex-1 p-[16px] overflow-y-auto">
+        <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
+        <main className="flex-1 p-[16px] overflow-y-auto transition-all duration-300">
           {children}
         </main>
       </div>

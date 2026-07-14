@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 
 // SVG Icons matching Figma design (proper React camelCase properties)
 const DASHBOARD_ICON = (
@@ -27,8 +26,8 @@ const CALLBACK_ICON = (
 );
 
 const HEART_ICON = (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-    <path d="M18.7307 6.07209C18.3297 5.66967 17.8531 5.35037 17.3284 5.13251C16.8038 4.91464 16.2412 4.80249 15.6731 4.80249C15.105 4.80249 14.5424 4.91464 14.0178 5.13251C13.4931 5.35037 13.0165 5.66967 12.6155 6.07209L12 6.6956L11.3845 6.07209C10.9835 5.66967 10.5069 5.35037 9.98225 5.13251C9.45756 4.91464 8.89503 4.80249 8.3269 4.80249C7.75878 4.80249 7.19624 4.91464 6.67155 5.13251C6.14686 5.35037 5.67034 5.66967 5.26932 6.07209C3.57466 7.76676 3.47074 10.6285 5.60505 12.8028L12 19.1977L18.3949 12.8028C20.5293 10.6285 20.4253 7.76676 18.7307 6.07209Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <svg width="18" height="16" viewBox="0 0 18 16" fill="none">
+    <path d="M15.4807 2.0196C15.0797 1.61718 14.6031 1.29788 14.0784 1.08002C13.5538 0.862149 12.9912 0.75 12.4231 0.75C11.855 0.75 11.2924 0.862149 10.7678 1.08002C10.2431 1.29788 9.76654 1.61718 9.36551 2.0196L8.75 2.64311L8.13449 2.0196C7.73346 1.61718 7.25694 1.29788 6.73225 1.08002C6.20756 0.862149 5.64503 0.75 5.0769 0.75C4.50878 0.75 3.94624 0.862149 3.42155 1.08002C2.89686 1.29788 2.42034 1.61718 2.01932 2.0196C0.324655 3.71427 0.220737 6.57601 2.35505 8.75029L8.75 15.1452L15.1449 8.75029C17.2793 6.57601 17.1753 3.71427 15.4807 2.0196Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -43,7 +42,7 @@ const BROCHURE_ICON = (
 
 const WHATSAPP_ICON = (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-    <path d="M12.0377 3.29028C7.09761 3.29028 3.07723 7.16261 3.07548 11.9216C3.07432 13.4434 3.48774 14.9287 4.27161 16.2369L3 20.7096L7.75142 19.5094C9.07309 20.2008 10.5427 20.5614 12.0343 20.5604H12.0377C16.9779 20.5604 20.9983 16.6875 21 11.9285C21.0012 9.62338 20.0698 7.45351 18.3772 5.82248C16.6852 4.19086 14.4352 3.29086 12.0377 3.29028ZM12.0377 19.1024H12.0348C10.6982 19.1024 9.3871 18.7563 8.24323 18.1025L7.97032 17.9469L5.15187 18.6588L5.90439 16.0111L5.72729 15.7399C4.98343 14.6054 4.58745 13.2782 4.58806 11.9216C4.58981 7.96564 7.932 4.74828 12.0406 4.74828C14.0299 4.74886 15.9002 5.49615 17.3071 6.85196C18.714 8.20777 19.488 10.0107 19.4868 11.928C19.4851 15.8839 16.1435 19.1024 12.0372 19.1024H12.0377ZM16.1237 13.7285C15.8996 13.6211 14.7987 13.0991 14.5932 13.0265C14.3882 12.9551 14.239 12.918 14.0897 13.134C13.9411 13.35 13.5114 13.836 13.3814 13.9794C13.2501 14.1234 13.1195 14.1408 12.8954 14.0334C12.6712 13.9254 11.9495 13.6978 11.0948 12.9627C10.4288 12.3913 9.97935 11.6853 9.84871 11.4687C9.71806 11.2533 9.83477 11.1365 9.94684 11.0291C10.0473 10.9333 10.171 10.7777 10.2825 10.6517C10.3939 10.5257 10.4311 10.4357 10.5066 10.2917C10.5809 10.1483 10.5437 10.0217 10.4874 9.91428C10.4311 9.8057 9.984 8.74428 9.79645 8.31286C9.61529 7.89248 9.43064 7.9488 9.29303 7.94183C9.16239 7.93603 9.01374 7.93428 8.86335 7.93428C8.71529 7.93428 8.472 7.98828 8.26645 8.20428C8.06148 8.42028 7.48258 8.9417 7.48258 10.0031C7.48258 11.0651 8.28503 12.0905 8.3971 12.2345C8.50916 12.378 9.97645 14.5571 12.223 15.492C12.7572 15.7132 13.1741 15.8462 13.4998 15.946C14.0363 16.1103 14.5246 16.0865 14.9102 16.0314C15.3399 15.9693 16.2352 15.51 16.421 15.0065C16.608 14.5031 16.608 14.0711 16.5523 13.9811C16.4977 13.8911 16.3479 13.8371 16.1237 13.7285Z" fill="currentColor" />
+    <path d="M12.0377 3.29028C7.09761 3.29028 3.07723 7.16261 3.07548 11.9216C3.07432 13.4434 3.48774 14.9287 4.27161 16.2369L3 20.7096L7.75142 19.5094C9.07309 20.2008 10.5427 20.5614 12.0343 20.5604H12.0377C16.9779 20.5604 20.9983 16.6875 21 11.9285C21.0012 9.62338 20.0698 7.45351 18.3772 5.82248C16.6852 4.19086 14.4352 3.29086 12.0377 3.29028ZM12.0377 19.1024H12.0348C10.6982 19.1024 9.3871 18.7563 8.24323 18.1025L7.97032 17.9469L5.15187 18.6588L5.90439 16.0111L5.72729 15.7399C4.98343 14.6007 4.58745 13.2782 4.58806 11.9216C4.58981 7.96564 7.932 4.74828 12.0406 4.74828C14.0299 4.74886 15.9002 5.49615 17.3071 6.85196C18.714 8.20777 19.488 10.0107 19.4868 11.928C19.4851 15.8839 16.1435 19.1024 12.0377 19.1024H12.0377ZM16.1237 13.7285C15.8996 13.6211 14.7987 13.0991 14.5932 13.0265C14.3882 12.9551 14.239 12.918 14.0897 13.134C13.9411 13.35 13.5114 13.836 13.3814 13.9794C13.2501 14.1234 13.1195 14.1408 12.8954 14.0334C12.6712 13.9254 11.9495 13.6978 11.0948 12.9627C10.4288 12.3913 9.97935 11.6853 9.84871 11.4687C9.71806 11.2533 9.83477 11.1365 9.94684 11.0291C10.0473 10.9333 10.171 10.7777 10.2825 10.6517C10.3939 10.5257 10.4311 10.4357 10.5066 10.2917C10.5809 10.1483 10.5437 10.0217 10.4874 9.91428C10.4311 9.8057 9.984 8.74428 9.79645 8.31286C9.61529 7.89248 9.43064 7.9488 9.29303 7.94183C9.16239 7.93603 9.01374 7.93428 8.86335 7.93428C8.71529 7.93428 8.472 7.98828 8.26645 8.20428C8.06148 8.42028 7.48258 8.9417 7.48258 10.0031C7.48258 11.0651 8.28503 12.0905 8.3971 12.2345C8.50916 12.378 9.97645 14.5571 12.223 15.492C12.7572 15.7132 13.1741 15.8462 13.4998 15.946C14.0363 16.1103 14.5246 16.0865 14.9102 16.0314C15.3399 15.9693 16.2352 15.51 16.421 15.0065C16.608 14.5031 16.608 14.0711 16.5523 13.9811C16.4977 13.8911 16.3479 13.8371 16.1237 13.7285Z" fill="currentColor" />
   </svg>
 );
 
@@ -71,7 +70,7 @@ const LOGOUT_ICON = (
   </svg>
 );
 
-// Sidebar Navigation Items list (Replicating exact 7 items in order from Image 13)
+// Sidebar Navigation Items list
 const NAV_ITEMS = [
   { name: "Dashboard", path: "/dashboard", icon: DASHBOARD_ICON, hasBorder: true },
   { name: "Fresh Leads", path: "/dashboard/fresh-leads", icon: LEAF_ICON, hasBorder: true },
@@ -82,72 +81,85 @@ const NAV_ITEMS = [
   { name: "Website Chat", path: "/dashboard/website-chat", icon: CHAT_ICON, hasBorder: false },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ collapsed, onToggle }) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-[264px] min-h-[740px] h-screen bg-white flex flex-col justify-between items-start border-r border-[#E5E9EC] py-[16px] px-0 font-poppins shrink-0 relative">
+    <aside className={`min-h-[740px] h-screen bg-white flex flex-col justify-between items-start border-r border-[#E5E9EC] py-[16px] px-0 font-poppins shrink-0 relative transition-all duration-300 ${
+      collapsed ? "w-0 border-r-0" : "w-[264px]"
+    }`}>
       
-      {/* Top Section */}
-      <div className="w-full flex flex-col items-start">
-        
+      {/* Sidebar Content wrapper (prevents text distortion / overflow during collapse animation) */}
+      <div className={`w-[264px] flex flex-col justify-between h-full transition-opacity duration-200 ${
+        collapsed ? "opacity-0 pointer-events-none" : "opacity-100"
+      }`}>
+        {/* Top Section */}
+        <div className="w-full flex flex-col items-start">
+          {/* Continuous Single List Navigation - 10px Gap, Padding 12px top/bottom, 16px left/right */}
+          <nav className="flex px-[16px] pt-[12px] pb-[12px] flex-col items-start gap-[10px] self-stretch">
+            {NAV_ITEMS.map((item, idx) => {
+              const isActive = pathname === item.path;
+              return (
+                <Link
+                  key={`${item.name}-${idx}`}
+                  href={item.path}
+                  className={`group py-[8px] px-[16px] flex items-center gap-[10px] rounded-[8px] w-full transition-all duration-200 border text-[14px] font-normal font-poppins ${
+                    item.hasBorder
+                      ? isActive
+                        ? "bg-white border-[#E5E9EC] text-[#0D3B59] shadow-[0_1px_3px_rgba(13,59,89,0.06)]"
+                        : "bg-white border-transparent text-[#121212] hover:bg-slate-50 hover:border-[#E5E9EC] hover:text-slate-800"
+                      : isActive
+                        ? "bg-slate-50 border-transparent text-[#0D3B59]"
+                        : "bg-transparent border-transparent text-[#121212] hover:bg-slate-50/60 hover:text-slate-800"
+                  }`}
+                >
+                  <span className={`transition-colors duration-200 ${
+                    isActive 
+                      ? "text-[#0D3B59]" 
+                      : "text-slate-400 group-hover:text-slate-600"
+                  }`}>
+                    {item.icon}
+                  </span>
+                  <span className="leading-none">{item.name}</span>
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
 
+        {/* Bottom Section - Contains Take a Break + Log Out */}
+        <div className="w-full flex flex-col items-start px-[16px] pb-[16px] gap-[8px] self-stretch mt-auto">
+          {/* Take a break */}
+          <button className="group py-[8px] px-[16px] flex items-center gap-[10px] rounded-[8px] w-full transition-all duration-200 border border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-left cursor-pointer text-[14px] font-normal font-poppins">
+            <span className="text-slate-400 group-hover:text-slate-600">
+              {COFFEE_ICON}
+            </span>
+            <span className="leading-none">Take a Break</span>
+          </button>
 
-        {/* Continuous Single List Navigation - 10px Gap, Padding 12px top/bottom, 16px left/right */}
-        <nav className="flex px-[16px] pt-[12px] pb-[12px] flex-col items-start gap-[10px] self-stretch">
-          {NAV_ITEMS.map((item, idx) => {
-            const isActive = pathname === item.path;
-            return (
-              <Link
-                key={`${item.name}-${idx}`}
-                href={item.path}
-                className={`group py-[8px] px-[16px] flex items-center gap-[10px] rounded-[8px] w-full transition-all duration-200 border text-[14px] font-normal font-poppins ${
-                  item.hasBorder
-                    ? isActive
-                      ? "bg-white border-[#E5E9EC] text-[#0D3B59] shadow-[0_1px_3px_rgba(13,59,89,0.06)]"
-                      : "bg-white border-transparent text-[#121212] hover:bg-slate-50 hover:border-[#E5E9EC] hover:text-slate-800"
-                    : isActive
-                      ? "bg-slate-50 border-transparent text-[#0D3B59]"
-                      : "bg-transparent border-transparent text-[#121212] hover:bg-slate-50/60 hover:text-slate-800"
-                }`}
-              >
-                <span className={`transition-colors duration-200 ${
-                  isActive 
-                    ? "text-[#0D3B59]" 
-                    : "text-slate-400 group-hover:text-slate-600"
-                }`}>
-                  {item.icon}
-                </span>
-                <span className="leading-none">{item.name}</span>
-              </Link>
-            );
-          })}
-        </nav>
+          {/* Log Out */}
+          <button className="group py-[8px] px-[16px] flex items-center gap-[10px] rounded-[8px] w-full transition-all duration-200 border border-transparent text-[#BC3B3B] hover:bg-red-55 text-left cursor-pointer text-[14px] font-normal font-poppins">
+            <span className="text-[#BC3B3B]">
+              {LOGOUT_ICON}
+            </span>
+            <span className="leading-none font-medium">Log Out</span>
+          </button>
+        </div>
       </div>
 
-      {/* Bottom Section - Contains Take a Break + Log Out */}
-      <div className="w-full flex flex-col items-start px-[16px] pb-[16px] gap-[8px] self-stretch mt-auto">
-        {/* Take a break */}
-        <button className="group py-[8px] px-[16px] flex items-center gap-[10px] rounded-[8px] w-full transition-all duration-200 border border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-left cursor-pointer text-[14px] font-normal font-poppins">
-          <span className="text-slate-400 group-hover:text-slate-600">
-            {COFFEE_ICON}
-          </span>
-          <span className="leading-none">Take a Break</span>
-        </button>
-
-        {/* Log Out */}
-        <button className="group py-[8px] px-[16px] flex items-center gap-[10px] rounded-[8px] w-full transition-all duration-200 border border-transparent text-[#BC3B3B] hover:bg-red-50 text-left cursor-pointer text-[14px] font-normal font-poppins">
-          <span className="text-[#BC3B3B]">
-            {LOGOUT_ICON}
-          </span>
-          <span className="leading-none font-medium">Log Out</span>
-        </button>
-      </div>
-
-      {/* Collapse arrow toggle button */}
-      <button className="absolute top-[22px] -right-[12px] w-[24px] h-[24px] rounded-full border border-[#E5E9EC] bg-white flex items-center justify-center text-slate-400 hover:text-slate-700 shadow-sm cursor-pointer z-10 transition-colors">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="15 18 9 12 15 6" />
+      {/* Collapse arrow toggle button - Vertically centered on top border line (Navbar bottom) */}
+      <button 
+        onClick={onToggle}
+        className={`absolute top-0 -translate-y-1/2 w-[24px] h-[24px] rounded-full border border-[#E5E9EC] bg-white flex items-center justify-center hover:bg-slate-50 shadow-sm cursor-pointer z-50 transition-all duration-300 ${
+          collapsed ? "left-[12px]" : "-right-[12px]"
+        }`}
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          {collapsed ? (
+            <path d="M5.3332 13.3334L10.6665 8.00008L5.3332 2.66675" stroke="#0D3B59" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+          ) : (
+            <path d="M10.6668 13.3334L5.3335 8.00008L10.6668 2.66675" stroke="#0D3B59" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+          )}
         </svg>
       </button>
 
