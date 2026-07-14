@@ -1,0 +1,11 @@
+const jwt = require("jsonwebtoken");
+
+const generateToken = (payload) => {
+  return jwt.sign(payload, process.env.JWT_SECRET || "super-secret-key", {
+    expiresIn: process.env.JWT_EXPIRE || "24h",
+  });
+};
+
+module.exports = {
+  generateToken,
+};
