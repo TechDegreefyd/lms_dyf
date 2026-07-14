@@ -85,7 +85,7 @@ export default function Sidebar({ collapsed, onToggle }) {
   const pathname = usePathname();
 
   return (
-    <aside className={`min-h-[740px] h-screen bg-white flex flex-col justify-between items-start border-r border-[#E5E9EC] py-[16px] px-0 font-poppins shrink-0 relative transition-all duration-300 ${
+    <aside className={`h-full bg-white flex flex-col justify-between items-start border-r border-[#E5E9EC] py-[16px] px-0 font-poppins shrink-0 relative transition-all duration-300 ${
       collapsed ? "w-0 border-r-0" : "w-[264px]"
     }`}>
       
