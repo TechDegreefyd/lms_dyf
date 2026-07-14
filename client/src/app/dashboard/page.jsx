@@ -146,11 +146,8 @@ export default function DashboardOverview() {
           onClick={() => setSearchTerm("")}
           className="h-[40px] px-4 border border-[#BC3B3B] text-[#BC3B3B] hover:bg-red-55 rounded-[8px] text-[13px] font-medium transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="3 6 5 6 21 6" />
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-            <line x1="10" y1="11" x2="10" y2="17" />
-            <line x1="14" y1="11" x2="14" y2="17" />
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M4.7998 7.2H19.1998M17.5998 7.2V18.4C17.5998 19.2 16.7998 20 15.9998 20H7.9998C7.1998 20 6.3998 19.2 6.3998 18.4V7.2M8.7998 7.2V5.6C8.7998 4.8 9.5998 4 10.3998 4H13.5998C14.3998 4 15.1998 4.8 15.1998 5.6V7.2M10.3998 11.2V16M13.5998 11.2V16" stroke="#C2413A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
           <span>Clear All</span>
         </button>

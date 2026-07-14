@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 // Custom WhatsApp SVG path from specs
 const WHATSAPP_ICON = (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -7,21 +9,18 @@ const WHATSAPP_ICON = (
   </svg>
 );
 
-// Custom Bell SVG path from specs (React camelCase properties fixed)
 const BELL_ICON = (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
     <path d="M13.384 19.2015C13.2434 19.4439 13.0415 19.6452 12.7986 19.7851C12.5557 19.925 12.2803 19.9986 12 19.9986C11.7197 19.9986 11.4443 19.925 11.2014 19.7851C10.9585 19.6452 10.7567 19.4439 10.616 19.2015M4 8.80146C4 7.04146 4.56 5.36146 5.6 4.00146M20 8.80146C20 7.0705 19.4386 5.38623 18.4 4.00146M16.8 8.80146C16.8 7.52843 16.2943 6.30753 15.3941 5.40735C14.4939 4.50718 13.273 4.00146 12 4.00146C10.727 4.00146 9.50606 4.50718 8.60589 5.40735C7.70571 6.30753 7.2 7.52843 7.2 8.80146C7.2 14.4015 4.8 16.0015 4.8 16.0015H19.2C19.2 16.0015 16.8 14.4015 16.8 8.80146Z" stroke="#121212" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
-// Standard Phone Incoming SVG
 const PHONE_ICON = (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#121212" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
   </svg>
 );
 
-// Custom Plus Icon SVG from specifications
 const PLUS_ICON = (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
     <path d="M10.0002 3.33325V16.6666M3.3335 9.99992H16.6668" stroke="white" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
@@ -30,44 +29,61 @@ const PLUS_ICON = (
 
 export default function Header() {
   return (
-    <header className="w-full max-w-[1440px] bg-white border-b border-[#CFD8DE] flex justify-end items-center py-[32px] px-[32px] font-poppins shrink-0 mx-auto">
+    <header className="w-full max-w-[1440px] h-[76px] bg-white border-b border-[#CFD8DE] flex items-center py-[12px] px-[32px] font-poppins shrink-0 mx-auto">
       
+      {/* Sidebar Brand Logo in Top Navbar on the left */}
+      <div className="relative w-[130px] h-[36px] mr-auto">
+        <Image
+          src="/logo.png"
+          alt="DegreeFYD Logo"
+          fill
+          sizes="130px"
+          priority
+          style={{ objectFit: "contain" }}
+        />
+      </div>
+
       {/* Right Side row with 28px gap before profile section */}
-      <div className="flex items-center gap-[20px]">
-        {/* WhatsApp Circular Button with Badge 2 */}
-        <button className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0">
-          {WHATSAPP_ICON}
-          <span className="absolute -top-1 -right-1 bg-[#BC3B3B] text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">2</span>
-        </button>
+      <div className="flex items-center gap-[28px]">
+        
+        {/* Icons Row */}
+        <div className="flex items-center gap-[20px]">
+          {/* WhatsApp Circular Button with Badge 2 */}
+          <button className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0">
+            {WHATSAPP_ICON}
+            <span className="absolute -top-1 -right-1 bg-[#BC3B3B] text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">2</span>
+          </button>
 
-        {/* Call Icon Circular Button with Badge 7 */}
-        <button className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0">
-          {PHONE_ICON}
-          <span className="absolute -top-1 -right-1 bg-[#BC3B3B] text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">7</span>
-        </button>
+          {/* Call Icon Circular Button with Badge 7 */}
+          <button className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0">
+            {PHONE_ICON}
+            <span className="absolute -top-1 -right-1 bg-[#BC3B3B] text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">7</span>
+          </button>
 
-        {/* Bell Notification Button with Badge 9+ */}
-        <button className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0">
-          {BELL_ICON}
-          <span className="absolute -top-1 -right-1 bg-[#BC3B3B] text-white text-[8px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">9+</span>
-        </button>
+          {/* Bell Notification Button with Badge 9+ */}
+          <button className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0">
+            {BELL_ICON}
+            <span className="absolute -top-1 -right-1 bg-[#BC3B3B] text-white text-[8px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">9+</span>
+          </button>
+        </div>
 
-        {/* New Lead Action Button with custom SVG plus icon */}
+        {/* New Lead Action Button */}
         <button className="h-[40px] px-[16px] bg-[#0D3B59] hover:bg-[#092c42] text-white rounded-[8px] text-[14px] font-medium transition-colors shadow-premium cursor-pointer flex items-center justify-center gap-[6px] shrink-0 font-poppins">
           {PLUS_ICON}
           <span>New Lead</span>
         </button>
-      </div>
 
-      {/* User Profile Info - Placed with exact 28px gap separation */}
-      <div className="flex items-center gap-3 shrink-0 font-poppins ml-[28px]">
-        <div className="w-[40px] h-[40px] rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 border border-[#E5E9EC] overflow-hidden">
-          V
+        {/* User Profile Info - Placed with exact 28px gap separation */}
+        <div className="flex items-center gap-3 shrink-0 font-poppins ml-[4px]">
+          <div className="w-[40px] h-[40px] rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 border border-[#E5E9EC] overflow-hidden">
+            V
+          </div>
+          <div className="flex flex-col text-left">
+            <span className="text-[14px] font-semibold text-[#121212] leading-tight font-poppins">Vikash</span>
+            <span className="text-[11px] text-[#808080] font-normal font-poppins">L2 Counsellor</span>
+          </div>
         </div>
-        <div className="flex flex-col text-left">
-          <span className="text-[14px] font-semibold text-[#121212] leading-tight font-poppins">Vikash</span>
-          <span className="text-[11px] text-[#808080] font-normal font-poppins">L2 Counsellor</span>
-        </div>
+
       </div>
 
     </header>
