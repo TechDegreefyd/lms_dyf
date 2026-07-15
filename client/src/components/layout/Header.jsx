@@ -64,7 +64,7 @@ export default function Header() {
       <div className="flex items-center gap-[16px]">
         
         {/* Icons Row */}
-        <div className="flex items-center gap-[20px]">
+        <div className="flex items-center gap-[16px]">
           {/* WhatsApp Circular Button with Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button 
