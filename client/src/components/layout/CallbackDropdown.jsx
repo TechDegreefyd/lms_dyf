@@ -67,7 +67,7 @@ export default function CallbackDropdown({ onClose }) {
       </div>
 
       {/* Reminders List (Constrained scrollable container to prevent extending off-screen) */}
-      <div className="flex flex-col gap-[12px] w-full max-h-[480px] overflow-y-auto pr-[2px]">
+      <div className="flex flex-col gap-[12px] w-full max-h-[480px] overflow-y-auto pr-[2px] no-scrollbar">
         {REMINDERS_DATA.map((item, index) => (
           <div 
             key={index}
