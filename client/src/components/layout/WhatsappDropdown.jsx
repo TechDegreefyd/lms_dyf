@@ -38,7 +38,7 @@ const MESSAGES_DATA = [
 
 export default function WhatsappDropdown({ onClose }) {
   return (
-    <div className="absolute right-0 top-[48px] z-50 flex w-[348px] p-[12px] flex-col items-start gap-[15px] rounded-[8px] bg-white border border-[#E5E9EC] shadow-[0_4px_24px_rgba(0,0,0,0.08)] font-poppins text-left">
+    <div className="absolute right-0 top-[48px] z-50 flex w-[348px] p-[12px] flex-col items-start rounded-[8px] bg-white border border-[#E5E9EC] shadow-[0_4px_24px_rgba(0,0,0,0.08)] font-poppins text-left">
       
       {/* Close (X) button - Overlapping the top-right corner of the panel */}
       <button 
@@ -51,7 +51,7 @@ export default function WhatsappDropdown({ onClose }) {
       </button>
 
       {/* Header Row */}
-      <div className="flex items-center justify-between w-full">
+      <div className="flex items-center justify-between w-full mb-[15px]">
         <span className="font-semibold text-[#121212] text-[14px]">
           Whatsapp Messages (38)
         </span>
@@ -61,7 +61,7 @@ export default function WhatsappDropdown({ onClose }) {
       </div>
 
       {/* Message List */}
-      <div className="flex flex-col gap-[15px] w-full">
+      <div className="flex flex-col gap-[12px] w-full">
         {MESSAGES_DATA.map((msg, index) => (
           <div 
             key={index}
@@ -86,9 +86,9 @@ export default function WhatsappDropdown({ onClose }) {
               </div>
 
               {/* Message count badge */}
-              <span className="bg-[#FEEBEB] text-[#BC3B3B] text-[11px] font-medium px-[8px] py-[2px] rounded-full shrink-0">
+              <div className="flex bg-[#FEEBEB] text-[#BC3B3B] text-[11px] font-semibold py-[2px] px-[8px] justify-center items-center gap-[10px] rounded-full shrink-0">
                 {msg.badge}
-              </span>
+              </div>
             </div>
 
             {/* Bottom row: Message preview box */}
