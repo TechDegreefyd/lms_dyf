@@ -75,7 +75,13 @@ export default function Header() {
               <span className="absolute -top-1 -right-1 bg-[#BC3B3B] text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">2</span>
             </button>
             {showWhatsapp && (
-              <WhatsappDropdown onClose={() => setShowWhatsapp(false)} />
+              <>
+                <div 
+                  className="fixed inset-0 bg-black/25 z-40 cursor-default" 
+                  onClick={() => setShowWhatsapp(false)}
+                />
+                <WhatsappDropdown onClose={() => setShowWhatsapp(false)} />
+              </>
             )}
           </div>
 
