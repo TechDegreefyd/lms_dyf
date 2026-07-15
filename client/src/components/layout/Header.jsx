@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import WhatsappDropdown from "./WhatsappDropdown";
+import CallbackDropdown from "./CallbackDropdown";
 
 // Custom WhatsApp SVG path from specs
 const WHATSAPP_ICON = (
@@ -31,12 +32,17 @@ const PLUS_ICON = (
 
 export default function Header() {
   const [showWhatsapp, setShowWhatsapp] = useState(false);
+  const [showCallback, setShowCallback] = useState(false);
   const dropdownRef = useRef(null);
+  const callbackRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowWhatsapp(false);
+      }
+      if (callbackRef.current && !callbackRef.current.contains(event.target)) {
+        setShowCallback(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -85,11 +91,25 @@ export default function Header() {
             )}
           </div>
 
-          {/* Call Icon Circular Button with Badge 7 */}
-          <button className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0">
-            {PHONE_ICON}
-            <span className="absolute -top-1 -right-1 bg-[#BC3B3B] text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">7</span>
-          </button>
+          {/* Call Icon Circular Button with Dropdown */}
+          <div className="relative" ref={callbackRef}>
+            <button 
+              onClick={() => setShowCallback(!showCallback)}
+              className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0"
+            >
+              {PHONE_ICON}
+              <span className="absolute -top-1 -right-1 bg-[#BC3B3B] text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">7</span>
+            </button>
+            {showCallback && (
+              <>
+                <div 
+                  className="fixed inset-0 bg-black/25 z-40 cursor-default" 
+                  onClick={() => setShowCallback(false)}
+                />
+                <CallbackDropdown onClose={() => setShowCallback(false)} />
+              </>
+            )}
+          </div>
 
           {/* Bell Notification Button with Badge 9+ */}
           <button className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0">
