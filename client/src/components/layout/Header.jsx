@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { useState, useRef, useEffect } from "react";
+import WhatsappDropdown from "./WhatsappDropdown";
 
 // Custom WhatsApp SVG path from specs
 const WHATSAPP_ICON = (
@@ -28,6 +30,21 @@ const PLUS_ICON = (
 );
 
 export default function Header() {
+  const [showWhatsapp, setShowWhatsapp] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowWhatsapp(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <header className="w-full max-w-[1440px] h-[76px] bg-white border-b border-[#CFD8DE] flex items-center py-[12px] px-[32px] font-poppins shrink-0 mx-auto">
       
@@ -44,15 +61,23 @@ export default function Header() {
       </div>
 
       {/* Right Side row with 28px gap before profile section */}
-      <div className="flex items-center gap-[28px]">
+      <div className="flex items-center gap-[16px]">
         
         {/* Icons Row */}
         <div className="flex items-center gap-[20px]">
-          {/* WhatsApp Circular Button with Badge 2 */}
-          <button className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0">
-            {WHATSAPP_ICON}
-            <span className="absolute -top-1 -right-1 bg-[#BC3B3B] text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">2</span>
-          </button>
+          {/* WhatsApp Circular Button with Dropdown */}
+          <div className="relative" ref={dropdownRef}>
+            <button 
+              onClick={() => setShowWhatsapp(!showWhatsapp)}
+              className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0"
+            >
+              {WHATSAPP_ICON}
+              <span className="absolute -top-1 -right-1 bg-[#BC3B3B] text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">2</span>
+            </button>
+            {showWhatsapp && (
+              <WhatsappDropdown onClose={() => setShowWhatsapp(false)} />
+            )}
+          </div>
 
           {/* Call Icon Circular Button with Badge 7 */}
           <button className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0">
