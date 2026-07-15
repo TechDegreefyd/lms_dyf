@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import WhatsappDropdown from "./WhatsappDropdown";
 import CallbackDropdown from "./CallbackDropdown";
+import NotificationDropdown from "./NotificationDropdown";
 
 // Custom WhatsApp SVG path from specs
 const WHATSAPP_ICON = (
@@ -33,8 +34,10 @@ const PLUS_ICON = (
 export default function Header() {
   const [showWhatsapp, setShowWhatsapp] = useState(false);
   const [showCallback, setShowCallback] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   const dropdownRef = useRef(null);
   const callbackRef = useRef(null);
+  const notificationRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -43,6 +46,9 @@ export default function Header() {
       }
       if (callbackRef.current && !callbackRef.current.contains(event.target)) {
         setShowCallback(false);
+      }
+      if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+        setShowNotification(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -111,11 +117,25 @@ export default function Header() {
             )}
           </div>
 
-          {/* Bell Notification Button with Badge 9+ */}
-          <button className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0">
-            {BELL_ICON}
-            <span className="absolute -top-1 -right-1 bg-[#BC3B3B] text-white text-[8px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">9+</span>
-          </button>
+          {/* Bell Notification Button with Dropdown */}
+          <div className="relative" ref={notificationRef}>
+            <button 
+              onClick={() => setShowNotification(!showNotification)}
+              className="relative w-[40px] h-[40px] rounded-full bg-[#F2F4F7] flex items-center justify-center hover:bg-[#E4E7EC] transition-colors cursor-pointer shrink-0"
+            >
+              {BELL_ICON}
+              <span className="absolute -top-1 -right-1 bg-[#BC3B3B] text-white text-[8px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">9+</span>
+            </button>
+            {showNotification && (
+              <>
+                <div 
+                  className="fixed inset-0 bg-black/25 z-40 cursor-default" 
+                  onClick={() => setShowNotification(false)}
+                />
+                <NotificationDropdown onClose={() => setShowNotification(false)} />
+              </>
+            )}
+          </div>
         </div>
 
         {/* New Lead Action Button */}
