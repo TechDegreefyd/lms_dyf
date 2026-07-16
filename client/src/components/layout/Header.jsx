@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import WhatsappDropdown from "./WhatsappDropdown";
 import CallbackDropdown from "./CallbackDropdown";
 import NotificationDropdown from "./NotificationDropdown";
+import NewLeadModal from "./NewLeadModal";
 
 // Custom WhatsApp SVG path from specs
 const WHATSAPP_ICON = (
@@ -35,6 +36,7 @@ export default function Header() {
   const [showWhatsapp, setShowWhatsapp] = useState(false);
   const [showCallback, setShowCallback] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const [showNewLeadModal, setShowNewLeadModal] = useState(false);
   const dropdownRef = useRef(null);
   const callbackRef = useRef(null);
   const notificationRef = useRef(null);
@@ -139,7 +141,10 @@ export default function Header() {
         </div>
 
         {/* New Lead Action Button */}
-        <button className="h-[40px] px-[16px] bg-[#0D3B59] hover:bg-[#092c42] text-white rounded-[8px] text-[14px] font-medium transition-colors shadow-premium cursor-pointer flex items-center justify-center gap-[6px] shrink-0 font-poppins">
+        <button 
+          onClick={() => setShowNewLeadModal(true)}
+          className="h-[40px] px-[16px] bg-[#0D3B59] hover:bg-[#092c42] text-white rounded-[8px] text-[14px] font-medium transition-colors shadow-premium cursor-pointer flex items-center justify-center gap-[6px] shrink-0 font-poppins"
+        >
           {PLUS_ICON}
           <span>New Lead</span>
         </button>
@@ -156,6 +161,9 @@ export default function Header() {
         </div>
 
       </div>
+
+      {/* New Lead Modal Dialog */}
+      <NewLeadModal show={showNewLeadModal} onClose={() => setShowNewLeadModal(false)} />
 
     </header>
   );
