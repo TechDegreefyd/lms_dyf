@@ -4,8 +4,8 @@ import React, { useState, useRef, useEffect } from "react";
 
 // Trash can icon SVG for Clear All button
 const TRASH_ICON = (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-    <path d="M4.7998 7.2H19.1998M17.5998 7.2V18.4C17.5998 19.2 16.7998 20 15.9998 20H7.9998C7.1998 20 6.3998 19.2 6.3998 18.4V7.2M8.7998 7.2V5.6C8.7998 4.8 9.5998 4 10.3998 4H13.5998C14.3998 4 15.1998 4.8 15.1998 5.6V7.2M10.3998 11.2V16M13.5998 11.2V16" stroke="#0D3B59" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M4.80005 7.2H19.2M17.6 7.2V18.4C17.6 19.2 16.8 20 16 20H8.00005C7.20005 20 6.40005 19.2 6.40005 18.4V7.2M8.80005 7.2V5.6C8.80005 4.8 9.60005 4 10.4 4H13.6C14.4 4 15.2 4.8 15.2 5.6V7.2M10.4 11.2V16M13.6 11.2V16" stroke="#0D3B59" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 );
 
@@ -110,7 +110,7 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
       />
 
       {/* Right sliding filters panel container - Width 497px, Padding 12px 0 20px 0 */}
-      <div className="fixed right-0 top-0 h-screen w-[497px] bg-white border-l border-[#CFD8DE] shadow-[0_4px_24px_rgba(0,0,0,0.08)] z-50 flex flex-col pt-[12px] pb-[20px] font-poppins text-left">
+      <div className="fixed right-0 top-0 h-screen w-[497px] bg-white border-l border-[#CFD8DE] shadow-[0_4px_24px_rgba(0,0,0,0.08)] z-50 flex flex-col items-end pt-[12px] pb-[20px] px-0 font-poppins text-left">
         
         {/* Drawer Header (Filters title and X close button) */}
         <div className="flex items-center justify-between w-full px-[24px] pb-[12px] border-b border-[#E5E9EC] mb-[15px] shrink-0">
