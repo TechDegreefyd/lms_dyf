@@ -105,13 +105,17 @@ export default function FreshLeadsPage() {
 
                   {/* Lead ID */}
                   <td className="px-[16px] py-3.5 whitespace-nowrap">
-                    <Link href={`/dashboard/lead/${lead.leadId}`} className="text-[#0D3B59] hover:underline font-semibold">
+                    <Link href={`/student-details/${lead.leadId}`} className="text-[#0D3B59] hover:underline font-semibold">
                       {lead.leadId}
                     </Link>
                   </td>
 
                   {/* Student Name */}
-                  <td className="px-[16px] py-3.5 whitespace-nowrap text-slate-800 font-semibold">{lead.name}</td>
+                  <td className="px-[16px] py-3.5 whitespace-nowrap text-slate-800 font-semibold">
+                    <Link href={`/student-details/${lead.leadId}`} className="hover:underline">
+                      {lead.name}
+                    </Link>
+                  </td>
 
                   {/* Phone */}
                   <td className="px-[16px] py-3.5 whitespace-nowrap text-slate-600 font-normal">{lead.phone}</td>
