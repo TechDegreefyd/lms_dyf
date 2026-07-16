@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import BreakModal from "./BreakModal";
 
 // SVG Icons matching Figma design (proper React camelCase properties)
 const DASHBOARD_ICON = (
@@ -83,6 +85,7 @@ const NAV_ITEMS = [
 
 export default function Sidebar({ collapsed, onToggle }) {
   const pathname = usePathname();
+  const [showBreakModal, setShowBreakModal] = useState(false);
 
   return (
     <aside className={`h-[740px] bg-white flex flex-col justify-between items-start border-r border-[#CFD8DE] py-[16px] px-0 font-poppins shrink-0 relative transition-all duration-300 ${
@@ -130,7 +133,10 @@ export default function Sidebar({ collapsed, onToggle }) {
         {/* Bottom Section - Contains Take a Break + Log Out */}
         <div className="w-full flex flex-col items-start px-[16px] pb-0 gap-[20px] self-stretch">       
      {/* Take a break */}
-          <button className="group py-[8px] px-[16px] flex items-center gap-[10px] rounded-[8px] w-full transition-all duration-200 border border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-left cursor-pointer text-[14px] font-normal font-poppins">
+          <button 
+            onClick={() => setShowBreakModal(true)}
+            className="group py-[8px] px-[16px] flex items-center gap-[10px] rounded-[8px] w-full transition-all duration-200 border border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-left cursor-pointer text-[14px] font-normal font-poppins"
+          >
             <span className="text-slate-400 group-hover:text-slate-600">
               {COFFEE_ICON}
             </span>
@@ -162,6 +168,9 @@ export default function Sidebar({ collapsed, onToggle }) {
           )}
         </svg>
       </button>
+
+      {/* Break Type Modal Dialog */}
+      <BreakModal show={showBreakModal} onClose={() => setShowBreakModal(false)} />
 
     </aside>
   );
