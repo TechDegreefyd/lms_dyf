@@ -5,7 +5,7 @@ import React, { useState, useRef, useEffect } from "react";
 // Trash can icon SVG for Clear All button
 const TRASH_ICON = (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path d="M4.80005 7.2H19.2M17.6 7.2V18.4C17.6 19.2 16.8 20 16 20H8.00005C7.20005 20 6.40005 19.2 6.40005 18.4V7.2M8.80005 7.2V5.6C8.80005 4.8 9.60005 4 10.4 4H13.6C14.4 4 15.2 4.8 15.2 5.6V7.2M10.4 11.2V16M13.6 11.2V16" stroke="#0D3B59" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M4.80005 7.2H19.2M17.6 7.2V18.4C17.6 19.2 16.8 20 16 20H8.00005C7.20005 20 6.40005 19.2 6.40005 18.4V7.2M8.80005 7.2V5.6C8.80005 4.8 9.60005 4 10.4 4H13.6C14.4 4 15.2 4.8 15.2 5.6V7.2M10.4 11.2V16M13.6 11.2V16" stroke="#0D3B59" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -104,20 +104,27 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
   return (
     <>
       {/* Backdrop overlay (dimming background with 25% opacity) */}
-      <div 
-        className="fixed inset-0 bg-black/25 z-40 cursor-default" 
+      <div
+        className="fixed inset-0 bg-black/25 z-40 cursor-default"
         onClick={onClose}
       />
 
-      {/* Right sliding filters panel container - Width 497px, Padding 12px 0 20px 0 */}
-      <div className="fixed right-0 top-0 h-screen w-[497px] bg-white border-l border-[#CFD8DE] shadow-[0_4px_24px_rgba(0,0,0,0.08)] z-50 flex flex-col items-end pt-[12px] pb-[20px] px-0 font-poppins text-left">
-        
-        {/* Drawer Header (Filters title and X close button) */}
-        <div className="flex items-center justify-between w-full px-[24px] pb-[12px] border-b border-[#E5E9EC] mb-[15px] shrink-0">
-          <span className="text-[18px] font-semibold text-[#121212] leading-none">
+      {/*
+        Right sliding filters panel container - Width 497px.
+        FIX: top-[76px] bottom-[48px] restricts the drawer to sit exactly inside
+        the main content workspace, so it NEVER overlaps the top navbar (header)
+        or the bottom page brand footer.
+        Header and Footer are shrink-0 (fixed height), and the body between them is
+        flex-1 + min-h-0 + overflow-y-auto so IT scrolls internally.
+      */}
+      <div className="fixed right-0 top-[76px] bottom-[48px] w-full max-w-[497px] bg-white border-l border-[#CFD8DE] shadow-[0_4px_24px_rgba(0,0,0,0.08)] z-50 flex flex-col font-poppins text-left overflow-hidden">
+
+        {/* Drawer Header (Filters title and X close button) - fixed height, never scrolls */}
+        <div className="flex items-center justify-between w-full px-[24px] pt-[12px] pb-[12px] border-b border-[#E5E9EC] mb-[15px] shrink-0">
+          <span className="text-[14px] font-normal text-[#121212] font-poppins leading-normal">
             Filters
           </span>
-          <button 
+          <button
             onClick={onClose}
             className="w-[32px] h-[32px] rounded-full flex items-center justify-center hover:bg-slate-50 transition-colors cursor-pointer"
           >
@@ -126,11 +133,13 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
         </div>
 
         {/* Scrollable Drawer Body with form fields - indents Left: 24px, Right: 32px */}
-        <div className="flex-1 overflow-y-auto px-[24px] pr-[32px] flex flex-col gap-[20px] pb-6 no-scrollbar">
+        {/* min-h-0 is the critical fix: without it, a flex child refuses to shrink
+            below its content height, so overflow-y-auto never actually engages. */}
+        <div className="flex-1 min-h-0 overflow-y-auto px-[24px] pr-[32px] flex flex-col gap-[12px] pb-6 no-scrollbar">
           
           {/* Added On Date Range */}
           <div className="flex flex-col gap-[8px] w-full relative">
-            <span className="text-[13px] font-semibold text-[#121212] leading-none">
+            <span className="text-[14px] font-normal text-[#121212] font-poppins leading-normal">
               Added On Date Range
             </span>
             <div className="flex items-center gap-[12px] w-full">
@@ -138,9 +147,9 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
               <div className="relative flex-1" ref={calendarRefFrom}>
                 <div 
                   onClick={() => setShowCalendarFrom(!showCalendarFrom)}
-                  className="flex items-center justify-between border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white cursor-pointer select-none text-[13px] text-slate-700 h-[38px]"
+                  className="flex items-center justify-between border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white cursor-pointer select-none text-[14px] text-[#121212] font-poppins font-normal leading-normal h-[38px]"
                 >
-                  <span className={dateFrom ? "text-slate-800 font-medium" : "text-slate-400"}>
+                  <span className={dateFrom ? "text-[#121212] font-normal font-poppins" : "text-[#9CA3AF] font-normal font-poppins"}>
                     {dateFrom || "dd/mm/yyyy"}
                   </span>
                   {CALENDAR_ICON}
@@ -150,18 +159,18 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                 {showCalendarFrom && (
                   <div className="absolute top-[44px] left-0 z-50 bg-white border border-[#E5E9EC] rounded-[8px] shadow-[0_4px_24px_rgba(0,0,0,0.08)] p-3 w-[260px] select-none">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-semibold text-slate-800 text-[14px]">March 2026</span>
+                      <span className="font-normal text-[#121212] text-[14px] font-poppins">March 2026</span>
                       <div className="flex gap-2">
-                        <button className="text-slate-500 hover:text-slate-800 text-xs font-bold px-1">&lt;</button>
-                        <button className="text-slate-500 hover:text-slate-800 text-xs font-bold px-1">&gt;</button>
+                        <button className="text-[#121212] hover:text-[#0D3B59] text-xs font-normal px-1">&lt;</button>
+                        <button className="text-[#121212] hover:text-[#0D3B59] text-xs font-normal px-1">&gt;</button>
                       </div>
                     </div>
                     {/* Weekdays */}
-                    <div className="grid grid-cols-7 gap-y-1 text-center text-[10px] text-slate-400 font-semibold mb-1">
+                    <div className="grid grid-cols-7 gap-y-1 text-center text-[10px] text-slate-400 font-normal mb-1">
                       <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
                     </div>
                     {/* Days grid */}
-                    <div className="grid grid-cols-7 gap-y-1 text-[12px] font-medium text-center">
+                    <div className="grid grid-cols-7 gap-y-1 text-[12px] font-normal text-center">
                       {/* March 2026 starts on Sunday (need 6 empty slots) */}
                       {Array.from({ length: 6 }).map((_, i) => (
                         <div key={`empty-${i}`} />
@@ -178,7 +187,7 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                               setShowCalendarFrom(false);
                             }}
                             className={`w-[28px] h-[28px] flex items-center justify-center rounded-full mx-auto relative cursor-pointer hover:bg-slate-100 ${
-                              isSelected ? "bg-[#0D3B59] text-white hover:bg-[#0D3B59]" : "text-slate-700"
+                              isSelected ? "bg-[#0D3B59] text-white hover:bg-[#0D3B59]" : "text-[#121212]"
                             }`}
                           >
                             <span>{dayNum}</span>
@@ -195,15 +204,15 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
               </div>
 
               {/* To text */}
-              <span className="text-[13px] font-medium text-slate-500">To</span>
+              <span className="text-[14px] font-normal text-[#121212] font-poppins">To</span>
 
               {/* Date To */}
               <div className="relative flex-1" ref={calendarRefTo}>
                 <div 
                   onClick={() => setShowCalendarTo(!showCalendarTo)}
-                  className="flex items-center justify-between border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white cursor-pointer select-none text-[13px] text-slate-700 h-[38px]"
+                  className="flex items-center justify-between border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white cursor-pointer select-none text-[14px] text-[#121212] font-poppins font-normal leading-normal h-[38px]"
                 >
-                  <span className={dateTo ? "text-slate-800 font-medium" : "text-slate-400"}>
+                  <span className={dateTo ? "text-[#121212] font-normal font-poppins" : "text-[#9CA3AF] font-normal font-poppins"}>
                     {dateTo || "dd/mm/yyyy"}
                   </span>
                   {CALENDAR_ICON}
@@ -213,16 +222,16 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                 {showCalendarTo && (
                   <div className="absolute top-[44px] right-0 z-50 bg-white border border-[#E5E9EC] rounded-[8px] shadow-[0_4px_24px_rgba(0,0,0,0.08)] p-3 w-[260px] select-none">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-semibold text-slate-800 text-[14px]">March 2026</span>
+                      <span className="font-normal text-[#121212] text-[14px] font-poppins">March 2026</span>
                       <div className="flex gap-2">
-                        <button className="text-slate-500 hover:text-slate-800 text-xs font-bold px-1">&lt;</button>
-                        <button className="text-slate-500 hover:text-slate-800 text-xs font-bold px-1">&gt;</button>
+                        <button className="text-[#121212] hover:text-[#0D3B59] text-xs font-normal px-1">&lt;</button>
+                        <button className="text-[#121212] hover:text-[#0D3B59] text-xs font-normal px-1">&gt;</button>
                       </div>
                     </div>
-                    <div className="grid grid-cols-7 gap-y-1 text-center text-[10px] text-slate-400 font-semibold mb-1">
+                    <div className="grid grid-cols-7 gap-y-1 text-center text-[10px] text-slate-400 font-normal mb-1">
                       <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
                     </div>
-                    <div className="grid grid-cols-7 gap-y-1 text-[12px] font-medium text-center">
+                    <div className="grid grid-cols-7 gap-y-1 text-[12px] font-normal text-center">
                       {Array.from({ length: 6 }).map((_, i) => (
                         <div key={`empty-to-${i}`} />
                       ))}
@@ -235,7 +244,7 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                               setDateTo(`${dayNum.toString().padStart(2, '0')}/03/2026`);
                               setShowCalendarTo(false);
                             }}
-                            className="w-[28px] h-[28px] flex items-center justify-center rounded-full mx-auto cursor-pointer hover:bg-slate-100 text-slate-700"
+                            className="w-[28px] h-[28px] flex items-center justify-center rounded-full mx-auto cursor-pointer hover:bg-slate-100 text-[#121212]"
                           >
                             <span>{dayNum}</span>
                           </div>
@@ -250,13 +259,13 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
 
           {/* Source Dropdown */}
           <div className="flex flex-col gap-[8px] w-full relative">
-            <span className="text-[13px] font-semibold text-[#121212] leading-none">
+            <span className="text-[14px] font-normal text-[#121212] font-poppins leading-normal">
               Source
             </span>
             <select 
               value={source}
               onChange={(e) => setSource(e.target.value)}
-              className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[13px] text-slate-700 outline-none appearance-none cursor-pointer h-[38px]"
+              className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[14px] text-[#121212] font-poppins font-normal leading-normal outline-none appearance-none cursor-pointer h-[38px]"
               style={{ backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center", backgroundSize: "16px" }}
             >
               <option value="">Select Source</option>
@@ -269,13 +278,13 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
 
           {/* Lead Status Dropdown */}
           <div className="flex flex-col gap-[8px] w-full relative">
-            <span className="text-[13px] font-semibold text-[#121212] leading-none">
+            <span className="text-[14px] font-normal text-[#121212] font-poppins leading-normal">
               Lead Status
             </span>
             <select 
               value={leadStatus}
               onChange={(e) => setLeadStatus(e.target.value)}
-              className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[13px] text-slate-700 outline-none appearance-none cursor-pointer h-[38px]"
+              className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[14px] text-[#121212] font-poppins font-normal leading-normal outline-none appearance-none cursor-pointer h-[38px]"
               style={{ backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center", backgroundSize: "16px" }}
             >
               <option value="">Select status</option>
@@ -288,13 +297,13 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
 
           {/* NI Sub Status Dropdown */}
           <div className="flex flex-col gap-[8px] w-full relative">
-            <span className="text-[13px] font-semibold text-[#121212] leading-none">
+            <span className="text-[14px] font-normal text-[#121212] font-poppins leading-normal">
               NI Sub Status
             </span>
             <select 
               value={subStatus}
               onChange={(e) => setSubStatus(e.target.value)}
-              className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[13px] text-slate-700 outline-none appearance-none cursor-pointer h-[38px]"
+              className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[14px] text-[#121212] font-poppins font-normal leading-normal outline-none appearance-none cursor-pointer h-[38px]"
               style={{ backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center", backgroundSize: "16px" }}
             >
               <option value="">Select status</option>
@@ -306,13 +315,13 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
 
           {/* Campaign name Dropdown */}
           <div className="flex flex-col gap-[8px] w-full relative">
-            <span className="text-[13px] font-semibold text-[#121212] leading-none">
+            <span className="text-[14px] font-normal text-[#121212] font-poppins leading-normal">
               Campaign name
             </span>
             <select 
               value={campaign}
               onChange={(e) => setCampaign(e.target.value)}
-              className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[13px] text-slate-700 outline-none appearance-none cursor-pointer h-[38px]"
+              className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[14px] text-[#121212] font-poppins font-normal leading-normal outline-none appearance-none cursor-pointer h-[38px]"
               style={{ backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center", backgroundSize: "16px" }}
             >
               <option value="">Select status</option>
@@ -324,11 +333,11 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
 
           {/* Connection Status Radio Buttons */}
           <div className="flex flex-col gap-[8px] w-full">
-            <span className="text-[13px] font-semibold text-[#121212] leading-none">
+            <span className="text-[14px] font-normal text-[#121212] font-poppins leading-normal">
               Connection Status
             </span>
             <div className="flex items-center gap-[24px] mt-1 select-none">
-              <label className="flex items-center gap-[8px] cursor-pointer text-[13px] font-medium text-slate-700">
+              <label className="flex items-center gap-[8px] cursor-pointer text-[14px] font-normal text-[#121212] font-poppins">
                 <input 
                   type="radio" 
                   name="connectionStatus" 
@@ -339,7 +348,7 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                 />
                 <span>Connected</span>
               </label>
-              <label className="flex items-center gap-[8px] cursor-pointer text-[13px] font-medium text-slate-700">
+              <label className="flex items-center gap-[8px] cursor-pointer text-[14px] font-normal text-[#121212] font-poppins">
                 <input 
                   type="radio" 
                   name="connectionStatus" 
@@ -355,11 +364,11 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
 
           {/* Unread Messages Radio Buttons */}
           <div className="flex flex-col gap-[8px] w-full">
-            <span className="text-[13px] font-semibold text-[#121212] leading-none">
+            <span className="text-[14px] font-normal text-[#121212] font-poppins leading-normal">
               Unread Messages
             </span>
             <div className="flex items-center gap-[24px] mt-1 select-none">
-              <label className="flex items-center gap-[8px] cursor-pointer text-[13px] font-medium text-slate-700">
+              <label className="flex items-center gap-[8px] cursor-pointer text-[14px] font-normal text-[#121212] font-poppins">
                 <input 
                   type="radio" 
                   name="unreadMessages" 
@@ -370,7 +379,7 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                 />
                 <span>Yes</span>
               </label>
-              <label className="flex items-center gap-[8px] cursor-pointer text-[13px] font-medium text-slate-700">
+              <label className="flex items-center gap-[8px] cursor-pointer text-[14px] font-normal text-[#121212] font-poppins">
                 <input 
                   type="radio" 
                   name="unreadMessages" 
@@ -386,12 +395,15 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
 
         </div>
 
-        {/* Drawer Footer buttons row - "Clear All" and "Apply filters" */}
-        <div className="flex justify-between items-center w-full px-[24px] border-t border-[#E5E9EC] pt-[15px] shrink-0 mt-auto">
+      
+        <div
+          className="flex justify-between items-center w-full max-w-[496px] border-t border-[#E5E9EC] shrink-0 bg-white"
+          style={{ padding: "12px 32px 12px 16px", marginBottom: "20px" }}
+        >
           {/* Clear All button */}
           <button 
             onClick={handleClearAll}
-            className="flex items-center gap-[8px] border border-[#CFD8DE] rounded-[8px] px-[16px] py-[10px] text-[#0D3B59] hover:bg-slate-50 transition-colors font-medium text-[14px] cursor-pointer"
+            className="flex items-center gap-[8px] border border-[#CFD8DE] rounded-[8px] px-[16px] py-[12px] text-[#0D3B59] hover:bg-slate-50 transition-colors font-normal text-[14px] font-poppins cursor-pointer"
           >
             {TRASH_ICON}
             <span>Clear All</span>
@@ -400,7 +412,7 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
           {/* Apply filters button */}
           <button 
             onClick={handleApply}
-            className="flex items-center gap-[8px] bg-[#0D3B59] text-white rounded-[8px] px-[20px] py-[10px] hover:bg-[#092c42] transition-colors font-medium text-[14px] cursor-pointer"
+            className="flex items-center gap-[8px] bg-[#0D3B59] text-white rounded-[8px] px-[20px] py-[12px] hover:bg-[#092c42] transition-colors font-normal text-[14px] font-poppins cursor-pointer"
           >
             <span>Apply filters</span>
             {CHEVRON_RIGHT_ICON}
