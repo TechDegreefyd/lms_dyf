@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import FiltersDrawer from "@/components/layout/FiltersDrawer";
 
 // Custom stats icons matching Figma design
 const FRESH_LEADS_ICON = (
@@ -78,6 +79,7 @@ const MOCK_LEADS = [
 export default function DashboardOverview() {
   const [leads] = useState(MOCK_LEADS);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
 
   const renderSortIndicator = () => (
     <svg className="inline ml-1 text-slate-400" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -134,7 +136,10 @@ export default function DashboardOverview() {
         </div>
 
         {/* Filter Button (Funnel icon with blue badge showing count "4") */}
-        <button className="relative w-[40px] h-[40px] bg-white border border-[#CFD8DE] rounded-[8px] flex items-center justify-center text-[#0D3B59] hover:bg-slate-50 transition-colors cursor-pointer shrink-0">
+        <button 
+          onClick={() => setShowFilters(true)}
+          className="relative w-[40px] h-[40px] bg-white border border-[#CFD8DE] rounded-[8px] flex items-center justify-center text-[#0D3B59] hover:bg-slate-50 transition-colors cursor-pointer shrink-0"
+        >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
           </svg>
@@ -303,6 +308,10 @@ export default function DashboardOverview() {
         </div>
 
       </div>
+
+      {/* Filters sliding sidebar drawer */}
+      <FiltersDrawer show={showFilters} onClose={() => setShowFilters(false)} />
+
     </div>
   );
 }
