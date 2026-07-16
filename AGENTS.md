@@ -15,4 +15,3 @@ For every screenshot I upload of a Figma frame, follow these rules exactly:
 5. **Do not remove or simplify anything shown** — every visible element in the screenshot must be represented in the code.
 6. **If exact values aren't visible/legible in the screenshot**, use the closest visual match and note the assumption briefly, rather than guessing silently.
 7. **Layout structure should mirror the screenshot** — same element order, same alignment, same visual hierarchy — not a reinterpreted or "cleaned up" version.
-
