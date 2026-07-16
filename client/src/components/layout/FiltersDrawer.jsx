@@ -110,17 +110,17 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
       />
 
       {/*
-        Right sliding filters panel container - Width 497px.
-        FIX: top-[76px] bottom-[48px] restricts the drawer to sit exactly inside
+        Right sliding filters panel container - Width 511px.
+        FIX: top-[76px] bottom-[68px] restricts the drawer to sit exactly inside
         the main content workspace, so it NEVER overlaps the top navbar (header)
-        or the bottom page brand footer.
+        and leaves a 20px gap above the bottom page brand footer (height 48px).
         Header and Footer are shrink-0 (fixed height), and the body between them is
         flex-1 + min-h-0 + overflow-y-auto so IT scrolls internally.
       */}
-      <div className="fixed right-0 top-[76px] bottom-[48px] w-full max-w-[497px] bg-white border-l border-[#CFD8DE] shadow-[0_4px_24px_rgba(0,0,0,0.08)] z-50 flex flex-col font-poppins text-left overflow-hidden">
+      <div className="fixed right-0 top-[76px] bottom-[68px] w-full max-w-[511px] bg-white border-l border-[#CFD8DE] shadow-[0_4px_24px_rgba(0,0,0,0.08)] z-50 flex flex-col font-poppins text-left overflow-hidden">
 
         {/* Drawer Header (Filters title and X close button) - fixed height, never scrolls */}
-        <div className="flex items-center justify-between w-full px-[24px] pt-[12px] pb-[12px] border-b border-[#E5E9EC] mb-[15px] shrink-0">
+        <div className="flex items-center justify-between w-full pl-[15px] pr-[32px] pt-[12px] pb-[12px] border-b border-[#E5E9EC] mb-[15px] shrink-0">
           <span className="text-[14px] font-normal text-[#121212] font-poppins leading-normal">
             Filters
           </span>
@@ -132,10 +132,10 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
           </button>
         </div>
 
-        {/* Scrollable Drawer Body with form fields - indents Left: 24px, Right: 32px */}
+        {/* Scrollable Drawer Body with form fields - indents Left: 15px, Right: 32px */}
         {/* min-h-0 is the critical fix: without it, a flex child refuses to shrink
             below its content height, so overflow-y-auto never actually engages. */}
-        <div className="flex-1 min-h-0 overflow-y-auto px-[24px] pr-[32px] flex flex-col gap-[12px] pb-6 no-scrollbar">
+        <div className="flex-1 min-h-0 overflow-y-auto pl-[15px] pr-[32px] flex flex-col gap-[12px] pb-6 no-scrollbar">
           
           {/* Added On Date Range */}
           <div className="flex flex-col gap-[8px] w-full relative">
@@ -397,8 +397,8 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
 
       
         <div
-          className="flex justify-between items-center w-full max-w-[496px] border-t border-[#E5E9EC] shrink-0 bg-white"
-          style={{ padding: "12px 32px 12px 16px", marginBottom: "20px" }}
+          className="flex justify-between items-center w-full max-w-[510px] border-t border-[#E5E9EC] shrink-0 bg-white"
+          style={{ padding: "12px 32px 12px 15px", marginBottom: "0px" }}
         >
           {/* Clear All button */}
           <button 

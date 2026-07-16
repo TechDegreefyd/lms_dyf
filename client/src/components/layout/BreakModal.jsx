@@ -45,10 +45,11 @@ const COFFEE_ICON_TIMER = (
   </svg>
 );
 
-// End Break checkmark icon
+// End Break checkmark icon (circle outline with checkmark)
 const CHECKMARK_ICON = (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 6L9 17L4 12" />
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <path d="M8.5 12.5l2.5 2.5 5-5" />
   </svg>
 );
 
@@ -111,8 +112,10 @@ export default function BreakModal({ show, onClose }) {
         onClick={onClose}
       />
 
-      {/* Modal dialog box container: Width 596px, Height fits layout (approx 410px), Padding 24px */}
-      <div className="fixed inset-0 m-auto w-[596px] h-[410px] bg-white border border-[#E5E9EC] rounded-[12px] shadow-[0_8px_32px_rgba(0,0,0,0.08)] z-50 flex flex-col p-[24px] font-poppins select-none text-left">
+      {/* Modal dialog box container: Width 596px, Height fits content (h-fit), Padding matches active state callouts dynamically */}
+      <div className={`fixed inset-0 m-auto w-[596px] h-fit bg-white border border-[#E5E9EC] rounded-[12px] shadow-[0_8px_32px_rgba(0,0,0,0.08)] z-50 flex flex-col font-poppins select-none text-left ${
+        isTimerActive ? "px-[24px] py-[16px]" : "p-[24px]"
+      }`}>
         
         {!isTimerActive ? (
           // STATE 1: Choose Break Type
@@ -214,7 +217,7 @@ export default function BreakModal({ show, onClose }) {
             </div>
           </>
         ) : (
-          // STATE 2: Break Timerpopup
+          // STATE 2: Break Timerpopup (with precise 16/32 callout spacing from Figma specs)
           <>
             {/* Header Badge: circular coffee cup and Break Duration label */}
             <div className="flex items-center gap-[8px] px-[12px] py-[6px] bg-[#F2F4F7] border border-[#E5E9EC] rounded-full self-center shrink-0">
@@ -226,13 +229,13 @@ export default function BreakModal({ show, onClose }) {
               </span>
             </div>
 
-            {/* Giant countdown timer */}
-            <div className="text-[56px] font-bold text-[#EA580C] leading-none tracking-wide select-all self-center mt-[12px] mb-[12px]">
+            {/* Giant countdown timer (exactly 32px below badge) */}
+            <div className="text-[56px] font-bold text-[#EA580C] leading-none tracking-wide select-all self-center mt-[32px]">
               {formatTime(secondsLeft)}
             </div>
 
-            {/* Statistics row */}
-            <div className="w-full flex items-center justify-around border-t border-b border-[#E5E9EC] py-[16px] shrink-0 my-[12px]">
+            {/* Statistics row (exactly 32px below timer) */}
+            <div className="w-full flex items-center justify-around border-t border-b border-[#E5E9EC] py-[16px] shrink-0 mt-[32px]">
               {/* Total Break Duration */}
               <div className="flex flex-col items-center gap-[4px]">
                 <span className="text-[12px] text-[#808080] font-normal leading-normal">
@@ -257,14 +260,15 @@ export default function BreakModal({ show, onClose }) {
               </div>
             </div>
 
-            {/* End Break Button */}
-            <div className="w-full mt-auto shrink-0">
+            {/* End Break Button (exactly 32px below stats and rounded 8px / bg #007B2D) */}
+            <div className="w-full mt-[32px] shrink-0">
               <button 
                 onClick={handleEndBreak}
-                className="w-full h-[44px] bg-[#15803D] hover:bg-[#166534] text-white rounded-[8px] flex items-center justify-center gap-[8px] font-semibold transition-colors cursor-pointer text-[14px]"
+                className="flex h-[44px] min-h-[44px] justify-center items-center gap-[4px] shrink-0 self-stretch w-full bg-[#007B2D] hover:bg-[#006224] text-white rounded-[8px] transition-colors cursor-pointer text-[14px] font-medium"
+                style={{ padding: "12px 16px 12px 12px" }}
               >
-                {CHECKMARK_ICON}
                 <span>End Break</span>
+                {CHECKMARK_ICON}
               </button>
             </div>
           </>
