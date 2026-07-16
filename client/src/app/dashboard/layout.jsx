@@ -14,21 +14,21 @@ export default function DashboardLayout({ children }) {
       <Header />
 
       {/* Main Container: Sidebar + Main Workspace */}
-      <div className="flex flex-1 min-w-0 h-[calc(100vh-76px)]">
+      <div className="flex flex-1 min-w-0 h-[calc(100vh-76px-48px)]">
         <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
         
-        {/* Right side content + footer wrapper (fits screen height, scrollable content) */}
+        {/* Right side content wrapper */}
         <div className="flex-1 flex flex-col min-w-0 h-full">
           <main className="flex-1 p-[16px] overflow-y-auto transition-all duration-300">
             {children}
           </main>
-          
-          {/* Brand Footer sitting only on the right side next to sidebar */}
-          <footer className="h-[48px] bg-[#0D3B59] text-white text-[12px] flex items-center justify-center font-medium self-stretch shrink-0 border-t border-[#092C42]">
-            © 2026 Nuvora Education Private Limited. All rights reserved.
-          </footer>
         </div>
       </div>
+
+      {/* Brand Footer sitting at the very bottom spanning full width */}
+      <footer className="h-[48px] bg-[#0D3B59] text-white text-[12px] flex items-center justify-center font-medium self-stretch shrink-0 border-t border-[#092C42]">
+        © 2026 Nuvora Education Private Limited. All rights reserved.
+      </footer>
 
     </div>
   );
