@@ -132,6 +132,17 @@ const DETAIL_SUBTABS = ["Student Preferences", "Basic Details", "Additional Deta
 const LEAD_STATUS_STEPS = ["Fresh", "Pre Application", "ICC", "Application", "Admission", "Enrolled"];
 
 
+const SECONDARY_CONTACT_CALL_ICON = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
+    <path d="M11.3174 3.33667C12.6805 3.48029 13.9537 4.08485 14.9265 5.05036C15.8993 6.01587 16.5134 7.28449 16.6673 8.64643M11.3174 6.01161C11.9751 6.14131 12.5787 6.4657 13.0497 6.9427C13.5207 7.4197 13.8375 8.02727 13.9589 8.68656M16.6339 13.3143V15.3205C16.6346 15.5067 16.5965 15.6911 16.5219 15.8617C16.4473 16.0324 16.3378 16.1856 16.2006 16.3115C16.0634 16.4374 15.9013 16.5332 15.7249 16.5929C15.5485 16.6526 15.3615 16.6747 15.176 16.658C13.1182 16.4344 11.1416 15.7312 9.40485 14.6049C7.78907 13.5782 6.41917 12.2083 5.39243 10.5925C4.26225 8.84793 3.55892 6.86164 3.33941 4.79458C3.3227 4.60965 3.34468 4.42327 3.40395 4.2473C3.46321 4.07133 3.55847 3.90963 3.68365 3.7725C3.80884 3.63536 3.96121 3.52579 4.13106 3.45077C4.30091 3.37575 4.48452 3.33691 4.6702 3.33673H6.67641C7.00095 3.33354 7.31558 3.44847 7.56165 3.66009C7.80773 3.87171 7.96845 4.1656 8.01388 4.48696C8.09855 5.12899 8.25559 5.75938 8.48199 6.36611C8.57197 6.60547 8.59144 6.8656 8.5381 7.11568C8.48477 7.36577 8.36086 7.59532 8.18106 7.77714L7.33177 8.62644C8.28375 10.3006 9.66997 11.6869 11.3442 12.6389L12.1935 11.7896C12.3753 11.6098 12.6049 11.4859 12.8549 11.4325C13.105 11.3792 13.3652 11.3987 13.6045 11.4886C14.2112 11.715 14.8416 11.8721 15.4837 11.9567C15.8085 12.0026 16.1052 12.1662 16.3173 12.4165C16.5293 12.6668 16.642 12.9863 16.6339 13.3143Z" stroke="#0D3B59" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const PLUS_ICON = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
+    <path d="M10.0007 3.33325V16.6666M3.33398 9.99992H16.6673" stroke="#0D3B59" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
 
 const MAP_PIN_ICON = (
   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="15" viewBox="0 0 12 15" fill="none" className="shrink-0">
@@ -786,6 +797,30 @@ function ShortlistedTab({ dbStudent }) {
                 {/* Expanded Details Section */}
                 {isExpanded && (
                   <div className="flex flex-col gap-[16px] w-full self-stretch mt-[4px]">
+                    
+                    {/* Add Secondary Contact Section */}
+                    <div className="flex flex-col items-start gap-[8px] w-full self-stretch">
+                      <h4 className="text-[14px] font-semibold text-[#121212] font-poppins">
+                        Add Secondary Contact <span className="text-[#DC2626]">*</span>
+                      </h4>
+                      <div className="flex w-full py-[24px] px-[16px] flex-col justify-center items-center gap-[12px] self-stretch rounded-[8px] border border-[#ECECEC] bg-white text-center">
+                        <div className="w-[36px] h-[36px] bg-[#E7EEF2] rounded-full flex items-center justify-center text-[#0D3B59] shrink-0">
+                          {SECONDARY_CONTACT_CALL_ICON}
+                        </div>
+                        <div className="flex flex-col gap-[4px] items-center">
+                          <span className="text-[14px] font-medium text-[#121212] font-poppins leading-normal">
+                            No Secondary Contact Added Yet
+                          </span>
+                          <span className="text-[12px] text-[#808080] font-poppins font-normal max-w-[400px]">
+                            Primary contact failed. Add and send secondary contacts to proceed.
+                          </span>
+                        </div>
+                        <button className="flex items-center justify-center gap-[8px] h-[36px] px-[16px] py-[8px] rounded-[8px] border border-[#0D3B59] bg-white hover:bg-slate-50 text-[#0D3B59] text-[14px] font-normal leading-normal font-poppins cursor-pointer transition-colors mt-[4px]">
+                          {PLUS_ICON}
+                          <span>Add Contact</span>
+                        </button>
+                      </div>
+                    </div>
                     
                     {/* Side-by-side containers for USPs and Eligibility */}
                     <div className="flex gap-[16px] w-full self-stretch items-stretch">
