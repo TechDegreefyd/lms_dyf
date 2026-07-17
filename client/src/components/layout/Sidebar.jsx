@@ -156,7 +156,7 @@ export default function Sidebar({ collapsed, onToggle }) {
       {/* Collapse arrow toggle button - Vertically centered on top border line (Navbar bottom) */}
       <button 
         onClick={onToggle}
-        className={`absolute top-0 -translate-y-1/2 w-[24px] h-[24px] rounded-full border border-[#E5E9EC] bg-white flex items-center justify-center hover:bg-slate-50 shadow-sm cursor-pointer z-50 transition-all duration-300 ${
+        className={`absolute top-[24px] w-[24px] h-[24px] rounded-full border border-[#E5E9EC] bg-white flex items-center justify-center hover:bg-slate-50 shadow-sm cursor-pointer z-50 transition-all duration-300 ${
           collapsed ? "left-[12px]" : "-right-[12px]"
         }`}
       >

@@ -60,7 +60,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="w-full max-w-[1440px] h-[76px] bg-white border-b border-[#CFD8DE] flex items-center py-[12px] px-[32px] font-poppins shrink-0 mx-auto">
+    <header className="w-full h-[76px] bg-white border-b border-[#CFD8DE] flex items-center py-[12px] px-[32px] font-poppins shrink-0">
       
       {/* Sidebar Brand Logo in Top Navbar on the left */}
       <div className="relative w-[130px] h-[36px] mr-auto">

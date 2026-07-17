@@ -18,7 +18,7 @@ export default function StudentDetailsPage({ params }) {
     <div className="h-screen flex flex-col bg-[#F7F8FA] font-poppins overflow-hidden">
       <Header />
 
-      <div className="flex flex-1 w-full max-w-[1440px] mx-auto min-h-0 overflow-hidden">
+      <div className="flex flex-1 w-full min-h-0 overflow-hidden">
         <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
 
         <main className="flex-1 min-w-0 h-full overflow-hidden">

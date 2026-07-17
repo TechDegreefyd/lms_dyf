@@ -293,7 +293,7 @@ function RecommendationsTab({ dbStudent }) {
   return (
     <>
       {/* Profile Info Header for Recommendations */}
-      <div className="flex w-full max-w-[1128px] p-[12px] items-center justify-between bg-white border border-[#ECECEC] rounded-[8px] shadow-sm shrink-0">
+      <div className="flex w-full p-[12px] items-center justify-between bg-white border border-[#ECECEC] rounded-[8px] shadow-sm shrink-0">
         <div className="flex items-center gap-[16px]">
           {/* Orange silhouette avatar */}
           <span className="w-[48px] h-[48px] rounded-full bg-[#FDEFE3] flex items-center justify-center text-[#ED923D] font-bold text-[18px] shrink-0">
@@ -319,7 +319,7 @@ function RecommendationsTab({ dbStudent }) {
       </div>
 
       {/* Student Preferences Card */}
-      <div className="flex w-full max-w-[1128px] h-[158px] p-[12px] flex-col items-start gap-[16px] bg-white border border-[#ECECEC] rounded-[8px] shadow-sm shrink-0">
+      <div className="flex w-full h-[158px] p-[12px] flex-col items-start gap-[16px] bg-white border border-[#ECECEC] rounded-[8px] shadow-sm shrink-0">
         <h3 className="text-[18px] font-medium text-[#121212] font-poppins leading-normal self-stretch mb-0">
           Student Preferences
         </h3>
@@ -434,7 +434,7 @@ function RecommendationsTab({ dbStudent }) {
       </div>
 
       {/* Suggested Colleges Section */}
-      <div className="flex flex-col gap-[12px] w-full max-w-[1128px] shrink-0">
+      <div className="flex flex-col gap-[12px] w-full shrink-0">
         
         {/* Section Title with count */}
         <div className="flex items-center gap-[8px] mb-[4px] mt-[8px]">
@@ -723,7 +723,7 @@ function ShortlistedTab({ dbStudent }) {
   return (
     <>
       {/* Shortlisted Colleges Section */}
-      <div className="flex flex-col gap-[12px] w-full max-w-[1128px] shrink-0">
+      <div className="flex flex-col gap-[12px] w-full shrink-0">
         
         {/* Section Title with count */}
         <div className="flex items-center gap-[8px] mb-[4px] mt-[8px]">
