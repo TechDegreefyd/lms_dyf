@@ -120,7 +120,13 @@
         {
           "remark_id": 949451,
           "lead_status": "Pre Application",
-          "lead_sub_status": null
+          "lead_sub_status": null,
+          "callback_date": "2026-07-17",
+          "callback_time": "13:00",
+          "calling_status": "Not Connected",
+          "created_at": "2026-07-16T09:07:36.734Z",
+          "remarks": "ringing",
+          "sub_calling_status": null
         }
       ],
       "total_remarks_l3": 0,
@@ -163,7 +169,14 @@
           "utm_medium": "",
           "utm_campaign": "",
           "utm_keyword": "",
-          "utm_campaign_id": ""
+          "utm_campaign_id": "",
+          "created_at": "2026-07-14T10:57:00.604Z",
+          "lead_type": "",
+          "preferred_college_cll": [],
+          "source": "WhatsApp",
+          "source_url": "",
+          "utm_adgroup_id": "",
+          "utm_creative_id": ""
         }
       ],
       "lead_type": "",
@@ -174,6 +187,8 @@
       "remark_count": 5,
       "source": "WhatsApp",
       "student_email": "962***@xxxxxx.com",
+      "student_id": "STD-26C30DCA",
+      "student_name": "N/A",
       "student_phone": "9625XXXXXX",
       "student_remarks": [
         {
@@ -187,7 +202,8 @@
     }
   ],
   "mask_details": {
-    "phone": "Shows first 4 digits followed by XXXXXX"
+    "phone": "Shows first 4 digits followed by XXXXXX",
+    "email": "Shows first 3 characters of username followed by ***@xxxxxx.com"
   },
   "mask_note": "Phone numbers and emails are masked for privacy",
   "overallStats": {
@@ -196,7 +212,13 @@
     "todayCallbacks": 2,
     "wishlistCount": 0,
     "intentHot": 0,
-    "intentWarm": 0
+    "intentWarm": 0,
+    "allUnreadMessagesCount": 0,
+    "intentCold": 0,
+    "notConnectedYet": 1,
+    "reactivityCount": 0,
+    "reassignedYet": 3,
+    "swappedLeads": 3
   },
   "pagination": {
     "currentPage": 1,
@@ -209,6 +231,12 @@
   "viewInfo": {
     "userRole": "l2",
     "userId": "CNS-9F569A69",
-    "isSupervisorView": false
+    "isSupervisorView": false,
+    "dataMode": "l2",
+    "remarkTable": "regular",
+    "selectedagent": "CNS-9F569A69",
+    "supervisorCounsellorIds": [
+      "CNS-9F569A69"
+    ]
   }
 }
