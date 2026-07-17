@@ -3,10 +3,17 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-// Icons SVGs
+/* ----------------------------- Icon set ----------------------------- */
+
+const BACK_ARROW_ICON = (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#0D3B59" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
 const HEART_ICON = (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="hover:stroke-red-500 transition-colors">
-    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" stroke="#0D3B59" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -22,38 +29,44 @@ const FLOATING_EDIT_ICON = (
   </svg>
 );
 
-const PHONE_CALL_ICON = (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#007B2D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-  </svg>
-);
-
-const PHONE_MISSED_ICON = (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="23" y1="1" x2="1" y2="23" />
-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72" />
-  </svg>
-);
-
-const SYSTEM_LOG_ICON = (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#475569" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-    <line x1="8" y1="21" x2="16" y2="21" />
-    <line x1="12" y1="17" x2="12" y2="21" />
-  </svg>
-);
-
-const PIPELINE_CHECK_ICON = (
-  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="20 6 9 17 4 12" />
-  </svg>
-);
-
 const CHEVRON_DOWN_ICON = (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
     <path d="M2.66699 5.33325L8.00033 10.6666L13.3337 5.33325" stroke="#121212" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
+
+const CHECK_ICON = (
+  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 6L9 17l-5-5" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const PHONE_ICON = (stroke) => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const MISSED_CALL_ICON = (stroke) => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M17 8l4-4M21 8l-4-4" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const SYSTEM_ICON = (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="4" width="18" height="12" rx="1.5" stroke="#0D3B59" strokeWidth="1.6"/>
+    <path d="M8 20h8M12 16v4" stroke="#0D3B59" strokeWidth="1.6" strokeLinecap="round"/>
+  </svg>
+);
+
+/* ----------------------------- Mock data ----------------------------- */
+
+const PROFILE_TABS = ["Students Details", "Recommendations", "Shortlisted"];
+const DETAIL_SUBTABS = ["Student Preferences", "Basic Details", "Additional Details"];
+
+const LEAD_STATUS_STEPS = ["Fresh", "Pre Application", "ICC", "Application", "Admission", "Enrolled"];
 
 // Mock Database of Students details mapped by leadId
 const MOCK_STUDENTS_DB = {
@@ -150,23 +163,58 @@ const DEFAULT_STUDENT = {
   statusStep: "Pre Application"
 };
 
+const PREFERENCE_FIELDS = [
+  { label: "Stream", value: "Management, Agriculture,", extra: "+2" },
+  { label: "Level", value: "Diploma" },
+  { label: "Degree", value: "Online B.com" },
+  { label: "Specialization", value: "ACCA" },
+  { label: "Study Mode", value: "Online" },
+  { label: "Preferred Budget", value: "1,50,000" },
+  { label: "Preferred State", value: "Punjab" },
+  { label: "Preferred City", value: "Ludhiana" },
+];
+
+const ACTIVITY_FEED = [
+  { answered: true, name: "Vikash (You)", time: "09:48:53", badgeDate: "16 Apr 2026, 15:30" },
+  { answered: false, name: "Elena", time: "10:15:40", badgeDate: "17 Apr 2026, 09:00" },
+  { answered: true, name: "Marcus", time: "12:30:22", badgeDate: "18 Apr 2026, 11:45" },
+  { answered: true, name: "Vikash (You)", time: "13:05:17", badgeDate: "19 Apr 2026, 14:20" },
+];
+
+const SYSTEM_ACTIVITY = {
+  time: "13:05:17",
+  source: "FaceBook_University_Admit",
+  campaign: "teotla_university_2026_Online_Ad...",
+  sourceUrl: "https://degreefyd.com/colleges/ign...",
+};
+
+const QA_ANSWERS = [
+  { q: "which_course_are_you_most_interested_in?", a: "online_bca" },
+  { q: "when_do_you_plan_to_enroll_in_your_online_program?", a: "within_the_next_month" },
+  { q: "phone", a: "+917838481891" },
+];
+
+const TRAILING_ACTIVITY = { answered: false, name: "Elena", time: "10:15:40", badgeDate: "17 Apr 2026, 09:00" };
+
+/* ------------------------------ Component ------------------------------ */
+
 export default function StudentDetailsClient({ leadId }) {
-  const student = MOCK_STUDENTS_DB[leadId] || { ...DEFAULT_STUDENT, id: leadId };
+  const dbStudent = MOCK_STUDENTS_DB[leadId] || { ...DEFAULT_STUDENT, id: leadId };
   
-  const [activeTab, setActiveTab] = useState("details"); // details, recommendations, shortlisted
-  const [activeSubtab, setActiveSubtab] = useState("preferences"); // preferences, basic, additional
+  const [activeProfileTab, setActiveProfileTab] = useState(PROFILE_TABS[0]);
+  const [activeSubTab, setActiveSubTab] = useState(DETAIL_SUBTABS[0]);
+  const [activityFilter, setActivityFilter] = useState("All");
+  const [expandedActivity, setExpandedActivity] = useState(null);
 
   const handleEditClick = () => {
-    alert(`Editing details for student ${student.name}`);
+    alert(`Editing details for student ${dbStudent.name}`);
   };
 
   const handleWishlistClick = () => {
-    alert(`Added ${student.name} to wishlist`);
+    alert(`Added ${dbStudent.name} to wishlist`);
   };
 
-  // Status pipeline layout
-  const PIPELINE_STEPS = ["Fresh", "Pre Application", "ICC", "Application", "Admission", "Enrolled"];
-  const currentStepIndex = PIPELINE_STEPS.indexOf(student.statusStep);
+  const currentStepIndex = LEAD_STATUS_STEPS.indexOf(dbStudent.statusStep);
 
   return (
     <div className="w-full h-full flex font-poppins text-left overflow-hidden">
@@ -174,42 +222,32 @@ export default function StudentDetailsClient({ leadId }) {
       {/* Left Column (Student Details & Lead Status) - Scrollable */}
       <div className="flex-1 h-full overflow-y-auto pt-[24px] pb-[40px] pl-[24px] pr-[12px] bg-[#F7F8FA] flex flex-col gap-[20px] relative no-scrollbar">
         
-        {/* Back button or top bar */}
+        {/* Back to Dashboard */}
         <div>
-          <Link href="/dashboard" className="text-[13px] font-bold text-slate-400 hover:text-[#0D3B59] transition-colors">
-            ← Back to Dashboard
+          <Link href="/dashboard" className="inline-flex items-center gap-[8px] text-[14px] font-semibold text-[#0D3B59] w-fit hover:underline">
+            {BACK_ARROW_ICON}
+            Back to Dashboard
           </Link>
         </div>
 
-        {/* Top Switcher Tabs (Students Details, Recommendations, Shortlisted) */}
-        <div className="flex items-center gap-[12px] border-b border-[#E5E9EC] pb-[12px] shrink-0">
-          <button 
-            onClick={() => setActiveTab("details")}
-            className={`px-[16px] py-[8px] rounded-[6px] text-[13px] font-medium transition-colors cursor-pointer ${
-              activeTab === "details" ? "bg-[#0D3B59] text-white" : "border border-[#CFD8DE] text-[#667085] hover:bg-slate-50"
-            }`}
-          >
-            Students Details
-          </button>
-          <button 
-            onClick={() => setActiveTab("recommendations")}
-            className={`px-[16px] py-[8px] rounded-[6px] text-[13px] font-medium transition-colors cursor-pointer ${
-              activeTab === "recommendations" ? "bg-[#0D3B59] text-white" : "border border-[#CFD8DE] text-[#667085] hover:bg-slate-50"
-            }`}
-          >
-            Recommendations
-          </button>
-          <button 
-            onClick={() => setActiveTab("shortlisted")}
-            className={`px-[16px] py-[8px] rounded-[6px] text-[13px] font-medium transition-colors cursor-pointer ${
-              activeTab === "shortlisted" ? "bg-[#0D3B59] text-white" : "border border-[#CFD8DE] text-[#667085] hover:bg-slate-50"
-            }`}
-          >
-            Shortlisted
-          </button>
+        {/* Profile / Recommendations / Shortlisted tabs */}
+        <div className="flex items-center gap-[10px] pb-[16px] border-b border-[#E5E9EC] shrink-0">
+          {PROFILE_TABS.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveProfileTab(tab)}
+              className={`px-[20px] py-[10px] rounded-[8px] border text-[14px] font-semibold font-poppins transition-colors cursor-pointer ${
+                activeProfileTab === tab
+                  ? "bg-[#0D3B59] border-[#0D3B59] text-white"
+                  : "bg-white border-[#CFD8DE] text-[#5B6B79] hover:text-[#121212]"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
         </div>
 
-        {activeTab === "details" ? (
+        {activeProfileTab === "Students Details" ? (
           <>
             {/* Profile Card Container (White layout panel) */}
             <div className="flex w-[772px] p-[12px] flex-col items-start gap-[16px] bg-white border border-[#ECECEC] rounded-[8px] shadow-sm shrink-0">
@@ -218,15 +256,15 @@ export default function StudentDetailsClient({ leadId }) {
               <div className="flex items-start justify-between w-full">
                 <div className="flex items-center gap-[16px]">
                   {/* Orange silhouette avatar */}
-                  <div className="w-[48px] h-[48px] rounded-full bg-[#FDF2E9] border border-[#FADBD8] flex items-center justify-center text-[#EA580C] text-[18px] font-bold">
-                    {student.name.charAt(0)}
-                  </div>
+                  <span className="w-[48px] h-[48px] rounded-full bg-[#FDEFE3] flex items-center justify-center text-[#ED923D] font-bold text-[18px] shrink-0">
+                    {dbStudent.name.charAt(0)}
+                  </span>
                   <div className="flex flex-col">
                     <h2 className="text-[20px] font-bold text-[#121212] leading-tight font-poppins">
-                      {student.name}
+                      {dbStudent.name}
                     </h2>
                     <span className="text-[13px] text-[#808080] font-normal mt-0.5">
-                      {student.id}
+                      {dbStudent.id}
                     </span>
                   </div>
                 </div>
@@ -251,10 +289,10 @@ export default function StudentDetailsClient({ leadId }) {
               {/* Badge Row (Phone and Email info) */}
               <div className="flex items-center gap-[12px]">
                 <div className="px-[12px] py-[6px] bg-[#F2F4F7] border border-[#E5E9EC] rounded-full text-[13px] font-medium text-[#0D3B59]">
-                  {student.phone}
+                  {dbStudent.phone}
                 </div>
                 <div className="px-[12px] py-[6px] bg-[#F2F4F7] border border-[#E5E9EC] rounded-full text-[13px] font-medium text-[#0D3B59]">
-                  {student.email}
+                  {dbStudent.email}
                 </div>
               </div>
 
@@ -262,98 +300,44 @@ export default function StudentDetailsClient({ leadId }) {
               <div className="w-full h-[1px] bg-[#E5E9EC]" />
 
               {/* Subtabs row: Student Preferences, Basic Details, Additional Details */}
-              <div className="flex items-center gap-[24px] pb-[4px]">
-                <button 
-                  onClick={() => setActiveSubtab("preferences")}
-                  className={`text-[14px] font-semibold pb-[12px] relative transition-colors cursor-pointer ${
-                    activeSubtab === "preferences" ? "text-[#0D3B59]" : "text-[#667085] hover:text-[#0D3B59]"
-                  }`}
-                >
-                  Student Preferences
-                  {activeSubtab === "preferences" && (
-                    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#0D3B59] rounded-full" />
-                  )}
-                </button>
-                <button 
-                  onClick={() => setActiveSubtab("basic")}
-                  className={`text-[14px] font-semibold pb-[12px] relative transition-colors cursor-pointer ${
-                    activeSubtab === "basic" ? "text-[#0D3B59]" : "text-[#667085] hover:text-[#0D3B59]"
-                  }`}
-                >
-                  Basic Details
-                  {activeSubtab === "basic" && (
-                    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#0D3B59] rounded-full" />
-                  )}
-                </button>
-                <button 
-                  onClick={() => setActiveSubtab("additional")}
-                  className={`text-[14px] font-semibold pb-[12px] relative transition-colors cursor-pointer ${
-                    activeSubtab === "additional" ? "text-[#0D3B59]" : "text-[#667085] hover:text-[#0D3B59]"
-                  }`}
-                >
-                  Additional Details
-                  {activeSubtab === "additional" && (
-                    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#0D3B59] rounded-full" />
-                  )}
-                </button>
+              <div className="flex items-center gap-[28px] border-b border-[#E5E9EC] w-full">
+                {DETAIL_SUBTABS.map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveSubTab(tab)}
+                    className={`text-[14px] font-semibold font-poppins pb-[12px] cursor-pointer border-b-2 -mb-px transition-colors ${
+                      activeSubTab === tab
+                        ? "text-[#0D3B59] border-[#0D3B59]"
+                        : "text-[#8A96A0] border-transparent hover:text-[#121212]"
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
               </div>
 
-              {/* Content grid depending on subtab */}
-              {activeSubtab === "preferences" && (
-                <div className="grid grid-cols-3 gap-y-[20px] gap-x-[16px] w-full">
-                  {/* Row 1 */}
-                  <div className="flex flex-col gap-[4px]">
-                    <span className="text-[12px] text-[#808080] font-normal">Stream</span>
-                    <span className="text-[14px] font-semibold text-[#121212]">
-                      {student.stream.split(",").slice(0, 2).join(",")}, <span className="text-[#3b82f6] cursor-pointer hover:underline">+2</span>
-                    </span>
-                  </div>
-                  <div className="flex flex-col gap-[4px]">
-                    <span className="text-[12px] text-[#808080] font-normal">Level</span>
-                    <span className="text-[14px] font-semibold text-[#121212]">{student.level}</span>
-                  </div>
-                  <div className="flex flex-col gap-[4px]">
-                    <span className="text-[12px] text-[#808080] font-normal">Degree</span>
-                    <span className="text-[14px] font-semibold text-[#121212]">{student.degree}</span>
-                  </div>
-
-                  {/* Row 2 */}
-                  <div className="flex flex-col gap-[4px]">
-                    <span className="text-[12px] text-[#808080] font-normal">Specialization</span>
-                    <span className="text-[14px] font-semibold text-[#121212]">{student.specialization}</span>
-                  </div>
-                  <div className="flex flex-col gap-[4px]">
-                    <span className="text-[12px] text-[#808080] font-normal">Study Mode</span>
-                    <span className="text-[14px] font-semibold text-[#121212]">{student.studyMode}</span>
-                  </div>
-                  <div className="flex flex-col gap-[4px]">
-                    <span className="text-[12px] text-[#808080] font-normal">Preferred Budget</span>
-                    <span className="text-[14px] font-semibold text-[#121212]">{student.budget}</span>
-                  </div>
-
-                  {/* Row 3 */}
-                  <div className="flex flex-col gap-[4px]">
-                    <span className="text-[12px] text-[#808080] font-normal">Preferred State</span>
-                    <span className="text-[14px] font-semibold text-[#121212]">{student.state}</span>
-                  </div>
-                  <div className="flex flex-col gap-[4px]">
-                    <span className="text-[12px] text-[#808080] font-normal">Preferred City</span>
-                    <span className="text-[14px] font-semibold text-[#121212]">{student.city}</span>
-                  </div>
-                  <div className="flex flex-col gap-[4px]" />
+              {/* Preference fields grid */}
+              {activeSubTab === "Student Preferences" && (
+                <div className="grid grid-cols-3 gap-x-[32px] gap-y-[20px] w-full font-poppins">
+                  {PREFERENCE_FIELDS.map((field) => (
+                    <div key={field.label} className="flex flex-col gap-[6px]">
+                      <span className="text-[13px] font-normal text-[#8A96A0]">{field.label}</span>
+                      <span className="text-[15px] font-bold text-[#121212]">
+                        {field.value}
+                        {field.extra && (
+                          <span className="text-[#0D3B59] ml-[4px]">{field.extra}</span>
+                        )}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               )}
 
-              {activeSubtab === "basic" && (
-                <div className="text-[14px] text-slate-500 font-medium">
-                  Basic information about the student is loaded here.
-                </div>
+              {activeSubTab === "Basic Details" && (
+                <p className="text-[13px] font-normal text-[#8A96A0]">Basic details go here.</p>
               )}
-
-              {activeSubtab === "additional" && (
-                <div className="text-[14px] text-slate-500 font-medium">
-                  Additional institutional or referral data is shown here.
-                </div>
+              {activeSubTab === "Additional Details" && (
+                <p className="text-[13px] font-normal text-[#8A96A0]">Additional details go here.</p>
               )}
 
             </div>
@@ -364,43 +348,33 @@ export default function StudentDetailsClient({ leadId }) {
                 Lead Status
               </h3>
 
-              {/* Pipeline Flow (6 horizontal steps) */}
-              <div className="flex items-center justify-between w-full relative pt-2">
-                
-                {PIPELINE_STEPS.map((step, idx) => {
-                  const isCompleted = idx <= currentStepIndex;
+              {/* Pipeline Flow */}
+              <div className="flex items-center w-full relative pt-2">
+                {LEAD_STATUS_STEPS.map((step, i) => {
+                  const isPastOrCurrent = i <= currentStepIndex;
+                  const isCurrent = i === currentStepIndex;
                   return (
-                    <div key={step} className="flex-1 flex items-center relative">
-                      
-                      {/* Connecting Line (drawn from previous step to this step) */}
-                      {idx > 0 && (
-                        <div className={`absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[3px] z-0 -translate-x-1/2 ${
-                          idx <= currentStepIndex ? "bg-[#0D3B59]" : "bg-[#E5E9EC]"
-                        }`} style={{ width: "100%" }} />
-                      )}
-
-                      {/* Step block wrapper */}
-                      <div className="flex flex-col items-center mx-auto z-10 relative">
-                        <div className={`relative px-[16px] py-[8px] rounded-[6px] border text-[13px] font-medium transition-colors ${
-                          isCompleted 
-                            ? "bg-white border-[#0D3B59] text-[#0D3B59]" 
-                            : "bg-white border-[#E5E9EC] text-[#808080]"
-                        }`}>
-                          {step}
-
-                          {/* Green checkmark badge at top-right of active/completed boxes */}
-                          {isCompleted && (
-                            <div className="absolute -top-1.5 -right-1.5 w-[14px] h-[14px] bg-[#16A34A] rounded-full flex items-center justify-center shadow-sm">
-                              {PIPELINE_CHECK_ICON}
-                            </div>
-                          )}
-                        </div>
+                    <React.Fragment key={step}>
+                      <div
+                        className={`relative flex items-center justify-center px-[16px] py-[10px] rounded-[8px] border text-[14px] font-semibold shrink-0 z-10 ${
+                          isCurrent
+                            ? "border-[#0D3B59] text-[#0D3B59] bg-white"
+                            : "border-[#E5E9EC] text-[#8A96A0] bg-white font-normal"
+                        }`}
+                      >
+                        <span>{step}</span>
+                        {isPastOrCurrent && (
+                          <span className="absolute -top-[8px] -right-[8px] w-[18px] h-[18px] rounded-full bg-[#25D366] flex items-center justify-center border-2 border-white">
+                            {CHECK_ICON}
+                          </span>
+                        )}
                       </div>
-
-                    </div>
+                      {i < LEAD_STATUS_STEPS.length - 1 && (
+                        <span className={`flex-1 h-[3px] z-0 ${isPastOrCurrent ? "bg-[#0D3B59]" : "bg-[#E5E9EC]"}`} />
+                      )}
+                    </React.Fragment>
                   );
                 })}
-
               </div>
 
               {/* Floating edit action button (positioned absolute in Lead Status Card) */}
@@ -428,9 +402,19 @@ export default function StudentDetailsClient({ leadId }) {
           <span className="text-[16px] font-bold text-[#121212] font-poppins">
             Student Activity
           </span>
-          <div className="flex items-center gap-[4px] px-[12px] py-[6px] border border-[#E5E9EC] rounded-[6px] text-[13px] font-medium text-[#121212] cursor-pointer hover:bg-slate-50 transition-colors">
-            <span>All</span>
-            {CHEVRON_DOWN_ICON}
+          <div className="relative">
+            <select
+              value={activityFilter}
+              onChange={(e) => setActivityFilter(e.target.value)}
+              className="border border-[#CFD8DE] rounded-[8px] pl-[12px] pr-[28px] py-[6px] bg-white text-[13px] text-[#121212] font-poppins font-normal outline-none appearance-none cursor-pointer"
+            >
+              <option value="All">All</option>
+              <option value="Calls">Calls</option>
+              <option value="System">System</option>
+            </select>
+            <span className="pointer-events-none absolute right-[8px] top-1/2 -translate-y-1/2">
+              {CHEVRON_DOWN_ICON}
+            </span>
           </div>
         </div>
 
@@ -445,95 +429,49 @@ export default function StudentDetailsClient({ leadId }) {
           {/* Activities list */}
           <div className="flex flex-col gap-[20px] relative pl-[28px] border-l-2 border-[#E5E9EC] ml-[16px]">
             
-            {/* Activity item 1 */}
-            <div className="flex items-center justify-between w-full py-[8px] pl-[12px] relative">
-              {/* Timeline dot circle indicator */}
-              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#DCFCE7] flex items-center justify-center border-2 border-white z-10">
-                {PHONE_CALL_ICON}
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">Vikash (You)</span>
-                <span className="text-[12px] text-[#808080] mt-0.5">09:48:53</span>
-              </div>
-              <div className="flex items-center gap-[12px]">
-                <span className="text-[11px] font-semibold px-[10px] py-[4px] rounded-[28px] bg-[rgba(0,123,45,0.10)] text-[#007B2D] whitespace-nowrap font-poppins">
-                  16 Apr 2026, 15:30
-                </span>
-                <span className="text-[#121212] shrink-0">
-                  {CHEVRON_DOWN_ICON}
-                </span>
-              </div>
-            </div>
+            {ACTIVITY_FEED.map((entry, i) => (
+              <button
+                key={`${entry.name}-${i}`}
+                onClick={() => setExpandedActivity(expandedActivity === i ? null : i)}
+                className="flex items-center justify-between w-full py-[8px] pl-[12px] pr-[32px] relative text-left cursor-pointer"
+              >
+                {/* Timeline dot circle indicator */}
+                <div 
+                  className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full flex items-center justify-center border-2 border-white z-10"
+                  style={{ backgroundColor: entry.answered ? "#E7F7EE" : "#FCEAEA" }}
+                >
+                  {entry.answered ? PHONE_ICON("#007B2D") : MISSED_CALL_ICON("#DC2626")}
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">{entry.name}</span>
+                  <span className="text-[12px] text-[#808080] mt-0.5">{entry.time}</span>
+                </div>
+                <div className="flex items-center gap-[12px]">
+                  <span 
+                    className="text-[11px] font-semibold px-[10px] py-[4px] rounded-[28px] whitespace-nowrap font-poppins font-semibold"
+                    style={{
+                      backgroundColor: entry.answered ? "rgba(0, 123, 45, 0.10)" : "rgba(220, 38, 38, 0.10)",
+                      color: entry.answered ? "#007B2D" : "#DC2626",
+                    }}
+                  >
+                    {entry.badgeDate}
+                  </span>
+                  <span className={`transition-transform ${expandedActivity === i ? "rotate-180" : ""}`}>
+                    {CHEVRON_DOWN_ICON}
+                  </span>
+                </div>
+              </button>
+            ))}
 
-            {/* Activity item 2 */}
+            {/* System entry with lead source metadata */}
             <div className="flex items-center justify-between w-full py-[8px] pl-[12px] relative">
               {/* Timeline dot circle indicator */}
-              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#FEE2E2] flex items-center justify-center border-2 border-white z-10">
-                {PHONE_MISSED_ICON}
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">Elena</span>
-                <span className="text-[12px] text-[#808080] mt-0.5">10:15:40</span>
-              </div>
-              <div className="flex items-center gap-[12px]">
-                <span className="text-[11px] font-semibold px-[10px] py-[4px] rounded-[28px] bg-[rgba(220,38,38,0.10)] text-[#DC2626] whitespace-nowrap font-poppins">
-                  17 Apr 2026, 09:00
-                </span>
-                <span className="text-[#121212] shrink-0">
-                  {CHEVRON_DOWN_ICON}
-                </span>
-              </div>
-            </div>
-
-            {/* Activity item 3 */}
-            <div className="flex items-center justify-between w-full py-[8px] pl-[12px] relative">
-              {/* Timeline dot circle indicator */}
-              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#DCFCE7] flex items-center justify-center border-2 border-white z-10">
-                {PHONE_CALL_ICON}
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">Marcus</span>
-                <span className="text-[12px] text-[#808080] mt-0.5">12:30:22</span>
-              </div>
-              <div className="flex items-center gap-[12px]">
-                <span className="text-[11px] font-semibold px-[10px] py-[4px] rounded-[28px] bg-[rgba(0,123,45,0.10)] text-[#007B2D] whitespace-nowrap font-poppins">
-                  18 Apr 2026, 11:45
-                </span>
-                <span className="text-[#121212] shrink-0">
-                  {CHEVRON_DOWN_ICON}
-                </span>
-              </div>
-            </div>
-
-            {/* Activity item 4 */}
-            <div className="flex items-center justify-between w-full py-[8px] pl-[12px] relative">
-              {/* Timeline dot circle indicator */}
-              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#DCFCE7] flex items-center justify-center border-2 border-white z-10">
-                {PHONE_CALL_ICON}
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">Vikash (You)</span>
-                <span className="text-[12px] text-[#808080] mt-0.5">13:05:17</span>
-              </div>
-              <div className="flex items-center gap-[12px]">
-                <span className="text-[11px] font-semibold px-[10px] py-[4px] rounded-[28px] bg-[rgba(0,123,45,0.10)] text-[#007B2D] whitespace-nowrap font-poppins font-poppins">
-                  19 Apr 2026, 14:20
-                </span>
-                <span className="text-[#121212] shrink-0">
-                  {CHEVRON_DOWN_ICON}
-                </span>
-              </div>
-            </div>
-
-            {/* Activity item 5 (System log) */}
-            <div className="flex items-center justify-between w-full py-[8px] pl-[12px] relative">
-              {/* Timeline dot circle indicator */}
-              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#F1F5F9] flex items-center justify-center border-2 border-white z-10">
-                {SYSTEM_LOG_ICON}
+              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#F2F4F6] flex items-center justify-center border-2 border-white z-10">
+                {SYSTEM_ICON}
               </div>
               <div className="flex flex-col">
                 <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">System</span>
-                <span className="text-[12px] text-[#808080] mt-0.5">13:05:17</span>
+                <span className="text-[12px] text-[#808080] mt-0.5">{SYSTEM_ACTIVITY.time}</span>
               </div>
               <div className="w-[100px]" />
             </div>
@@ -543,55 +481,40 @@ export default function StudentDetailsClient({ leadId }) {
           {/* Custom metadata items */}
           <div className="flex flex-col gap-[8px] mt-[24px] border-t border-[#E5E9EC] pt-[16px] pl-[44px]">
             <div className="text-[13px] text-[#121212] font-normal leading-normal font-poppins">
-              <span className="text-[#808080] inline-block w-[90px]">Source -</span> FaceBook_University_Admit
+              <span className="text-[#808080] inline-block w-[90px]">Source -</span> <span className="text-[#5B6B79]">{SYSTEM_ACTIVITY.source}</span>
             </div>
             <div className="text-[13px] text-[#121212] font-normal leading-normal font-poppins">
-              <span className="text-[#808080] inline-block w-[90px]">Campaign -</span> teotla_university_2026_Online_Ad...
+              <span className="text-[#808080] inline-block w-[90px]">Campaign -</span> <span className="text-[#5B6B79]">{SYSTEM_ACTIVITY.campaign}</span>
             </div>
             <div className="text-[13px] text-[#121212] font-normal leading-normal font-poppins">
-              <span className="text-[#808080] inline-block w-[90px]">Source URL -</span> <a href="https://degreefyd.com/colleges/ign" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] hover:underline">https://degreefyd.com/colleges/ign...</a>
+              <span className="text-[#808080] inline-block w-[90px]">Source URL -</span> <a href={SYSTEM_ACTIVITY.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-[#0D3B59] underline">{SYSTEM_ACTIVITY.sourceUrl}</a>
             </div>
           </div>
 
           {/* Custom Questions with input/text layout */}
           <div className="flex flex-col gap-[12px] mt-[16px] pl-[44px] pr-[16px]">
-            
-            <div className="w-full border border-[#E5E9EC] rounded-[8px] p-[12px] flex flex-col bg-white">
-              <span className="text-[11px] text-[#808080] font-normal font-poppins">which_course_are_you_most_interested_in?</span>
-              <span className="text-[13px] font-semibold text-[#121212] mt-[4px] font-poppins">online_bca</span>
-            </div>
-
-            <div className="w-full border border-[#E5E9EC] rounded-[8px] p-[12px] flex flex-col bg-white">
-              <span className="text-[11px] text-[#808080] font-normal font-poppins">when_do_you_plan_to_enroll_in_your_online_program?</span>
-              <span className="text-[13px] font-semibold text-[#121212] mt-[4px] font-poppins">within_the_next_month</span>
-            </div>
-
-            <div className="w-full border border-[#E5E9EC] rounded-[8px] p-[12px] flex flex-col bg-white">
-              <span className="text-[11px] text-[#808080] font-normal font-poppins">phone</span>
-              <span className="text-[13px] font-semibold text-[#121212] mt-[4px] font-poppins">+917838481891</span>
-            </div>
-
+            {QA_ANSWERS.map((qa) => (
+              <div key={qa.q} className="border border-[#E5E9EC] rounded-[8px] px-[12px] py-[10px] bg-white">
+                <p className="text-[12px] font-normal text-[#8A96A0] leading-snug mb-[2px] font-poppins">{qa.q}</p>
+                <p className="text-[14px] font-semibold text-[#121212] font-poppins">{qa.a}</p>
+              </div>
+            ))}
           </div>
 
-          {/* Additional timeline log entry at bottom */}
+          {/* Trailing activity entry */}
           <div className="flex flex-col relative pl-[28px] border-l-2 border-[#E5E9EC] ml-[16px] mt-[24px] pb-6">
             <div className="flex items-center justify-between w-full py-[8px] pl-[12px] relative">
               {/* Timeline dot circle indicator */}
-              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#FEE2E2] flex items-center justify-center border-2 border-white z-10">
-                {PHONE_MISSED_ICON}
+              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#FCEAEA] flex items-center justify-center border-2 border-white z-10">
+                {MISSED_CALL_ICON("#DC2626")}
               </div>
               <div className="flex flex-col">
-                <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">Elena</span>
-                <span className="text-[12px] text-[#808080] mt-0.5">10:15:40</span>
+                <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">{TRAILING_ACTIVITY.name}</span>
+                <span className="text-[12px] text-[#808080] mt-0.5">{TRAILING_ACTIVITY.time}</span>
               </div>
-              <div className="flex items-center gap-[12px]">
-                <span className="text-[11px] font-semibold px-[10px] py-[4px] rounded-[28px] bg-[rgba(220,38,38,0.10)] text-[#DC2626] whitespace-nowrap font-poppins">
-                  17 Apr 2026, 09:00
-                </span>
-                <span className="text-[#121212] shrink-0">
-                  {CHEVRON_DOWN_ICON}
-                </span>
-              </div>
+              <span className="text-[12px] font-semibold rounded-[6px] px-[10px] py-[5px] bg-[#FCEAEA] text-[#D64545] whitespace-nowrap font-poppins">
+                {TRAILING_ACTIVITY.badgeDate}
+              </span>
             </div>
           </div>
 
