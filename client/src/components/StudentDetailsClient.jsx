@@ -147,10 +147,8 @@ const GRADUATION_CAP_ICON = (
 );
 
 const SAVE_ICON = (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-    <polyline points="17 21 17 13 7 13 7 21"/>
-    <polyline points="7 3 7 8 15 8"/>
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
+    <path d="M13.7044 16.6666V10.7407H6.29695V16.6666M6.29695 3.33325V7.03696H12.2229M15.1858 16.6666H4.81547C4.42255 16.6666 4.04573 16.5105 3.7679 16.2327C3.49007 15.9548 3.33398 15.578 3.33398 15.1851V4.81473C3.33398 4.42182 3.49007 4.045 3.7679 3.76717C4.04573 3.48934 4.42255 3.33325 4.81547 3.33325H12.9636L16.6673 7.03696V15.1851C16.6673 15.578 16.5112 15.9548 16.2334 16.2327C15.9556 16.5105 15.5787 16.6666 15.1858 16.6666Z" stroke="#0D3B59" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -233,9 +231,20 @@ const renderCollegeLogo = (type) => {
     case "dypatil":
       return (
         <svg width="66" height="40" viewBox="0 0 66 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="18" y="5" width="30" height="30" rx="4" fill="#991B1B" stroke="#EAB308" strokeWidth="1.5"/>
-          <text x="33" y="20" fill="#EAB308" fontSize="9" fontWeight="800" fontFamily="sans-serif" textAnchor="middle">DPU</text>
-          <text x="33" y="28" fill="#FFFFFF" fontSize="5" fontWeight="600" fontFamily="sans-serif" textAnchor="middle">ONLINE</text>
+          <rect width="66" height="40" rx="4" fill="white"/>
+          <g transform="translate(4, 5)">
+            <path d="M12 2 C18 0, 22 2, 22 4 C22 16, 12 28, 12 30 C12 28, 2 16, 2 4 C2 2, 6 0, 12 2 Z" fill="#8C1A2B" stroke="#121212" strokeWidth="0.5"/>
+            <path d="M12 3.5 C17 1.8, 20.5 3.5, 20.5 5 C20.5 15, 12 26.5, 12 28 C12 26.5, 3.5 15, 3.5 5 C3.5 3.5, 7 1.8, 12 3.5 Z" fill="#8C1A2B" stroke="white" strokeWidth="0.5"/>
+            <path d="M12 16 L12 8 M12 16 L8 12 M12 16 L16 12 M12 16 L6 16 M12 16 L18 16 M12 16 L9 20 M12 16 L15 20" stroke="white" strokeWidth="0.5"/>
+            <path d="M12 18 C11 16, 8 16, 6 18 L6 21 C8 19, 11 19, 12 21 C13 19, 16 19, 18 21 L18 18 C16 16, 13 16, 12 18 Z" fill="white"/>
+            <line x1="12" y1="18" x2="12" y2="28" stroke="white" strokeWidth="0.5"/>
+          </g>
+          <g transform="translate(29, 0)">
+            <text x="0" y="14" fill="#121212" fontSize="5" fontWeight="800" fontFamily="sans-serif">D Y PATIL</text>
+            <text x="0" y="20" fill="#717171" fontSize="3" fontWeight="600" fontFamily="sans-serif">UNIVERSITY</text>
+            <text x="0" y="27" fill="#8C1A2B" fontSize="5" fontWeight="800" fontFamily="sans-serif">ONLINE</text>
+            <text x="0" y="33" fill="#717171" fontSize="3" fontWeight="500" fontFamily="sans-serif">NAVI MUMBAI</text>
+          </g>
         </svg>
       );
     case "dtu":
@@ -251,11 +260,29 @@ const renderCollegeLogo = (type) => {
   }
 };
 
+const MOCK_COURSES = [
+  { course: "Online MBA in Human Reso...", spec: "Human Resources", level: "Certificate", duration: "5 Years", semFee: "₹ 1,25,000", annualFee: "₹ 25,00,000", totalFee: "₹ 25,00,000" },
+  { course: "Online MBA in Human Reso...", spec: "Information Technology", level: "UG", duration: "5 Years", semFee: "₹ 1,25,000", annualFee: "₹ 25,00,000", totalFee: "₹ 25,00,000" },
+  { course: "Online BBA in Human Resou...", spec: "Finance", level: "PG", duration: "2 Years", semFee: "₹ 1,25,000", annualFee: "₹ 25,00,000", totalFee: "₹ 25,00,000" },
+  { course: "Online MBA in Human Reso...", spec: "Human Resources", level: "Diploma", duration: "1 Years", semFee: "₹ 1,25,000", annualFee: "₹ 25,00,000", totalFee: "₹ 25,00,000" }
+];
+
 function RecommendationsTab({ dbStudent }) {
+  const [expandedCollegeIdx, setExpandedCollegeIdx] = useState(null);
+  const [shortlistedCourses, setShortlistedCourses] = useState({});
+
+  const toggleShortlist = (collegeIdx, courseIdx) => {
+    const key = `${collegeIdx}-${courseIdx}`;
+    setShortlistedCourses(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
+
   return (
     <>
       {/* Profile Info Header for Recommendations */}
-      <div className="flex w-[772px] p-[12px] items-center justify-between bg-white border border-[#ECECEC] rounded-[8px] shadow-sm shrink-0">
+      <div className="flex w-full max-w-[1128px] p-[12px] items-center justify-between bg-white border border-[#ECECEC] rounded-[8px] shadow-sm shrink-0">
         <div className="flex items-center gap-[16px]">
           {/* Orange silhouette avatar */}
           <span className="w-[48px] h-[48px] rounded-full bg-[#FDEFE3] flex items-center justify-center text-[#ED923D] font-bold text-[18px] shrink-0">
@@ -281,8 +308,8 @@ function RecommendationsTab({ dbStudent }) {
       </div>
 
       {/* Student Preferences Card */}
-      <div className="flex w-[772px] p-[16px] flex-col items-start gap-[16px] bg-white border border-[#ECECEC] rounded-[8px] shadow-sm shrink-0">
-        <h3 className="text-[16px] font-bold text-[#121212] font-poppins mb-0">
+      <div className="flex w-full max-w-[1128px] h-[158px] p-[12px] flex-col items-start gap-[16px] bg-white border border-[#ECECEC] rounded-[8px] shadow-sm shrink-0">
+        <h3 className="text-[18px] font-medium text-[#121212] font-poppins leading-normal self-stretch mb-0">
           Student Preferences
         </h3>
 
@@ -387,7 +414,7 @@ function RecommendationsTab({ dbStudent }) {
           </div>
 
           {/* Save & Apply Button */}
-          <button className="h-[38px] w-full flex items-center justify-center gap-[8px] border border-[#0D3B59] bg-white hover:bg-slate-50 text-[#0D3B59] rounded-[8px] text-[13px] font-semibold font-poppins cursor-pointer transition-colors">
+          <button className="flex min-h-[32px] py-[6px] pl-[8px] pr-[12px] justify-center items-center gap-[4px] self-stretch rounded-[8px] border border-[#0D3B59] bg-white hover:bg-slate-50 text-[#0D3B59] text-[13px] font-semibold font-poppins cursor-pointer transition-colors w-full">
             {SAVE_ICON}
             <span>Save & Apply</span>
           </button>
@@ -396,11 +423,11 @@ function RecommendationsTab({ dbStudent }) {
       </div>
 
       {/* Suggested Colleges Section */}
-      <div className="flex flex-col gap-[12px] w-[772px] shrink-0">
+      <div className="flex flex-col gap-[12px] w-full max-w-[1128px] shrink-0">
         
         {/* Section Title with count */}
         <div className="flex items-center gap-[8px] mb-[4px] mt-[8px]">
-          <span className="text-[16px] font-bold text-[#121212] font-poppins">
+          <span className="text-[18px] font-medium text-[#121212] font-poppins leading-normal self-stretch">
             Suggested Colleges
           </span>
           <span className="text-[14px] text-[#808080] font-normal font-poppins">
@@ -410,45 +437,484 @@ function RecommendationsTab({ dbStudent }) {
 
         {/* Colleges List */}
         <div className="flex flex-col gap-[12px] w-full">
-          {SUGGESTED_COLLEGES.map((college, idx) => (
-            <div 
-              key={`${college.name}-${idx}`}
-              className="flex py-[8px] px-[16px] justify-between items-center self-stretch rounded-[8px] border border-[#ECECEC] bg-white shadow-sm hover:shadow transition-shadow shrink-0"
-            >
-              {/* Left Side: Logo & Info */}
-              <div className="flex items-center gap-[16px]">
-                {/* Logo Container */}
-                <div className="flex w-[82px] h-[56px] p-[8px] justify-center items-center gap-[10px] aspect-[41/28] rounded-[8px] border border-[#ECECEC] bg-white shrink-0">
-                  {renderCollegeLogo(college.logoType)}
-                </div>
-                {/* College Info text */}
-                <div className="flex flex-col gap-[4px] text-left">
-                  <span className="text-[15px] font-bold text-[#121212] font-poppins leading-tight">
-                    {college.name}
-                  </span>
-                  {/* Location & Courses */}
-                  <div className="flex items-center gap-[16px] text-[12px] text-[#717171] font-normal font-poppins">
-                    <span className="flex items-center gap-[4px]">
-                      {MAP_PIN_ICON}
-                      {college.location}
-                    </span>
-                    <span className="flex items-center gap-[4px]">
-                      {GRADUATION_CAP_ICON}
-                      {college.courses}
-                    </span>
+          {SUGGESTED_COLLEGES.map((college, idx) => {
+            const isExpanded = expandedCollegeIdx === idx;
+            return (
+              <div 
+                key={`${college.name}-${idx}`}
+                className="flex p-[16px] flex-col items-start gap-[16px] self-stretch rounded-[8px] border border-[#ECECEC] bg-white shadow-sm hover:shadow transition-all shrink-0"
+              >
+                {/* Header Row */}
+                <div 
+                  className="flex justify-between items-center w-full cursor-pointer select-none"
+                  onClick={() => setExpandedCollegeIdx(isExpanded ? null : idx)}
+                >
+                  {/* Left Side: Logo & Info */}
+                  <div className="flex items-center gap-[16px]">
+                    {/* Logo Container */}
+                    <div className="flex w-[82px] h-[56px] p-[8px] justify-center items-center gap-[10px] aspect-[41/28] rounded-[8px] border border-[#ECECEC] bg-white shrink-0">
+                      {renderCollegeLogo(college.logoType)}
+                    </div>
+                    {/* College Info text */}
+                    <div className="flex flex-col gap-[4px] text-left">
+                      <span className="text-[15px] font-bold text-[#121212] font-poppins leading-tight">
+                        {college.name}
+                      </span>
+                      {/* Location & Courses */}
+                      <div className="flex items-center gap-[16px] text-[12px] text-[#717171] font-normal font-poppins">
+                        <span className="flex items-center gap-[4px]">
+                          {MAP_PIN_ICON}
+                          {college.location}
+                        </span>
+                        <span className="flex items-center gap-[4px]">
+                          {GRADUATION_CAP_ICON}
+                          {college.courses}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Side: Chevron */}
+                  <div className="flex items-center shrink-0">
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      width="18" 
+                      height="18" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="#717171" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      className={`transition-transform duration-200 cursor-pointer ${isExpanded ? "rotate-180" : ""}`}
+                    >
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
                   </div>
                 </div>
-              </div>
 
-              {/* Right Side: Chevron */}
-              <div className="flex items-center shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#717171" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-pointer">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </div>
+                {/* Expanded Details Section */}
+                {isExpanded && (
+                  <div className="flex flex-col gap-[16px] w-full self-stretch mt-[4px]">
+                    
+                    {/* Side-by-side containers for USPs and Eligibility */}
+                    <div className="flex gap-[16px] w-full self-stretch items-stretch">
+                      
+                      {/* Universities USPs */}
+                      <div className="flex p-[8px] px-[16px] flex-col items-start gap-[8px] flex-1 bg-[#F6F7F8] rounded-[8px]">
+                        <span className="text-[14px] font-bold text-[#0D3B59] font-poppins leading-normal mb-[4px] block select-none">
+                          Universities USPs
+                        </span>
+                        <ul className="flex flex-col gap-[6px] text-left list-none pl-0 m-0 w-full">
+                          <li className="flex items-center gap-[8px] text-[14px] font-normal text-[#0D3B59] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#0D3B59] shrink-0"></span>
+                            Industry-Aligned Curriculum
+                          </li>
+                          <li className="flex items-center gap-[8px] text-[14px] font-normal text-[#0D3B59] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#0D3B59] shrink-0"></span>
+                            Industry-Aligned Curriculum
+                          </li>
+                          <li className="flex items-center gap-[8px] text-[14px] font-normal text-[#0D3B59] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#0D3B59] shrink-0"></span>
+                            Hands-On Project Experience
+                          </li>
+                          <li className="flex items-center gap-[8px] text-[14px] font-normal text-[#0D3B59] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#0D3B59] shrink-0"></span>
+                            Hands-On Project Experience
+                          </li>
+                          <li className="flex items-center gap-[8px] text-[14px] font-normal text-[#0D3B59] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#0D3B59] shrink-0"></span>
+                            Hands-On Project Experience
+                          </li>
+                        </ul>
+                      </div>
 
-            </div>
-          ))}
+                      {/* Eligibility Criteria */}
+                      <div className="flex p-[8px] px-[16px] flex-col items-start gap-[8px] flex-1 bg-[#F6F7F8] rounded-[8px]">
+                        <span className="text-[14px] font-semibold text-[#007B2D] font-poppins leading-normal mb-[4px] block select-none">
+                          Eligibility Criteria
+                        </span>
+                        <ul className="flex flex-col gap-[6px] text-left list-none pl-0 m-0 w-full">
+                          <li className="flex items-center gap-[8px] text-[14px] font-medium text-[#007B2D] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#007B2D] shrink-0"></span>
+                            Minimum 50% Graduation Marks
+                          </li>
+                          <li className="flex items-center gap-[8px] text-[14px] font-medium text-[#007B2D] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#007B2D] shrink-0"></span>
+                            Work Experience (If Applicable)
+                          </li>
+                          <li className="flex items-center gap-[8px] text-[14px] font-medium text-[#007B2D] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#007B2D] shrink-0"></span>
+                            English Proficiency Requirement
+                          </li>
+                        </ul>
+                      </div>
+
+                    </div>
+
+                    {/* Table showing the courses list */}
+                    <div className="flex flex-col w-full rounded-[8px] overflow-hidden border border-[#ECECEC] bg-white">
+                      
+                      {/* Table Header Row */}
+                      <div className="flex h-[50px] py-[12px] px-[16px] items-center gap-[16px] self-stretch bg-[#F6F7F8] border-b border-[#ECECEC] text-[13px] font-semibold text-[#121212] font-poppins text-left">
+                        <span className="flex-[2] shrink-0">Course</span>
+                        <span className="flex-[1.5] shrink-0">Specialization</span>
+                        <span className="w-[90px] shrink-0">Level</span>
+                        <span className="w-[70px] shrink-0">Duration</span>
+                        <span className="w-[110px] shrink-0">Semester Fees</span>
+                        <span className="w-[110px] shrink-0">Annual Fees</span>
+                        <span className="w-[110px] shrink-0">Total Fees</span>
+                        <span className="w-[100px] shrink-0 text-right pr-2">Shortlist</span>
+                      </div>
+
+                      {/* Table Body Rows */}
+                      {MOCK_COURSES.map((courseItem, cIdx) => (
+                        <div 
+                          key={`${courseItem.course}-${cIdx}`}
+                          className="flex h-[50px] py-[12px] px-[16px] items-center gap-[16px] self-stretch bg-white border-b border-[#ECECEC] last:border-b-0 text-[13px] font-normal text-[#121212] font-poppins text-left"
+                        >
+                          <span className="flex-[2] shrink-0 font-medium text-[#121212] overflow-hidden text-ellipsis whitespace-nowrap" title={courseItem.course}>
+                            {courseItem.course}
+                          </span>
+                          <span className="flex-[1.5] shrink-0 text-[#121212]">
+                            {courseItem.spec}
+                          </span>
+                          <span className="w-[90px] shrink-0 text-[#121212]">
+                            {courseItem.level}
+                          </span>
+                          <span className="w-[70px] shrink-0 text-[#717171]">
+                            {courseItem.duration}
+                          </span>
+                          <span className="w-[110px] shrink-0 text-[#717171]">
+                            {courseItem.semFee}
+                          </span>
+                          <span className="w-[110px] shrink-0 text-[#717171]">
+                            {courseItem.annualFee}
+                          </span>
+                          <span className="w-[110px] shrink-0 text-[#717171]">
+                            {courseItem.totalFee}
+                          </span>
+                          <span className="w-[100px] shrink-0 flex justify-end">
+                            <button 
+                              onClick={() => toggleShortlist(idx, cIdx)}
+                              className={`flex items-center gap-[8px] h-[30px] px-[12px] py-[6px] border rounded-[6px] text-[12px] font-medium transition-colors cursor-pointer select-none ${
+                                shortlistedCourses[`${idx}-${cIdx}`]
+                                  ? "border-[#007B2D] bg-[#E7F7EE] text-[#007B2D]"
+                                  : "border-[#CFD8DE] bg-white text-[#5B6B79]"
+                              }`}
+                            >
+                              <span className={`w-[14px] h-[14px] rounded-[3px] border flex items-center justify-center bg-white shrink-0 ${
+                                shortlistedCourses[`${idx}-${cIdx}`] ? "border-[#007B2D]" : "border-[#CFD8DE]"
+                              }`}>
+                                {shortlistedCourses[`${idx}-${cIdx}`] && (
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#007B2D" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                  </svg>
+                                )}
+                              </span>
+                              <span>Shortlist</span>
+                            </button>
+                          </span>
+                        </div>
+                      ))}
+
+                    </div>
+
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+      </div>
+    </>
+  );
+}
+
+const SHORTLISTED_COLLEGES = [
+  {
+    name: "Shoolini University online",
+    location: "Himachal Pradesh, Solan",
+    courses: "10 Courses Shortlisted",
+    logoType: "shoolini",
+    buttonType: "technical"
+  },
+  {
+    name: "Jaypee Institute of Information Technology, Noida",
+    location: "Noida, Uttar Pradesh",
+    courses: "8 Courses Shortlisted",
+    logoType: "jiit",
+    buttonType: "send"
+  },
+  {
+    name: "Dr. D.Y Patil Vidhyapeeth Online",
+    location: "Himachal Pradesh, Solan",
+    courses: "10 Courses Shortlisted",
+    logoType: "dypatil",
+    buttonType: "donot"
+  },
+  {
+    name: "Delhi Technological University",
+    location: "Delhi",
+    courses: "12 Courses Shortlisted",
+    logoType: "dtu",
+    buttonType: "proceed"
+  }
+];
+
+const renderShortlistButton = (type) => {
+  switch (type) {
+    case "technical":
+      return (
+        <span className="flex w-[130px] py-[4px] px-[12px] justify-center items-center gap-[8px] rounded-[4px] border border-[#ED923D] bg-[#FDF4EC] text-[#ED923D] text-[12px] font-normal leading-normal font-poppins mr-[16px] select-none shrink-0">
+          Technical Issues
+        </span>
+      );
+    case "send":
+      return (
+        <button className="flex py-[8px] px-[12px] items-center gap-[8px] rounded-[4px] bg-[#0D3B59] hover:bg-[#092c42] text-white text-[12px] font-normal leading-normal font-poppins mr-[16px] transition-colors cursor-pointer shrink-0">
+          <span>Send Primary</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" className="shrink-0">
+            <path d="M15 3L8.4 9.6M8.4 9.6L3 7.2L15 3L10.8 15L8.4 9.6Z" stroke="white" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+      );
+    case "donot":
+      return (
+        <span className="flex w-[130px] py-[4px] px-[12px] justify-center items-center gap-[8px] rounded-[4px] border border-[#C2413A] bg-[#FFF5F5] text-[#C2413A] text-[12px] font-normal leading-normal font-poppins mr-[16px] select-none shrink-0">
+          Do not Proceed
+        </span>
+      );
+    case "proceed":
+      return (
+        <span className="flex w-[130px] py-[4px] px-[12px] justify-center items-center gap-[8px] rounded-[4px] border border-[#007B2D] bg-[rgba(0,123,45,0.1)] text-[#007B2D] text-[12px] font-normal leading-normal font-poppins mr-[16px] select-none shrink-0">
+          Primary Proceed
+        </span>
+      );
+    default:
+      return null;
+  }
+};
+
+function ShortlistedTab({ dbStudent }) {
+  const [expandedCollegeIdx, setExpandedCollegeIdx] = useState(null);
+  const [shortlistedCourses, setShortlistedCourses] = useState({});
+
+  const toggleShortlist = (collegeIdx, courseIdx) => {
+    const key = `${collegeIdx}-${courseIdx}`;
+    setShortlistedCourses(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
+
+  return (
+    <>
+      {/* Shortlisted Colleges Section */}
+      <div className="flex flex-col gap-[12px] w-full max-w-[1128px] shrink-0">
+        
+        {/* Section Title with count */}
+        <div className="flex items-center gap-[8px] mb-[4px] mt-[8px]">
+          <span className="text-[18px] font-medium text-[#121212] font-poppins leading-normal self-stretch">
+            Shortlisted Colleges & Courses
+          </span>
+          <span className="text-[14px] text-[#808080] font-normal font-poppins">
+            (2 Courses)
+          </span>
+        </div>
+
+        {/* Colleges List */}
+        <div className="flex flex-col gap-[12px] w-full">
+          {SHORTLISTED_COLLEGES.map((college, idx) => {
+            const isExpanded = expandedCollegeIdx === idx;
+            return (
+              <div 
+                key={`${college.name}-${idx}`}
+                className="flex p-[16px] flex-col items-start gap-[16px] self-stretch rounded-[8px] border border-[#ECECEC] bg-white shadow-sm hover:shadow transition-all shrink-0"
+              >
+                {/* Header Row */}
+                <div 
+                  className="flex justify-between items-center w-full cursor-pointer select-none"
+                  onClick={() => setExpandedCollegeIdx(isExpanded ? null : idx)}
+                >
+                  {/* Left Side: Logo & Info */}
+                  <div className="flex items-center gap-[16px]">
+                    {/* Logo Container */}
+                    <div className="flex w-[82px] h-[56px] p-[8px] justify-center items-center gap-[10px] aspect-[41/28] rounded-[8px] border border-[#ECECEC] bg-white shrink-0">
+                      {renderCollegeLogo(college.logoType)}
+                    </div>
+                    {/* College Info text */}
+                    <div className="flex flex-col gap-[4px] text-left">
+                      <span className="text-[15px] font-bold text-[#121212] font-poppins leading-tight">
+                        {college.name}
+                      </span>
+                      {/* Location & Courses */}
+                      <div className="flex items-center gap-[16px] text-[12px] text-[#717171] font-normal font-poppins">
+                        <span className="flex items-center gap-[4px]">
+                          {MAP_PIN_ICON}
+                          {college.location}
+                        </span>
+                        <span className="flex items-center gap-[4px]">
+                          {GRADUATION_CAP_ICON}
+                          {college.courses}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Side: Status Button & Chevron */}
+                  <div className="flex items-center shrink-0">
+                    {renderShortlistButton(college.buttonType)}
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      width="18" 
+                      height="18" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="#717171" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      className={`transition-transform duration-200 cursor-pointer ${isExpanded ? "rotate-180" : ""}`}
+                    >
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Expanded Details Section */}
+                {isExpanded && (
+                  <div className="flex flex-col gap-[16px] w-full self-stretch mt-[4px]">
+                    
+                    {/* Side-by-side containers for USPs and Eligibility */}
+                    <div className="flex gap-[16px] w-full self-stretch items-stretch">
+                      
+                      {/* Universities USPs */}
+                      <div className="flex p-[8px] px-[16px] flex-col items-start gap-[8px] flex-1 bg-[#F6F7F8] rounded-[8px]">
+                        <span className="text-[14px] font-bold text-[#0D3B59] font-poppins leading-normal mb-[4px] block select-none">
+                          Universities USPs
+                        </span>
+                        <ul className="flex flex-col gap-[6px] text-left list-none pl-0 m-0 w-full">
+                          <li className="flex items-center gap-[8px] text-[14px] font-normal text-[#0D3B59] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#0D3B59] shrink-0"></span>
+                            Industry-Aligned Curriculum
+                          </li>
+                          <li className="flex items-center gap-[8px] text-[14px] font-normal text-[#0D3B59] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#0D3B59] shrink-0"></span>
+                            Industry-Aligned Curriculum
+                          </li>
+                          <li className="flex items-center gap-[8px] text-[14px] font-normal text-[#0D3B59] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#0D3B59] shrink-0"></span>
+                            Hands-On Project Experience
+                          </li>
+                          <li className="flex items-center gap-[8px] text-[14px] font-normal text-[#0D3B59] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#0D3B59] shrink-0"></span>
+                            Hands-On Project Experience
+                          </li>
+                          <li className="flex items-center gap-[8px] text-[14px] font-normal text-[#0D3B59] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#0D3B59] shrink-0"></span>
+                            Hands-On Project Experience
+                          </li>
+                        </ul>
+                      </div>
+
+                      {/* Eligibility Criteria */}
+                      <div className="flex p-[8px] px-[16px] flex-col items-start gap-[8px] flex-1 bg-[#F6F7F8] rounded-[8px]">
+                        <span className="text-[14px] font-semibold text-[#007B2D] font-poppins leading-normal mb-[4px] block select-none">
+                          Eligibility Criteria
+                        </span>
+                        <ul className="flex flex-col gap-[6px] text-left list-none pl-0 m-0 w-full">
+                          <li className="flex items-center gap-[8px] text-[14px] font-medium text-[#007B2D] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#007B2D] shrink-0"></span>
+                            Minimum 50% Graduation Marks
+                          </li>
+                          <li className="flex items-center gap-[8px] text-[14px] font-medium text-[#007B2D] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#007B2D] shrink-0"></span>
+                            Work Experience (If Applicable)
+                          </li>
+                          <li className="flex items-center gap-[8px] text-[14px] font-medium text-[#007B2D] font-poppins leading-normal">
+                            <span className="w-[6px] h-[6px] rounded-full bg-[#007B2D] shrink-0"></span>
+                            English Proficiency Requirement
+                          </li>
+                        </ul>
+                      </div>
+
+                    </div>
+
+                    {/* Table showing the courses list */}
+                    <div className="flex flex-col w-full rounded-[8px] overflow-hidden border border-[#ECECEC] bg-white">
+                      
+                      {/* Table Header Row */}
+                      <div className="flex h-[50px] py-[12px] px-[16px] items-center gap-[16px] self-stretch bg-[#F6F7F8] border-b border-[#ECECEC] text-[13px] font-semibold text-[#121212] font-poppins text-left">
+                        <span className="flex-[2] shrink-0">Course</span>
+                        <span className="flex-[1.5] shrink-0">Specialization</span>
+                        <span className="w-[90px] shrink-0">Level</span>
+                        <span className="w-[70px] shrink-0">Duration</span>
+                        <span className="w-[110px] shrink-0">Semester Fees</span>
+                        <span className="w-[110px] shrink-0">Annual Fees</span>
+                        <span className="w-[110px] shrink-0">Total Fees</span>
+                        <span className="w-[100px] shrink-0 text-right pr-2">Shortlist</span>
+                      </div>
+
+                      {/* Table Body Rows */}
+                      {MOCK_COURSES.map((courseItem, cIdx) => (
+                        <div 
+                          key={`${courseItem.course}-${cIdx}`}
+                          className="flex h-[50px] py-[12px] px-[16px] items-center gap-[16px] self-stretch bg-white border-b border-[#ECECEC] last:border-b-0 text-[13px] font-normal text-[#121212] font-poppins text-left"
+                        >
+                          <span className="flex-[2] shrink-0 font-medium text-[#121212] overflow-hidden text-ellipsis whitespace-nowrap" title={courseItem.course}>
+                            {courseItem.course}
+                          </span>
+                          <span className="flex-[1.5] shrink-0 text-[#121212]">
+                            {courseItem.spec}
+                          </span>
+                          <span className="w-[90px] shrink-0 text-[#121212]">
+                            {courseItem.level}
+                          </span>
+                          <span className="w-[70px] shrink-0 text-[#717171]">
+                            {courseItem.duration}
+                          </span>
+                          <span className="w-[110px] shrink-0 text-[#717171]">
+                            {courseItem.semFee}
+                          </span>
+                          <span className="w-[110px] shrink-0 text-[#717171]">
+                            {courseItem.annualFee}
+                          </span>
+                          <span className="w-[110px] shrink-0 text-[#717171]">
+                            {courseItem.totalFee}
+                          </span>
+                          <span className="w-[100px] shrink-0 flex justify-end">
+                            <button 
+                              onClick={() => toggleShortlist(idx, cIdx)}
+                              className={`flex items-center gap-[8px] h-[30px] px-[12px] py-[6px] border rounded-[6px] text-[12px] font-medium transition-colors cursor-pointer select-none ${
+                                shortlistedCourses[`${idx}-${cIdx}`]
+                                  ? "border-[#007B2D] bg-[#E7F7EE] text-[#007B2D]"
+                                  : "border-[#CFD8DE] bg-white text-[#5B6B79]"
+                              }`}
+                            >
+                              <span className={`w-[14px] h-[14px] rounded-[3px] border flex items-center justify-center bg-white shrink-0 ${
+                                shortlistedCourses[`${idx}-${cIdx}`] ? "border-[#007B2D]" : "border-[#CFD8DE]"
+                              }`}>
+                                {shortlistedCourses[`${idx}-${cIdx}`] && (
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#007B2D" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                  </svg>
+                                )}
+                              </span>
+                              <span>Shortlist</span>
+                            </button>
+                          </span>
+                        </div>
+                      ))}
+
+                    </div>
+
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
       </div>
@@ -499,7 +965,7 @@ export default function StudentDetailsClient({ leadId }) {
     <div className="w-full h-full flex font-poppins text-left overflow-hidden">
       
       {/* Left Column (Student Details & Lead Status) - Scrollable */}
-      <div className="flex-1 h-full overflow-y-auto pt-[24px] pb-[40px] pl-[24px] pr-[16px] bg-[#F7F8FA] flex flex-col gap-[20px] relative no-scrollbar">
+      <div className="flex-1 h-full overflow-y-auto pt-[16px] pb-[40px] pl-[16px] pr-[16px] bg-[#F7F8FA] flex flex-col gap-[16px] relative no-scrollbar">
         
         {/* Back to Dashboard */}
         <div>
@@ -667,6 +1133,8 @@ export default function StudentDetailsClient({ leadId }) {
           </>
         ) : activeProfileTab === "Recommendations" ? (
           <RecommendationsTab dbStudent={dbStudent} />
+        ) : activeProfileTab === "Shortlisted" ? (
+          <ShortlistedTab dbStudent={dbStudent} />
         ) : (
           <div className="bg-white border border-[#E5E9EC] rounded-[12px] p-[24px] text-slate-500 font-medium w-[772px]">
             Tabs details will render here.
@@ -676,7 +1144,8 @@ export default function StudentDetailsClient({ leadId }) {
       </div>
 
       {/* Right Column (Student Activity Sidebar) - docked, matches Figma full height specs */}
-      <div className="flex w-[372px] h-full flex-col items-start gap-[8px] p-[12px] bg-white border-l border-[#ECECEC] shrink-0 overflow-y-auto no-scrollbar">
+      {activeProfileTab === "Students Details" && (
+        <div className="flex w-[372px] h-full flex-col items-start gap-[8px] p-[12px] bg-white border-l border-[#ECECEC] shrink-0 overflow-y-auto no-scrollbar">
         
         {/* Header title */}
         <span className="text-[16px] font-bold text-[#121212] font-poppins mb-[4px] block select-none">
@@ -796,8 +1265,8 @@ export default function StudentDetailsClient({ leadId }) {
           </div>
 
         </div>
-
       </div>
+    )}
 
     </div>
   );
