@@ -2,6 +2,17 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import LEADS_RESPONSE from "@/app/mock-data/leads-response.json";
+
+const {
+  MOCK_STUDENTS_DB,
+  DEFAULT_STUDENT,
+  PREFERENCE_FIELDS,
+  ACTIVITY_FEED,
+  SYSTEM_ACTIVITY,
+  QA_ANSWERS,
+  TRAILING_ACTIVITY
+} = LEADS_RESPONSE;
 
 /* ----------------------------- Icon set ----------------------------- */
 
@@ -68,133 +79,7 @@ const DETAIL_SUBTABS = ["Student Preferences", "Basic Details", "Additional Deta
 
 const LEAD_STATUS_STEPS = ["Fresh", "Pre Application", "ICC", "Application", "Admission", "Enrolled"];
 
-// Mock Database of Students details mapped by leadId
-const MOCK_STUDENTS_DB = {
-  "STD-90EABBCE": {
-    name: "RAJENDRA SHARMA",
-    id: "STD-90EABBCE",
-    phone: "9310000000",
-    email: "kin***@xxxxxx.com",
-    stream: "Management, Agriculture, +2",
-    level: "Diploma",
-    degree: "Online B.com",
-    specialization: "ACCA",
-    studyMode: "Online",
-    budget: "1,50,000",
-    state: "Punjab",
-    city: "Ludhiana",
-    statusStep: "Fresh"
-  },
-  "STD-91EABBCE": {
-    name: "Anjali Sharma",
-    id: "STD-91EABBCE",
-    phone: "9320000000",
-    email: "Mun***@xxxxxx.com",
-    stream: "Management, Agriculture, +2",
-    level: "Diploma",
-    degree: "Online B.com",
-    specialization: "ACCA",
-    studyMode: "Online",
-    budget: "1,50,000",
-    state: "Punjab",
-    city: "Ludhiana",
-    statusStep: "Fresh"
-  },
-  "STD-92EABBCE": {
-    name: "Ankit Sharma",
-    id: "STD-92EABBCE",
-    phone: "9306508269",
-    email: "anirudh.sharma.ux@gmail.com",
-    stream: "Management, Agriculture, +2",
-    level: "Diploma",
-    degree: "Online B.com",
-    specialization: "ACCA",
-    studyMode: "Online",
-    budget: "1,50,000",
-    state: "Punjab",
-    city: "Ludhiana",
-    statusStep: "Pre Application"
-  },
-  "STD-93EABBCE": {
-    name: "Jaxon Lee",
-    id: "STD-93EABBCE",
-    phone: "7300000000",
-    email: "Fun***@xxxxxx.com",
-    stream: "Management, Agriculture, +2",
-    level: "Diploma",
-    degree: "Online B.com",
-    specialization: "ACCA",
-    studyMode: "Online",
-    budget: "1,50,000",
-    state: "Punjab",
-    city: "Ludhiana",
-    statusStep: "Fresh"
-  },
-  "STD-94EABBCE": {
-    name: "Sofia Kim",
-    id: "STD-94EABBCE",
-    phone: "9300000000",
-    email: "ani***@xxxxxx.com",
-    stream: "Management, Agriculture, +2",
-    level: "Diploma",
-    degree: "Online B.com",
-    specialization: "ACCA",
-    studyMode: "Online",
-    budget: "1,50,000",
-    state: "Punjab",
-    city: "Ludhiana",
-    statusStep: "Fresh"
-  }
-};
 
-const DEFAULT_STUDENT = {
-  name: "Ankit Sharma",
-  id: "STD-92EABBCE",
-  phone: "9306508269",
-  email: "anirudh.sharma.ux@gmail.com",
-  stream: "Management, Agriculture, +2",
-  level: "Diploma",
-  degree: "Online B.com",
-  specialization: "ACCA",
-  studyMode: "Online",
-  budget: "1,50,000",
-  state: "Punjab",
-  city: "Ludhiana",
-  statusStep: "Pre Application"
-};
-
-const PREFERENCE_FIELDS = [
-  { label: "Stream", value: "Management, Agriculture,", extra: "+2" },
-  { label: "Level", value: "Diploma" },
-  { label: "Degree", value: "Online B.com" },
-  { label: "Specialization", value: "ACCA" },
-  { label: "Study Mode", value: "Online" },
-  { label: "Preferred Budget", value: "1,50,000" },
-  { label: "Preferred State", value: "Punjab" },
-  { label: "Preferred City", value: "Ludhiana" },
-];
-
-const ACTIVITY_FEED = [
-  { answered: true, name: "Vikash (You)", time: "09:48:53", badgeDate: "16 Apr 2026, 15:30" },
-  { answered: false, name: "Elena", time: "10:15:40", badgeDate: "17 Apr 2026, 09:00" },
-  { answered: true, name: "Marcus", time: "12:30:22", badgeDate: "18 Apr 2026, 11:45" },
-  { answered: true, name: "Vikash (You)", time: "13:05:17", badgeDate: "19 Apr 2026, 14:20" },
-];
-
-const SYSTEM_ACTIVITY = {
-  time: "13:05:17",
-  source: "FaceBook_University_Admit",
-  campaign: "teotla_university_2026_Online_Ad...",
-  sourceUrl: "https://degreefyd.com/colleges/ign...",
-};
-
-const QA_ANSWERS = [
-  { q: "which_course_are_you_most_interested_in?", a: "online_bca" },
-  { q: "when_do_you_plan_to_enroll_in_your_online_program?", a: "within_the_next_month" },
-  { q: "phone", a: "+917838481891" },
-];
-
-const TRAILING_ACTIVITY = { answered: false, name: "Elena", time: "10:15:40", badgeDate: "17 Apr 2026, 09:00" };
 
 /* ------------------------------ Component ------------------------------ */
 
