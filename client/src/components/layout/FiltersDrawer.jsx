@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import filterOptions from "@/app/mock-data/filter-options.json";
 
 // Trash can icon SVG for Clear All button
 const TRASH_ICON = (
@@ -269,10 +270,9 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
               style={{ backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center", backgroundSize: "16px" }}
             >
               <option value="">Select Source</option>
-              <option value="Facebook">Facebook</option>
-              <option value="Website Chat">Website Chat</option>
-              <option value="CP_Ref">CP_Ref</option>
-              <option value="Direct">Direct</option>
+              {filterOptions.data.first_source_url.map((opt) => (
+                <option key={opt} value={opt}>{opt}</option>
+              ))}
             </select>
           </div>
 
@@ -288,10 +288,9 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
               style={{ backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center", backgroundSize: "16px" }}
             >
               <option value="">Select status</option>
-              <option value="Fresh Lead">Fresh Lead</option>
-              <option value="Overdue Callback">Overdue Callback</option>
-              <option value="Today Callback">Today Callback</option>
-              <option value="Reactive Lead">Reactive Lead</option>
+              {filterOptions.data.course_status.map((opt) => (
+                <option key={opt} value={opt}>{opt}</option>
+              ))}
             </select>
           </div>
 
@@ -307,9 +306,9 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
               style={{ backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center", backgroundSize: "16px" }}
             >
               <option value="">Select status</option>
-              <option value="Follow Up Scheduled">Follow Up Scheduled</option>
-              <option value="Not Connected">Not Connected</option>
-              <option value="Connected">Connected</option>
+              {filterOptions.data.calling_sub_status.map((opt) => (
+                <option key={opt} value={opt}>{opt}</option>
+              ))}
             </select>
           </div>
 
@@ -325,9 +324,9 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
               style={{ backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center", backgroundSize: "16px" }}
             >
               <option value="">Select status</option>
-              <option value="Google Search Ads">Google Search Ads</option>
-              <option value="Meta Ads Conversion">Meta Ads Conversion</option>
-              <option value="Email Newsletter">Email Newsletter</option>
+              {filterOptions.data.campaign_name.map((opt) => (
+                <option key={opt} value={opt}>{opt}</option>
+              ))}
             </select>
           </div>
 
