@@ -889,7 +889,7 @@ function ShortlistedTab({ dbStudent }) {
                         <span className="w-[110px] shrink-0">Semester Fees</span>
                         <span className="w-[110px] shrink-0">Annual Fees</span>
                         <span className="w-[110px] shrink-0">Total Fees</span>
-                        <span className="w-[100px] shrink-0 text-right pr-2">Shortlist</span>
+                        <span className="w-[100px] shrink-0 text-left">Shortlist</span>
                       </div>
 
                       {/* Table Body Rows */}
@@ -919,10 +919,36 @@ function ShortlistedTab({ dbStudent }) {
                           <span className="w-[110px] shrink-0 text-[#717171]">
                             {courseItem.totalFee}
                           </span>
-                          <span className="w-[100px] shrink-0 flex justify-end pr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007B2D" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-[#007B2D] shrink-0 select-none">
-                              <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
+                          <span className="w-[100px] shrink-0 flex items-center justify-start">
+                            {cIdx === 0 ? (
+                              <span className="flex items-center gap-[8px] text-[#121212] font-poppins text-[14px] font-medium select-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0">
+                                  <circle cx="4" cy="4" r="4" fill="#0D3B59"/>
+                                </svg>
+                                <span>Shortlist</span>
+                              </span>
+                            ) : cIdx === 1 ? (
+                              <span className="flex items-center gap-[8px] text-[#121212] font-poppins text-[14px] font-normal select-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0">
+                                  <circle cx="4" cy="4" r="4" fill="#007B2D"/>
+                                </svg>
+                                <span>Enrolled</span>
+                              </span>
+                            ) : cIdx === 2 ? (
+                              <span className="flex items-center gap-[8px] text-[#121212] font-poppins text-[14px] font-normal select-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0">
+                                  <circle cx="4" cy="4" r="4" fill="#ED923D"/>
+                                </svg>
+                                <span>Application</span>
+                              </span>
+                            ) : (
+                              <span className="flex items-center gap-[8px] text-[#121212] font-poppins text-[14px] font-normal select-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none" className="shrink-0">
+                                  <circle cx="4" cy="4" r="4" fill="#3B82B1"/>
+                                </svg>
+                                <span>Admission</span>
+                              </span>
+                            )}
                           </span>
                         </div>
                       ))}
