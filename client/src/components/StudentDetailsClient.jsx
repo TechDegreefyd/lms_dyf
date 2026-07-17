@@ -351,7 +351,7 @@ export default function StudentDetailsClient({ leadId }) {
       </div>
 
       {/* Right Column (Student Activity Sidebar) - docked, matches Figma full height specs */}
-      <div className="flex w-[372px] h-[1069px] flex-col items-start gap-[8px] p-[12px] bg-white border-l border-[#ECECEC] shrink-0 overflow-y-auto no-scrollbar">
+      <div className="flex w-[372px] h-full flex-col items-start gap-[8px] p-[12px] bg-white border-l border-[#ECECEC] shrink-0 overflow-y-auto no-scrollbar">
         
         {/* Header title */}
         <span className="text-[16px] font-bold text-[#121212] font-poppins mb-[4px] block select-none">

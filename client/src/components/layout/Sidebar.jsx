@@ -88,7 +88,7 @@ export default function Sidebar({ collapsed, onToggle }) {
   const [showBreakModal, setShowBreakModal] = useState(false);
 
   return (
-    <aside className={`h-[740px] bg-white flex flex-col justify-between items-start border-r border-[#CFD8DE] py-[16px] px-0 font-poppins shrink-0 relative transition-all duration-300 ${
+    <aside className={`h-full bg-white flex flex-col justify-between items-start border-r border-[#CFD8DE] py-[16px] px-0 font-poppins shrink-0 relative transition-all duration-300 ${
       collapsed ? "w-0 border-r-0" : "w-[264px]"
     }`}>
       
