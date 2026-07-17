@@ -133,6 +133,329 @@ const LEAD_STATUS_STEPS = ["Fresh", "Pre Application", "ICC", "Application", "Ad
 
 
 
+const MAP_PIN_ICON = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="15" viewBox="0 0 12 15" fill="none" className="shrink-0">
+    <path d="M11.2917 5.95833C11.2917 9.95833 5.95833 13.9583 5.95833 13.9583C5.95833 13.9583 0.625 9.95833 0.625 5.95833C0.625 4.54385 1.1869 3.18729 2.1871 2.1871C3.18729 1.1869 4.54385 0.625 5.95833 0.625C7.37282 0.625 8.72938 1.1869 9.72957 2.1871C10.7298 3.18729 11.2917 4.54385 11.2917 5.95833Z" stroke="#717171" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M5.95833 7.95833C7.0629 7.95833 7.95833 7.0629 7.95833 5.95833C7.95833 4.85376 7.0629 3.95833 5.95833 3.95833C4.85376 3.95833 3.95833 4.85376 3.95833 5.95833C3.95833 7.0629 4.85376 7.95833 5.95833 7.95833Z" stroke="#717171" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const GRADUATION_CAP_ICON = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
+    <path d="M16.6673 8.58333V12.5833M16.6673 8.58333L10.0007 5.25L3.33398 8.58333L10.0007 11.9167L16.6673 8.58333ZM6.00065 9.91667V13.25C8.00065 15.25 12.0007 15.25 14.0007 13.25V9.91667" stroke="#717171" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const SAVE_ICON = (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+    <polyline points="17 21 17 13 7 13 7 21"/>
+    <polyline points="7 3 7 8 15 8"/>
+  </svg>
+);
+
+const CHEVRON_DOWN_SVG = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16" fill="none" className="shrink-0">
+    <path d="M2.66699 5.33325L8.00033 10.6666L13.3337 5.33325" stroke="#808080" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const SUGGESTED_COLLEGES = [
+  {
+    name: "Shoolini University online",
+    location: "Himachal Pradesh, Solan",
+    courses: "10 Courses",
+    logoType: "shoolini"
+  },
+  {
+    name: "Jaypee Institute of Information Technology, Noida",
+    location: "Noida, Uttar Pradesh",
+    courses: "8 Courses",
+    logoType: "jiit"
+  },
+  {
+    name: "Dr. D.Y Patil Vidhyapeeth Online",
+    location: "Himachal Pradesh, Solan",
+    courses: "10 Courses",
+    logoType: "dypatil"
+  },
+  {
+    name: "Delhi Technological University",
+    location: "Delhi",
+    courses: "12 Courses",
+    logoType: "dtu"
+  },
+  {
+    name: "Dr. D.Y Patil Vidhyapeeth Online",
+    location: "Himachal Pradesh, Solan",
+    courses: "10 Courses",
+    logoType: "dypatil"
+  },
+  {
+    name: "Shoolini University online",
+    location: "Himachal Pradesh, Solan",
+    courses: "10 Courses",
+    logoType: "shoolini"
+  },
+  {
+    name: "Shoolini University online",
+    location: "Himachal Pradesh, Solan",
+    courses: "10 Courses",
+    logoType: "shoolini"
+  },
+  {
+    name: "Dr. D.Y Patil Vidhyapeeth Online",
+    location: "Himachal Pradesh, Solan",
+    courses: "10 Courses",
+    logoType: "dypatil"
+  }
+];
+
+const renderCollegeLogo = (type) => {
+  switch (type) {
+    case "shoolini":
+      return (
+        <svg width="66" height="40" viewBox="0 0 66 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="66" height="40" rx="4" fill="white"/>
+          <text x="33" y="18" fill="#DC2626" fontSize="10" fontWeight="800" fontFamily="sans-serif" textAnchor="middle">Shoolini</text>
+          <text x="33" y="28" fill="#DC2626" fontSize="6" fontWeight="600" fontFamily="sans-serif" textAnchor="middle">UNIVERSITY</text>
+        </svg>
+      );
+    case "jiit":
+      return (
+        <svg width="66" height="40" viewBox="0 0 66 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="33" cy="20" r="15" fill="#A5D8EB" stroke="#1D4ED8" strokeWidth="1"/>
+          <path d="M33 9 L36 14 L30 14 Z" fill="#EA580C"/>
+          <rect x="32" y="14" width="2" height="9" fill="#EAB308"/>
+          <text x="33" y="32" fill="#1E3A8A" fontSize="7" fontWeight="800" fontFamily="sans-serif" textAnchor="middle">JIIT</text>
+        </svg>
+      );
+    case "dypatil":
+      return (
+        <svg width="66" height="40" viewBox="0 0 66 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="18" y="5" width="30" height="30" rx="4" fill="#991B1B" stroke="#EAB308" strokeWidth="1.5"/>
+          <text x="33" y="20" fill="#EAB308" fontSize="9" fontWeight="800" fontFamily="sans-serif" textAnchor="middle">DPU</text>
+          <text x="33" y="28" fill="#FFFFFF" fontSize="5" fontWeight="600" fontFamily="sans-serif" textAnchor="middle">ONLINE</text>
+        </svg>
+      );
+    case "dtu":
+      return (
+        <svg width="66" height="40" viewBox="0 0 66 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="33" cy="20" r="14" fill="white" stroke="#78350F" strokeWidth="1.5"/>
+          <circle cx="33" cy="20" r="10" fill="none" stroke="#78350F" strokeWidth="1" strokeDasharray="2 2"/>
+          <text x="33" y="23" fill="#78350F" fontSize="8" fontWeight="800" fontFamily="sans-serif" textAnchor="middle">DTU</text>
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
+
+function RecommendationsTab({ dbStudent }) {
+  return (
+    <>
+      {/* Profile Info Header for Recommendations */}
+      <div className="flex w-[772px] p-[12px] items-center justify-between bg-white border border-[#ECECEC] rounded-[8px] shadow-sm shrink-0">
+        <div className="flex items-center gap-[16px]">
+          {/* Orange silhouette avatar */}
+          <span className="w-[48px] h-[48px] rounded-full bg-[#FDEFE3] flex items-center justify-center text-[#ED923D] font-bold text-[18px] shrink-0">
+            {dbStudent.name.charAt(0)}
+          </span>
+          <div className="flex flex-col text-left">
+            <h2 className="text-[20px] font-bold text-[#121212] leading-tight font-poppins">
+              {dbStudent.name}
+            </h2>
+            <span className="text-[13px] text-[#808080] font-normal mt-0.5">
+              {dbStudent.id}
+            </span>
+          </div>
+        </div>
+        <div className="flex items-center gap-[12px]">
+          <span className="px-[12px] py-[6px] bg-[#F2F4F7] text-[#5B6B79] rounded-[6px] text-[13px] font-medium font-poppins">
+            Source - WhatsApp
+          </span>
+          <span className="px-[12px] py-[6px] bg-[#F2F4F7] text-[#5B6B79] rounded-[6px] text-[13px] font-medium font-poppins">
+            Campaign - No UTM
+          </span>
+        </div>
+      </div>
+
+      {/* Student Preferences Card */}
+      <div className="flex w-[772px] p-[16px] flex-col items-start gap-[16px] bg-white border border-[#ECECEC] rounded-[8px] shadow-sm shrink-0">
+        <h3 className="text-[16px] font-bold text-[#121212] font-poppins mb-0">
+          Student Preferences
+        </h3>
+
+        {/* 4 Column Grid layout */}
+        <div className="grid grid-cols-4 gap-[12px] w-full items-center">
+          
+          {/* Stream field (Mock select with tags) */}
+          <div className="relative flex items-center justify-between h-[38px] border border-[#CFD8DE] rounded-[8px] px-[8px] bg-white text-[13px] text-[#121212] font-poppins w-full select-none cursor-pointer">
+            <div className="flex items-center gap-[6px] overflow-hidden whitespace-nowrap">
+              <span className="flex items-center gap-[4px] px-[6px] py-[2px] bg-[#F2F4F7] rounded-[4px] text-[11px] font-medium text-[#5B6B79]">
+                Agricul...
+                <span className="text-[10px] text-[#8A96A0] hover:text-red-500">×</span>
+              </span>
+              <span className="flex items-center gap-[4px] px-[6px] py-[2px] bg-[#F2F4F7] rounded-[4px] text-[11px] font-medium text-[#5B6B79]">
+                Inform...
+                <span className="text-[10px] text-[#8A96A0] hover:text-red-500">×</span>
+              </span>
+              <span className="text-[#0D3B59] font-bold text-[12px] ml-[2px]">
+                +2
+              </span>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16" fill="none" className="ml-auto shrink-0">
+              <path d="M2.66699 5.33325L8.00033 10.6666L13.3337 5.33325" stroke="#121212" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+
+          {/* Select Degree */}
+          <div className="relative w-full">
+            <select className="w-full h-[38px] border border-[#CFD8DE] rounded-[8px] pl-[12px] pr-[28px] bg-white text-[13px] text-[#121212] font-poppins font-normal outline-none appearance-none cursor-pointer">
+              <option>Select Degree</option>
+              <option>Online B.com</option>
+              <option>Online BCA</option>
+              <option>Online MBA</option>
+            </select>
+            <span className="pointer-events-none absolute right-[10px] top-1/2 -translate-y-1/2">
+              {CHEVRON_DOWN_SVG}
+            </span>
+          </div>
+
+          {/* Select Specialization */}
+          <div className="relative w-full">
+            <select className="w-full h-[38px] border border-[#CFD8DE] rounded-[8px] pl-[12px] pr-[28px] bg-white text-[13px] text-[#121212] font-poppins font-normal outline-none appearance-none cursor-pointer">
+              <option>Select Specialization</option>
+              <option>ACCA</option>
+              <option>Cloud Computing</option>
+              <option>Data Science</option>
+            </select>
+            <span className="pointer-events-none absolute right-[10px] top-1/2 -translate-y-1/2">
+              {CHEVRON_DOWN_SVG}
+            </span>
+          </div>
+
+          {/* Preferred State */}
+          <div className="relative w-full">
+            <select className="w-full h-[38px] border border-[#CFD8DE] rounded-[8px] pl-[12px] pr-[28px] bg-white text-[13px] text-[#121212] font-poppins font-normal outline-none appearance-none cursor-pointer">
+              <option>Preferred State</option>
+              <option>Punjab</option>
+              <option>Uttar Pradesh</option>
+              <option>Himachal Pradesh</option>
+            </select>
+            <span className="pointer-events-none absolute right-[10px] top-1/2 -translate-y-1/2">
+              {CHEVRON_DOWN_SVG}
+            </span>
+          </div>
+
+          {/* Preferred City */}
+          <div className="relative w-full">
+            <select className="w-full h-[38px] border border-[#CFD8DE] rounded-[8px] pl-[12px] pr-[28px] bg-white text-[13px] text-[#121212] font-poppins font-normal outline-none appearance-none cursor-pointer">
+              <option>Preferred City</option>
+              <option>Ludhiana</option>
+              <option>Noida</option>
+              <option>Solan</option>
+            </select>
+            <span className="pointer-events-none absolute right-[10px] top-1/2 -translate-y-1/2">
+              {CHEVRON_DOWN_SVG}
+            </span>
+          </div>
+
+          {/* Select Mode */}
+          <div className="relative w-full">
+            <select className="w-full h-[38px] border border-[#CFD8DE] rounded-[8px] pl-[12px] pr-[28px] bg-white text-[13px] text-[#121212] font-poppins font-normal outline-none appearance-none cursor-pointer">
+              <option>Select Mode</option>
+              <option>Online</option>
+              <option>Distance</option>
+            </select>
+            <span className="pointer-events-none absolute right-[10px] top-1/2 -translate-y-1/2">
+              {CHEVRON_DOWN_SVG}
+            </span>
+          </div>
+
+          {/* Select Level */}
+          <div className="relative w-full">
+            <select className="w-full h-[38px] border border-[#CFD8DE] rounded-[8px] pl-[12px] pr-[28px] bg-white text-[13px] text-[#121212] font-poppins font-normal outline-none appearance-none cursor-pointer">
+              <option>Select Level</option>
+              <option>Diploma</option>
+              <option>UG</option>
+              <option>PG</option>
+            </select>
+            <span className="pointer-events-none absolute right-[10px] top-1/2 -translate-y-1/2">
+              {CHEVRON_DOWN_SVG}
+            </span>
+          </div>
+
+          {/* Save & Apply Button */}
+          <button className="h-[38px] w-full flex items-center justify-center gap-[8px] border border-[#0D3B59] bg-white hover:bg-slate-50 text-[#0D3B59] rounded-[8px] text-[13px] font-semibold font-poppins cursor-pointer transition-colors">
+            {SAVE_ICON}
+            <span>Save & Apply</span>
+          </button>
+
+        </div>
+      </div>
+
+      {/* Suggested Colleges Section */}
+      <div className="flex flex-col gap-[12px] w-[772px] shrink-0">
+        
+        {/* Section Title with count */}
+        <div className="flex items-center gap-[8px] mb-[4px] mt-[8px]">
+          <span className="text-[16px] font-bold text-[#121212] font-poppins">
+            Suggested Colleges
+          </span>
+          <span className="text-[14px] text-[#808080] font-normal font-poppins">
+            (120 Courses)
+          </span>
+        </div>
+
+        {/* Colleges List */}
+        <div className="flex flex-col gap-[12px] w-full">
+          {SUGGESTED_COLLEGES.map((college, idx) => (
+            <div 
+              key={`${college.name}-${idx}`}
+              className="flex py-[8px] px-[16px] justify-between items-center self-stretch rounded-[8px] border border-[#ECECEC] bg-white shadow-sm hover:shadow transition-shadow shrink-0"
+            >
+              {/* Left Side: Logo & Info */}
+              <div className="flex items-center gap-[16px]">
+                {/* Logo Container */}
+                <div className="flex w-[82px] h-[56px] p-[8px] justify-center items-center gap-[10px] aspect-[41/28] rounded-[8px] border border-[#ECECEC] bg-white shrink-0">
+                  {renderCollegeLogo(college.logoType)}
+                </div>
+                {/* College Info text */}
+                <div className="flex flex-col gap-[4px] text-left">
+                  <span className="text-[15px] font-bold text-[#121212] font-poppins leading-tight">
+                    {college.name}
+                  </span>
+                  {/* Location & Courses */}
+                  <div className="flex items-center gap-[16px] text-[12px] text-[#717171] font-normal font-poppins">
+                    <span className="flex items-center gap-[4px]">
+                      {MAP_PIN_ICON}
+                      {college.location}
+                    </span>
+                    <span className="flex items-center gap-[4px]">
+                      {GRADUATION_CAP_ICON}
+                      {college.courses}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side: Chevron */}
+              <div className="flex items-center shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#717171" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-pointer">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </>
+  );
+}
+
 /* ------------------------------ Component ------------------------------ */
 
 export default function StudentDetailsClient({ leadId }) {
@@ -342,6 +665,8 @@ export default function StudentDetailsClient({ leadId }) {
               </button>
             </div>
           </>
+        ) : activeProfileTab === "Recommendations" ? (
+          <RecommendationsTab dbStudent={dbStudent} />
         ) : (
           <div className="bg-white border border-[#E5E9EC] rounded-[12px] p-[24px] text-slate-500 font-medium w-[772px]">
             Tabs details will render here.
