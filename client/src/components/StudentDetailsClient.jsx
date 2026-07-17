@@ -11,14 +11,14 @@ const HEART_ICON = (
 );
 
 const EDIT_PENCIL_ICON = (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="hover:stroke-[#0D3B59] transition-colors">
-    <path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+    <path d="M13.9997 3.33325L16.6663 5.99992M6.99967 15.6666L14.6663 7.99992L11.9997 5.33325L4.33301 12.9999L3.33301 16.6666L6.99967 15.6666Z" stroke="#595959" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
 const FLOATING_EDIT_ICON = (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M11.1566 5.68684H5.59035C5.16856 5.68684 4.76405 5.85439 4.4658 6.15264C4.16755 6.45089 4 6.8554 4 7.27719V18.4096C4 18.8314 4.16755 19.2359 4.4658 19.5342C4.76405 19.8324 5.16856 20 5.59035 20H16.7228C17.1446 20 17.5491 19.8324 17.8474 19.5342C18.1456 19.2359 18.3132 18.8314 18.3132 18.4096V12.8434M17.1204 4.49406C17.4367 4.17772 17.8658 4 18.3132 4C18.7605 4 19.1896 4.17772 19.5059 4.49406C19.8223 4.8104 20 5.23945 20 5.68682C20 6.1342 19.8223 6.56325 19.5059 6.87959L11.9518 14.4338L8.77105 15.2289L9.56623 12.0482L17.1204 4.49406Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -50,8 +50,8 @@ const PIPELINE_CHECK_ICON = (
 );
 
 const CHEVRON_DOWN_ICON = (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#667085" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="6 9 12 15 18 9" />
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M2.66699 5.33325L8.00033 10.6666L13.3337 5.33325" stroke="#121212" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -215,7 +215,7 @@ export default function StudentDetailsClient({ leadId }) {
           {activeTab === "details" ? (
             <>
               {/* Profile Card Container (White layout panel) */}
-              <div className="w-full bg-white border border-[#E5E9EC] rounded-[12px] p-[24px] flex flex-col shadow-sm">
+              <div className="flex w-[772px] p-[12px] flex-col items-start gap-[16px] bg-white border border-[#ECECEC] rounded-[8px] shadow-sm">
                 
                 {/* Header row: Avatar, name, ID, and action buttons */}
                 <div className="flex items-start justify-between w-full">
@@ -362,8 +362,8 @@ export default function StudentDetailsClient({ leadId }) {
               </div>
 
               {/* Lead Status Timeline Box */}
-              <div className="w-full bg-white border border-[#E5E9EC] rounded-[12px] p-[24px] flex flex-col shadow-sm">
-                <h3 className="text-[15px] font-bold text-[#121212] mb-[20px] font-poppins">
+              <div className="flex w-[772px] p-[12px] flex-col justify-center items-start gap-[16px] bg-white border border-[#ECECEC] rounded-[8px] shadow-sm">
+                <h3 className="text-[15px] font-bold text-[#121212] font-poppins mb-0">
                   Lead Status
                 </h3>
 
@@ -424,7 +424,7 @@ export default function StudentDetailsClient({ leadId }) {
         </div>
 
         {/* Right Column (Student Activity Sidebar) - exact height/layout matching specs */}
-        <div className="w-[364px] bg-white border border-[#E5E9EC] rounded-[12px] p-[20px] flex flex-col shadow-sm shrink-0">
+        <div className="flex w-[372px] h-[1069px] flex-col items-start gap-[8px] p-[12px] bg-white border border-[#ECECEC] rounded-[8px] shadow-sm shrink-0">
           
           {/* Header title and filter dropdown */}
           <div className="flex items-center justify-between w-full pb-[16px] border-b border-[#E5E9EC] mb-[16px]">
