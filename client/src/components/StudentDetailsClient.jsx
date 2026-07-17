@@ -1,18 +1,70 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import LEADS_RESPONSE from "@/app/mock-data/leads-response.json";
+import mockLeadsResponse from "@/app/mock-data/leads-response.json";
 
-const {
-  MOCK_STUDENTS_DB,
-  DEFAULT_STUDENT,
-  PREFERENCE_FIELDS,
-  ACTIVITY_FEED,
-  SYSTEM_ACTIVITY,
-  QA_ANSWERS,
-  TRAILING_ACTIVITY
-} = LEADS_RESPONSE;
+const PREFERENCE_FIELDS = [
+  { label: "Stream", value: "Management, Agriculture,", extra: "+2" },
+  { label: "Level", value: "Diploma" },
+  { label: "Degree", value: "Online B.com" },
+  { label: "Specialization", value: "ACCA" },
+  { label: "Study Mode", value: "Online" },
+  { label: "Preferred Budget", value: "1,50,000" },
+  { label: "Preferred State", value: "Punjab" },
+  { label: "Preferred City", value: "Ludhiana" },
+];
+
+const ACTIVITY_FEED = [
+  { answered: true, name: "Vikash (You)", time: "09:48:53", badgeDate: "16 Apr 2026, 15:30" },
+  { answered: false, name: "Elena", time: "10:15:40", badgeDate: "17 Apr 2026, 09:00" },
+  { answered: true, name: "Marcus", time: "12:30:22", badgeDate: "18 Apr 2026, 11:45" },
+  { answered: true, name: "Vikash (You)", time: "13:05:17", badgeDate: "19 Apr 2026, 14:20" },
+];
+
+const SYSTEM_ACTIVITY = {
+  time: "13:05:17",
+  source: "FaceBook_University_Admit",
+  campaign: "teotla_university_2026_Online_Ad...",
+  sourceUrl: "https://degreefyd.com/colleges/ign...",
+};
+
+const QA_ANSWERS = [
+  { q: "which_course_are_you_most_interested_in?", a: "online_bca" },
+  { q: "when_do_you_plan_to_enroll_in_your_online_program?", a: "within_the_next_month" },
+  { q: "phone", a: "+917838481891" },
+];
+
+const TRAILING_ACTIVITY = { answered: false, name: "Elena", time: "10:15:40", badgeDate: "17 Apr 2026, 09:00" };
+
+function mapApiStudentToDetails(record) {
+  if (!record) {
+    return {
+      name: "ANJALI",
+      id: "STD-5DD4B84B",
+      phone: "8221XXXXXX",
+      email: "kha***@xxxxxx.com",
+      statusStep: "Fresh"
+    };
+  }
+  
+  const latestRemark = record.student_remarks?.[0];
+  const status = latestRemark?.lead_status || "Fresh";
+
+  return {
+    name: record.student_name === "N/A" ? "ANONYMOUS STUDENT" : record.student_name,
+    id: record.student_id,
+    phone: record.student_phone,
+    email: record.student_email,
+    statusStep: status
+  };
+}
+
+async function fetchStudentRecord(leadId) {
+  const json = mockLeadsResponse; // swap for a real fetch() later
+  const record = json.data?.find((d) => d.student_id === leadId) ?? null;
+  return mapApiStudentToDetails(record);
+}
 
 /* ----------------------------- Icon set ----------------------------- */
 
@@ -84,20 +136,39 @@ const LEAD_STATUS_STEPS = ["Fresh", "Pre Application", "ICC", "Application", "Ad
 /* ------------------------------ Component ------------------------------ */
 
 export default function StudentDetailsClient({ leadId }) {
-  const dbStudent = MOCK_STUDENTS_DB[leadId] || { ...DEFAULT_STUDENT, id: leadId };
-  
+  const [dbStudent, setDbStudent] = useState(null);
   const [activeProfileTab, setActiveProfileTab] = useState(PROFILE_TABS[0]);
   const [activeSubTab, setActiveSubTab] = useState(DETAIL_SUBTABS[0]);
   const [activityFilter, setActivityFilter] = useState("All");
   const [expandedActivity, setExpandedActivity] = useState(null);
 
+  useEffect(() => {
+    async function loadData() {
+      const data = await fetchStudentRecord(leadId);
+      setDbStudent(data);
+    }
+    loadData();
+  }, [leadId]);
+
   const handleEditClick = () => {
-    alert(`Editing details for student ${dbStudent.name}`);
+    if (dbStudent) {
+      alert(`Editing details for student ${dbStudent.name}`);
+    }
   };
 
   const handleWishlistClick = () => {
-    alert(`Added ${dbStudent.name} to wishlist`);
+    if (dbStudent) {
+      alert(`Added ${dbStudent.name} to wishlist`);
+    }
   };
+
+  if (!dbStudent) {
+    return (
+      <div className="flex-1 h-full flex items-center justify-center bg-[#F7F8FA] p-[24px]">
+        <div className="text-[16px] font-semibold text-[#8A96A0]">Loading student details...</div>
+      </div>
+    );
+  }
 
   const currentStepIndex = LEAD_STATUS_STEPS.indexOf(dbStudent.statusStep);
 

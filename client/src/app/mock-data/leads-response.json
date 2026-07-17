@@ -1,122 +1,214 @@
 {
-  "MOCK_STUDENTS_DB": {
-    "STD-90EABBCE": {
-      "name": "RAJENDRA SHARMA",
-      "id": "STD-90EABBCE",
-      "phone": "9310000000",
-      "email": "kin***@xxxxxx.com",
-      "stream": "Management, Agriculture, +2",
-      "level": "Diploma",
-      "degree": "Online B.com",
-      "specialization": "ACCA",
-      "studyMode": "Online",
-      "budget": "1,50,000",
-      "state": "Punjab",
-      "city": "Ludhiana",
-      "statusStep": "Fresh"
+  "success": true,
+  "appliedFilters": {
+    "student": [
+      "s.assigned_counsellor_id IS NOT NULL",
+      "s.assigned_counsellor_id = 'CNS-9F569A69'"
+    ],
+    "remarks": [],
+    "utm": []
+  },
+  "data": [
+    {
+      "student_id": "STD-5DD4B84B",
+      "student_name": "ANJALI",
+      "number_of_unread_messages": 0,
+      "assignedCounsellor": {
+        "counsellor_id": "CNS-9F569A69",
+        "counsellor_name": "Harsh Dummy",
+        "counsellor_email": "harsh.dummy@degreefyd.com",
+        "role": "l2"
+      },
+      "assignedCounsellorL3": {
+        "counsellor_id": null,
+        "counsellor_name": null,
+        "counsellor_email": null,
+        "role": null
+      },
+      "assignedEnrollmentCounsellor": {
+        "counsellor_id": null,
+        "counsellor_name": null,
+        "counsellor_email": null,
+        "role": null
+      },
+      "assigned_l3_date": null,
+      "assigned_team_owner_date": null,
+      "course_name": null,
+      "course_status": null,
+      "created_at": "2026-07-14T16:38:16.102Z",
+      "enrollment_counsellor_id_date": null,
+      "is_reactivity": false,
+      "is_reassigned_yet": true,
+      "last_call_date_l3": null,
+      "lead_activities": [
+        {
+          "utm_source": "",
+          "utm_medium": "",
+          "utm_campaign": "F_UA1_All Colleges_MBA_Aryan V1.3 (INT 01)_ 1.1"
+        }
+      ],
+      "lead_type": "cll",
+      "mode": "Online",
+      "next_call_date_l3": null,
+      "next_call_time_l3": null,
+      "preferred_college_cll": [],
+      "remark_count": 4,
+      "source": "FaceBook_University_Admit",
+      "student_email": "kha***@xxxxxx.com",
+      "student_phone": "8221XXXXXX",
+      "student_remarks": [],
+      "total_remarks_l3": 0,
+      "university_name": null
     },
-    "STD-91EABBCE": {
-      "name": "Anjali Sharma",
-      "id": "STD-91EABBCE",
-      "phone": "9320000000",
-      "email": "Mun***@xxxxxx.com",
-      "stream": "Management, Agriculture, +2",
-      "level": "Diploma",
-      "degree": "Online B.com",
-      "specialization": "ACCA",
-      "studyMode": "Online",
-      "budget": "1,50,000",
-      "state": "Punjab",
-      "city": "Ludhiana",
-      "statusStep": "Fresh"
+    {
+      "student_id": "STD-D18FBAE2",
+      "student_name": "N/A",
+      "number_of_unread_messages": 0,
+      "assignedCounsellor": {
+        "counsellor_id": "CNS-9F569A69",
+        "counsellor_name": "Harsh Dummy",
+        "counsellor_email": "harsh.dummy@degreefyd.com",
+        "role": "l2"
+      },
+      "assignedCounsellorL3": {
+        "counsellor_id": null,
+        "counsellor_name": null,
+        "counsellor_email": null,
+        "role": null
+      },
+      "assignedEnrollmentCounsellor": {
+        "counsellor_id": null,
+        "counsellor_name": null,
+        "counsellor_email": null,
+        "role": null
+      },
+      "assigned_l3_date": null,
+      "assigned_team_owner_date": null,
+      "course_name": null,
+      "course_status": null,
+      "created_at": "2026-07-14T14:36:00.508Z",
+      "enrollment_counsellor_id_date": null,
+      "is_reactivity": false,
+      "is_reassigned_yet": true,
+      "last_call_date_l3": null,
+      "lead_activities": [
+        {
+          "utm_source": "",
+          "utm_medium": "",
+          "utm_campaign": "",
+          "utm_keyword": "",
+          "utm_campaign_id": "",
+          "created_at": "2026-07-14T14:36:00.529Z",
+          "lead_type": "",
+          "preferred_college_cll": [],
+          "source": "WhatsApp",
+          "source_url": "",
+          "utm_adgroup_id": "",
+          "utm_creative_id": ""
+        }
+      ],
+      "lead_type": "",
+      "mode": "Regular",
+      "next_call_date_l3": null,
+      "next_call_time_l3": null,
+      "preferred_college_cll": [],
+      "remark_count": 3,
+      "source": "WhatsApp",
+      "student_email": "901***@xxxxxx.com",
+      "student_phone": "9011XXXXXX",
+      "student_remarks": [
+        {
+          "remark_id": 949451,
+          "lead_status": "Pre Application",
+          "lead_sub_status": null
+        }
+      ],
+      "total_remarks_l3": 0,
+      "university_name": null
     },
-    "STD-92EABBCE": {
-      "name": "Ankit Sharma",
-      "id": "STD-92EABBCE",
-      "phone": "9306508269",
-      "email": "anirudh.sharma.ux@gmail.com",
-      "stream": "Management, Agriculture, +2",
-      "level": "Diploma",
-      "degree": "Online B.com",
-      "specialization": "ACCA",
-      "studyMode": "Online",
-      "budget": "1,50,000",
-      "state": "Punjab",
-      "city": "Ludhiana",
-      "statusStep": "Pre Application"
-    },
-    "STD-93EABBCE": {
-      "name": "Jaxon Lee",
-      "id": "STD-93EABBCE",
-      "phone": "7300000000",
-      "email": "Fun***@xxxxxx.com",
-      "stream": "Management, Agriculture, +2",
-      "level": "Diploma",
-      "degree": "Online B.com",
-      "specialization": "ACCA",
-      "studyMode": "Online",
-      "budget": "1,50,000",
-      "state": "Punjab",
-      "city": "Ludhiana",
-      "statusStep": "Fresh"
-    },
-    "STD-94EABBCE": {
-      "name": "Sofia Kim",
-      "id": "STD-94EABBCE",
-      "phone": "9300000000",
-      "email": "ani***@xxxxxx.com",
-      "stream": "Management, Agriculture, +2",
-      "level": "Diploma",
-      "degree": "Online B.com",
-      "specialization": "ACCA",
-      "studyMode": "Online",
-      "budget": "1,50,000",
-      "state": "Punjab",
-      "city": "Ludhiana",
-      "statusStep": "Fresh"
+    {
+      "student_id": "STD-26C30DCA",
+      "student_name": "N/A",
+      "number_of_unread_messages": 0,
+      "assignedCounsellor": {
+        "counsellor_id": "CNS-9F569A69",
+        "counsellor_name": "Harsh Dummy",
+        "counsellor_email": "harsh.dummy@degreefyd.com",
+        "role": "l2"
+      },
+      "assignedCounsellorL3": {
+        "counsellor_id": null,
+        "counsellor_name": null,
+        "counsellor_email": null,
+        "role": null
+      },
+      "assignedEnrollmentCounsellor": {
+        "counsellor_id": null,
+        "counsellor_name": null,
+        "counsellor_email": null,
+        "role": null
+      },
+      "assigned_l3_date": null,
+      "assigned_team_owner_date": null,
+      "course_name": null,
+      "course_status": null,
+      "created_at": "2026-07-14T10:57:00.497Z",
+      "enrollment_counsellor_id_date": null,
+      "is_reactivity": false,
+      "is_reassigned_yet": true,
+      "last_call_date_l3": null,
+      "lead_activities": [
+        {
+          "utm_source": "",
+          "utm_medium": "",
+          "utm_campaign": "",
+          "utm_keyword": "",
+          "utm_campaign_id": ""
+        }
+      ],
+      "lead_type": "",
+      "mode": "Regular",
+      "next_call_date_l3": null,
+      "next_call_time_l3": null,
+      "preferred_college_cll": [],
+      "remark_count": 5,
+      "source": "WhatsApp",
+      "student_email": "962***@xxxxxx.com",
+      "student_phone": "9625XXXXXX",
+      "student_remarks": [
+        {
+          "remark_id": 949481,
+          "lead_status": "Pre Application",
+          "lead_sub_status": null
+        }
+      ],
+      "total_remarks_l3": 0,
+      "university_name": null
     }
-  },
-  "DEFAULT_STUDENT": {
-    "name": "Ankit Sharma",
-    "id": "STD-92EABBCE",
-    "phone": "9306508269",
-    "email": "anirudh.sharma.ux@gmail.com",
-    "stream": "Management, Agriculture, +2",
-    "level": "Diploma",
-    "degree": "Online B.com",
-    "specialization": "ACCA",
-    "studyMode": "Online",
-    "budget": "1,50,000",
-    "state": "Punjab",
-    "city": "Ludhiana",
-    "statusStep": "Pre Application"
-  },
-  "PREFERENCE_FIELDS": [
-    { "label": "Stream", "value": "Management, Agriculture,", "extra": "+2" },
-    { "label": "Level", "value": "Diploma" },
-    { "label": "Degree", "value": "Online B.com" },
-    { "label": "Specialization", "value": "ACCA" },
-    { "label": "Study Mode", "value": "Online" },
-    { "label": "Preferred Budget", "value": "1,50,000" },
-    { "label": "Preferred State", "value": "Punjab" },
-    { "label": "Preferred City", "value": "Ludhiana" }
   ],
-  "ACTIVITY_FEED": [
-    { "answered": true, "name": "Vikash (You)", "time": "09:48:53", "badgeDate": "16 Apr 2026, 15:30" },
-    { "answered": false, "name": "Elena", "time": "10:15:40", "badgeDate": "17 Apr 2026, 09:00" },
-    { "answered": true, "name": "Marcus", "time": "12:30:22", "badgeDate": "18 Apr 2026, 11:45" },
-    { "answered": true, "name": "Vikash (You)", "time": "13:05:17", "badgeDate": "19 Apr 2026, 14:20" }
-  ],
-  "SYSTEM_ACTIVITY": {
-    "time": "13:05:17",
-    "source": "FaceBook_University_Admit",
-    "campaign": "teotla_university_2026_Online_Ad...",
-    "sourceUrl": "https://degreefyd.com/colleges/ign..."
+  "mask_details": {
+    "phone": "Shows first 4 digits followed by XXXXXX"
   },
-  "QA_ANSWERS": [
-    { "q": "which_course_are_you_most_interested_in?", "a": "online_bca" },
-    { "q": "when_do_you_plan_to_enroll_in_your_online_program?", "a": "within_the_next_month" },
-    { "q": "phone", "a": "+917838481891" }
-  ],
-  "TRAILING_ACTIVITY": { "answered": false, "name": "Elena", "time": "10:15:40", "badgeDate": "17 Apr 2026, 09:00" }
+  "mask_note": "Phone numbers and emails are masked for privacy",
+  "overallStats": {
+    "total": 3,
+    "freshLeads": 0,
+    "todayCallbacks": 2,
+    "wishlistCount": 0,
+    "intentHot": 0,
+    "intentWarm": 0
+  },
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 1,
+    "totalRecords": 3,
+    "limit": 10,
+    "hasNextPage": false,
+    "hasPrevPage": false
+  },
+  "viewInfo": {
+    "userRole": "l2",
+    "userId": "CNS-9F569A69",
+    "isSupervisorView": false
+  }
 }
