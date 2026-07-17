@@ -176,7 +176,7 @@ export default function StudentDetailsClient({ leadId }) {
     <div className="w-full h-full flex font-poppins text-left overflow-hidden">
       
       {/* Left Column (Student Details & Lead Status) - Scrollable */}
-      <div className="flex-1 h-full overflow-y-auto pt-[24px] pb-[40px] pl-[24px] pr-[12px] bg-[#F7F8FA] flex flex-col gap-[20px] relative no-scrollbar">
+      <div className="flex-1 h-full overflow-y-auto pt-[24px] pb-[40px] pl-[24px] pr-[16px] bg-[#F7F8FA] flex flex-col gap-[20px] relative no-scrollbar">
         
         {/* Back to Dashboard */}
         <div>
