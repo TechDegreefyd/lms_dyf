@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import FiltersDrawer from "@/components/layout/FiltersDrawer";
+import mockLeadsResponse from "@/app/mock-data/leads-response.json";
 
 // Custom stats icons matching Figma design
 const FRESH_LEADS_ICON = (
@@ -58,28 +59,25 @@ const TOTAL_LEADS_ICON = (
 );
 
 // 6 Stats Cards matching Image 11 exactly with bottom borders
-const STATS_DATA = [
-  { label: "Fresh Leads", value: "15", icon: FRESH_LEADS_ICON, borderColor: "#EAB308" },
-  { label: "Today's Callback", value: "04", icon: TODAY_CALLBACK_ICON, borderColor: "#1D4ED8" },
-  { label: "Reactive Students", value: "114", icon: REACTIVE_STUDENTS_ICON, borderColor: "#EA580C" },
-  { label: "Not Connected Yet", value: "56", icon: NOT_CONNECTED_ICON, borderColor: "#DC2626" },
-  { label: "Unread Messages", value: "03", icon: UNREAD_MESSAGES_ICON, borderColor: "#16A34A" },
-  { label: "Total leads", value: "1411", icon: TOTAL_LEADS_ICON, borderColor: "#475569" },
-];
-
-// Exact 5 data rows as specified in the mockup
-const MOCK_LEADS = [
-  { createdOn: "Dec 1, 2025, 02:12 PM", remark: "67", leadId: "STD-90EABBCE", name: "RAJENDRA SHARMA", phone: "931XXXXXXX", mail: "kin***@xxxxxx.com", lastCall: "Dec 03, 2025", whatsappBadge: 2 },
-  { createdOn: "Feb 14, 2026, 11:59 AM", remark: "68", leadId: "STD-91EABBCE", name: "Anjali Sharma", phone: "932XXXXXXX", mail: "Mun***@xxxxxx.com", lastCall: "Jul 04, 2026", whatsappBadge: 0 },
-  { createdOn: "Mar 27, 2026, 04:32 AM", remark: "69", leadId: "STD-92EABBCE", name: "Nina Patel", phone: "833XXXXXXX", mail: "Sun***@xxxxxx.com", lastCall: "Sep 12, 2026", whatsappBadge: 0 },
-  { createdOn: "Apr 09, 2026, 08:01 PM", remark: "70", leadId: "STD-93EABBCE", name: "Jaxon Lee", phone: "730XXXXXXX", mail: "Fun***@xxxxxx.com", lastCall: "Apr 14, 2026", whatsappBadge: 5 },
-  { createdOn: "May 12, 2026, 01:23 PM", remark: "71", leadId: "STD-94EABBCE", name: "Sofia Kim", phone: "930XXXXXXX", mail: "ani***@xxxxxx.com", lastCall: "Jun 11, 2026", whatsappBadge: 6 },
+const getStatsData = (stats) => [
+  { label: "Fresh Leads", value: String(stats.freshLeads ?? 0), icon: FRESH_LEADS_ICON, borderColor: "#EAB308" },
+  { label: "Today's Callback", value: String(stats.todayCallbacks ?? 0), icon: TODAY_CALLBACK_ICON, borderColor: "#1D4ED8" },
+  { label: "Reactive Students", value: String(stats.reactivityCount ?? 0), icon: REACTIVE_STUDENTS_ICON, borderColor: "#EA580C" },
+  { label: "Not Connected Yet", value: String(stats.notConnectedYet ?? 0), icon: NOT_CONNECTED_ICON, borderColor: "#DC2626" },
+  { label: "Unread Messages", value: String(stats.allUnreadMessagesCount ?? 0), icon: UNREAD_MESSAGES_ICON, borderColor: "#16A34A" },
+  { label: "Total leads", value: String(stats.total ?? 0), icon: TOTAL_LEADS_ICON, borderColor: "#475569" },
 ];
 
 export default function DashboardOverview() {
-  const [leads] = useState(MOCK_LEADS);
+  const [leads, setLeads] = useState([]);
+  const [stats, setStats] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [showFilters, setShowFilters] = useState(false);
+
+  useEffect(() => {
+    setLeads(mockLeadsResponse.data || []);
+    setStats(mockLeadsResponse.overallStats || {});
+  }, []);
 
   const renderSortIndicator = () => (
     <svg className="inline ml-1 text-slate-400" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -88,9 +86,18 @@ export default function DashboardOverview() {
   );
 
   const filteredLeads = leads.filter(
-    (lead) =>
-      lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      lead.leadId.toLowerCase().includes(searchTerm.toLowerCase())
+    (lead) => {
+      const name = lead.student_name || "";
+      const leadId = lead.student_id || "";
+      const email = lead.student_email || "";
+      const phone = lead.student_phone || "";
+      return (
+        name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        leadId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        phone.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
   );
 
   return (
@@ -103,7 +110,7 @@ export default function DashboardOverview() {
 
       {/* Stats Cards Row (6 Columns, gap 16px, each has a colored bottom border) */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-[16px] mb-6">
-        {STATS_DATA.map((stat, i) => (
+        {getStatsData(stats).map((stat, i) => (
           <div
             key={i}
             className="flex flex-col justify-between h-[92px] p-[12px] bg-white border border-[#E5E9EC] rounded-[8px] transition-all duration-200 hover:shadow-sm"
@@ -206,68 +213,75 @@ export default function DashboardOverview() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-[13px] text-slate-600 font-medium">
-              {filteredLeads.map((lead, idx) => (
-                <tr key={lead.leadId} className={`hover:bg-slate-50/60 transition-colors ${idx % 2 === 0 ? "bg-slate-50/30" : "bg-white"}`}>
-                  
-                  {/* Created On with Calendar icon */}
-                  <td className="px-[16px] py-3.5 whitespace-nowrap">
-                    <span className="flex items-center gap-2 text-slate-500 font-normal">
-                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-slate-400 shrink-0">
-                        <path d="M11.4001 3V5.4M6.6001 3V5.4M3.6001 7.8H14.4001M6.6001 10.2H6.6061M9.0001 10.2H9.0061M11.4001 10.2H11.4061M6.6001 12.6H6.6061M9.0001 12.6H9.0061M11.4001 12.6H11.4061M4.8001 4.2H13.2001C13.8628 4.2 14.4001 4.73726 14.4001 5.4V13.8C14.4001 14.4627 13.8628 15 13.2001 15H4.8001C4.13736 15 3.6001 14.4627 3.6001 13.8V5.4C3.6001 4.73726 4.13736 4.2 4.8001 4.2Z" stroke="#121212" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <span>{lead.createdOn}</span>
-                    </span>
-                  </td>
+              {filteredLeads.map((lead, idx) => {
+                const createdOn = lead.created_at ? new Date(lead.created_at).toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "N/A";
+                const lastCall = lead.last_call_date_l3 ? new Date(lead.last_call_date_l3).toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" }) : "N/A";
+                const studentName = lead.student_name === "N/A" ? "ANONYMOUS STUDENT" : lead.student_name;
+                const whatsappBadge = lead.number_of_unread_messages ?? 0;
 
-                  {/* Remark */}
-                  <td className="px-[16px] py-3.5 whitespace-nowrap text-slate-500 font-normal">{lead.remark}</td>
+                return (
+                  <tr key={lead.student_id} className={`hover:bg-slate-50/60 transition-colors ${idx % 2 === 0 ? "bg-slate-50/30" : "bg-white"}`}>
+                    
+                    {/* Created On with Calendar icon */}
+                    <td className="px-[16px] py-3.5 whitespace-nowrap">
+                      <span className="flex items-center gap-2 text-slate-500 font-normal">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-slate-400 shrink-0">
+                          <path d="M11.4001 3V5.4M6.6001 3V5.4M3.6001 7.8H14.4001M6.6001 10.2H6.6061M9.0001 10.2H9.0061M11.4001 10.2H11.4061M6.6001 12.6H6.6061M9.0001 12.6H9.0061M11.4001 12.6H11.4061M4.8001 4.2H13.2001C13.8628 4.2 14.4001 4.73726 14.4001 5.4V13.8C14.4001 14.4627 13.8628 15 13.2001 15H4.8001C4.13736 15 3.6001 14.4627 3.6001 13.8V5.4C3.6001 4.73726 4.13736 4.2 4.8001 4.2Z" stroke="#121212" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <span>{createdOn}</span>
+                      </span>
+                    </td>
 
-                  {/* Lead ID */}
-                  <td className="px-[16px] py-3.5 whitespace-nowrap">
-                    <Link href={`/student-details/${lead.leadId}`} className="text-[#0D3B59] hover:underline font-semibold">
-                      {lead.leadId}
-                    </Link>
-                  </td>
+                    {/* Remark */}
+                    <td className="px-[16px] py-3.5 whitespace-nowrap text-slate-500 font-normal">{lead.remark_count}</td>
 
-                  {/* Student Name */}
-                  <td className="px-[16px] py-3.5 whitespace-nowrap text-slate-800 font-semibold">
-                    <Link href={`/student-details/${lead.leadId}`} className="hover:underline">
-                      {lead.name}
-                    </Link>
-                  </td>
+                    {/* Lead ID */}
+                    <td className="px-[16px] py-3.5 whitespace-nowrap">
+                      <Link href={`/student-details/${lead.student_id}`} className="text-[#0D3B59] hover:underline font-semibold">
+                        {lead.student_id}
+                      </Link>
+                    </td>
 
-                  {/* Phone */}
-                  <td className="px-[16px] py-3.5 whitespace-nowrap text-slate-600 font-normal">{lead.phone}</td>
+                    {/* Student Name */}
+                    <td className="px-[16px] py-3.5 whitespace-nowrap text-slate-800 font-semibold">
+                      <Link href={`/student-details/${lead.student_id}`} className="hover:underline">
+                        {studentName}
+                      </Link>
+                    </td>
 
-                  {/* Mail */}
-                  <td className="px-[16px] py-3.5 whitespace-nowrap text-slate-600 font-normal">{lead.mail}</td>
+                    {/* Phone */}
+                    <td className="px-[16px] py-3.5 whitespace-nowrap text-slate-600 font-normal">{lead.student_phone}</td>
 
-                  {/* Last Call with Calendar icon */}
-                  <td className="px-[16px] py-3.5 whitespace-nowrap">
-                    <span className="flex items-center gap-2 text-slate-500 font-normal">
-                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-slate-400 shrink-0">
-                        <path d="M11.4001 3V5.4M6.6001 3V5.4M3.6001 7.8H14.4001M6.6001 10.2H6.6061M9.0001 10.2H9.0061M11.4001 10.2H11.4061M6.6001 12.6H6.6061M9.0001 12.6H9.0061M11.4001 12.6H11.4061M4.8001 4.2H13.2001C13.8628 4.2 14.4001 4.73726 14.4001 5.4V13.8C14.4001 14.4627 13.8628 15 13.2001 15H4.8001C4.13736 15 3.6001 14.4627 3.6001 13.8V5.4C3.6001 4.73726 4.13736 4.2 4.8001 4.2Z" stroke="#121212" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <span>{lead.lastCall}</span>
-                    </span>
-                  </td>
+                    {/* Mail */}
+                    <td className="px-[16px] py-3.5 whitespace-nowrap text-slate-600 font-normal">{lead.student_email}</td>
 
-                  {/* WhatsApp green icon with notification badge */}
-                  <td className="px-[16px] py-3.5 whitespace-nowrap text-right">
-                    <div className="relative inline-block align-middle cursor-pointer">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="hover:scale-105 transition-transform">
-                        <path d="M12.0377 3.29028C7.09761 3.29028 3.07723 7.16261 3.07548 11.9216C3.07432 13.4434 3.48774 14.9287 4.27161 16.2369L3 20.7096L7.75142 19.5094C9.07309 20.2008 10.5427 20.5614 12.0343 20.5604H12.0377C16.9779 20.5604 20.9983 16.6875 21 11.9285C21.0012 9.62338 20.0698 7.45351 18.3772 5.82248C16.6852 4.19086 14.4352 3.29086 12.0377 3.29028ZM12.0377 19.1024H12.0348C10.6982 19.1024 9.3871 18.7563 8.24323 18.1025L7.97032 17.9469L5.15187 18.6588L5.90439 16.0111L5.72729 15.7399C4.98343 14.6007 4.58745 13.2782 4.58806 11.9216C4.58981 7.96564 7.932 4.74828 12.0406 4.74828C14.0299 4.74886 15.9002 5.49615 17.3071 6.85196C18.714 8.20777 19.488 10.0107 19.4868 11.928C19.4851 15.8839 16.1435 19.1024 12.0372 19.1024H12.0377ZM16.1237 13.7285C15.8996 13.6211 14.7987 13.0991 14.5932 13.0265C14.3882 12.9551 14.239 12.918 14.0897 13.134C13.9411 13.35 13.5114 13.836 13.3814 13.9794C13.2501 14.1234 13.1195 14.1408 12.8954 14.0334C12.6712 13.9254 11.9495 13.6978 11.0948 12.9627C10.4288 12.3913 9.97935 11.6853 9.84871 11.4687C9.71806 11.2533 9.83477 11.1365 9.94684 11.0291C10.0473 10.9333 10.171 10.7777 10.2825 10.6517C10.3939 10.5257 10.4311 10.4357 10.5066 10.2917C10.5809 10.1483 10.5437 10.0217 10.4874 9.91428C10.4311 9.8057 9.984 8.74428 9.79645 8.31286C9.61529 7.89248 9.43064 7.9488 9.29303 7.94183C9.16239 7.93603 9.01374 7.93428 8.86335 7.93428C8.71529 7.93428 8.472 7.98828 8.26645 8.20428C8.06148 8.42028 7.48258 8.9417 7.48258 10.0031C7.48258 11.0651 8.28503 12.0905 8.3971 12.2345C8.50916 12.378 9.97645 14.5571 12.223 15.492C12.7572 15.7132 13.1741 15.8462 13.4998 15.946C14.0363 16.1103 14.5246 16.0865 14.9102 16.0314C15.3399 15.9693 16.2352 15.51 16.421 15.0065C16.608 14.5031 16.608 14.0711 16.5523 13.9811C16.4977 13.8911 16.3479 13.8371 16.1237 13.7285Z" fill="#25D366" />
-                      </svg>
-                      {lead.whatsappBadge > 0 && (
-                        <span className="absolute -top-1.5 -right-1.5 bg-[#BC3B3B] text-white text-[9px] font-bold w-[17px] h-[17px] rounded-full flex items-center justify-center border-2 border-white">
-                          {lead.whatsappBadge}
-                        </span>
-                      )}
-                    </div>
-                  </td>
+                    {/* Last Call with Calendar icon */}
+                    <td className="px-[16px] py-3.5 whitespace-nowrap">
+                      <span className="flex items-center gap-2 text-slate-500 font-normal">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-slate-400 shrink-0">
+                          <path d="M11.4001 3V5.4M6.6001 3V5.4M3.6001 7.8H14.4001M6.6001 10.2H6.6061M9.0001 10.2H9.0061M11.4001 10.2H11.4061M6.6001 12.6H6.6061M9.0001 12.6H9.0061M11.4001 12.6H11.4061M4.8001 4.2H13.2001C13.8628 4.2 14.4001 4.73726 14.4001 5.4V13.8C14.4001 14.4627 13.8628 15 13.2001 15H4.8001C4.13736 15 3.6001 14.4627 3.6001 13.8V5.4C3.6001 4.73726 4.13736 4.2 4.8001 4.2Z" stroke="#121212" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <span>{lastCall}</span>
+                      </span>
+                    </td>
 
-                </tr>
-              ))}
+                    {/* WhatsApp green icon with notification badge */}
+                    <td className="px-[16px] py-3.5 whitespace-nowrap text-right">
+                      <div className="relative inline-block align-middle cursor-pointer">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="hover:scale-105 transition-transform">
+                          <path d="M12.0377 3.29028C7.09761 3.29028 3.07723 7.16261 3.07548 11.9216C3.07432 13.4434 3.48774 14.9287 4.27161 16.2369L3 20.7096L7.75142 19.5094C9.07309 20.2008 10.5427 20.5614 12.0343 20.5604H12.0377C16.9779 20.5604 20.9983 16.6875 21 11.9285C21.0012 9.62338 20.0698 7.45351 18.3772 5.82248C16.6852 4.19086 14.4352 3.29086 12.0377 3.29028ZM12.0377 19.1024H12.0348C10.6982 19.1024 9.3871 18.7563 8.24323 18.1025L7.97032 17.9469L5.15187 18.6588L5.90439 16.0111L5.72729 15.7399C4.98343 14.6007 4.58745 13.2782 4.58806 11.9216C4.58981 7.96564 7.932 4.74828 12.0406 4.74828C14.0299 4.74886 15.9002 5.49615 17.3071 6.85196C18.714 8.20777 19.488 10.0107 19.4868 11.928C19.4851 15.8839 16.1435 19.1024 12.0372 19.1024H12.0377ZM16.1237 13.7285C15.8996 13.6211 14.7987 13.0991 14.5932 13.0265C14.3882 12.9551 14.239 12.918 14.0897 13.134C13.9411 13.35 13.5114 13.836 13.3814 13.9794C13.2501 14.1234 13.1195 14.1408 12.8954 14.0334C12.6712 13.9254 11.9495 13.6978 11.0948 12.9627C10.4288 12.3913 9.97935 11.6853 9.84871 11.4687C9.71806 11.2533 9.83477 11.1365 9.94684 11.0291C10.0473 10.9333 10.171 10.7777 10.2825 10.6517C10.3939 10.5257 10.4311 10.4357 10.5066 10.2917C10.5809 10.1483 10.5437 10.0217 10.4874 9.91428C10.4311 9.8057 9.984 8.74428 9.79645 8.31286C9.61529 7.89248 9.43064 7.9488 9.29303 7.94183C9.16239 7.93603 9.01374 7.93428 8.86335 7.93428C8.71529 7.93428 8.472 7.98828 8.26645 8.20428C8.06148 8.42028 7.48258 8.9417 7.48258 10.0031C7.48258 11.0651 8.28503 12.0905 8.3971 12.2345C8.50916 12.378 9.97645 14.5571 12.223 15.492C12.7572 15.7132 13.1741 15.8462 13.4998 15.946C14.0363 16.1103 14.5246 16.0865 14.9102 16.0314C15.3399 15.9693 16.2352 15.51 16.421 15.0065C16.608 14.5031 16.608 14.0711 16.5523 13.9811C16.4977 13.8911 16.3479 13.8371 16.1237 13.7285Z" fill="#25D366" />
+                        </svg>
+                        {whatsappBadge > 0 && (
+                          <span className="absolute -top-1.5 -right-1.5 bg-[#BC3B3B] text-white text-[9px] font-bold w-[17px] h-[17px] rounded-full flex items-center justify-center border-2 border-white">
+                            {whatsappBadge}
+                          </span>
+                        )}
+                      </div>
+                    </td>
+
+                  </tr>
+                );
+              })}
               {filteredLeads.length === 0 && (
                 <tr>
                   <td colSpan="8" className="px-6 py-8 text-center text-slate-400">
