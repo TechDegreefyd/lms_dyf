@@ -23,7 +23,7 @@ const FLOATING_EDIT_ICON = (
 );
 
 const PHONE_CALL_ICON = (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#007B2D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
   </svg>
 );
@@ -443,130 +443,154 @@ export default function StudentDetailsClient({ leadId }) {
           </span>
 
           {/* Activities list */}
-          <div className="flex flex-col gap-[20px] relative pl-[20px] border-l-2 border-[#E5E9EC] ml-[10px]">
+          <div className="flex flex-col gap-[20px] relative pl-[28px] border-l-2 border-[#E5E9EC] ml-[16px]">
             
             {/* Activity item 1 */}
-            <div className="flex flex-col relative">
+            <div className="flex items-center justify-between w-full py-[8px] pl-[12px] relative">
               {/* Timeline dot circle indicator */}
-              <div className="absolute left-[-29px] top-0 w-[18px] h-[18px] rounded-full bg-[#DCFCE7] flex items-center justify-center border border-white">
+              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#DCFCE7] flex items-center justify-center border-2 border-white z-10">
                 {PHONE_CALL_ICON}
               </div>
               <div className="flex flex-col">
-                <div className="flex items-baseline gap-[6px]">
-                  <span className="text-[13px] font-semibold text-[#121212]">Vikash (You)</span>
-                  <span className="text-[11px] font-medium text-[#EA580C]">16 Apr 2026, 15:30</span>
-                </div>
+                <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">Vikash (You)</span>
                 <span className="text-[12px] text-[#808080] mt-0.5">09:48:53</span>
+              </div>
+              <div className="flex items-center gap-[12px]">
+                <span className="text-[11px] font-semibold px-[10px] py-[4px] rounded-[28px] bg-[rgba(0,123,45,0.10)] text-[#007B2D] whitespace-nowrap font-poppins">
+                  16 Apr 2026, 15:30
+                </span>
+                <span className="text-[#121212] shrink-0">
+                  {CHEVRON_DOWN_ICON}
+                </span>
               </div>
             </div>
 
             {/* Activity item 2 */}
-            <div className="flex flex-col relative">
+            <div className="flex items-center justify-between w-full py-[8px] pl-[12px] relative">
               {/* Timeline dot circle indicator */}
-              <div className="absolute left-[-29px] top-0 w-[18px] h-[18px] rounded-full bg-[#FEE2E2] flex items-center justify-center border border-white">
+              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#FEE2E2] flex items-center justify-center border-2 border-white z-10">
                 {PHONE_MISSED_ICON}
               </div>
               <div className="flex flex-col">
-                <div className="flex items-baseline gap-[6px]">
-                  <span className="text-[13px] font-semibold text-[#121212]">Elena</span>
-                  <span className="text-[11px] font-medium text-[#EA580C]">17 Apr 2026, 09:00</span>
-                </div>
+                <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">Elena</span>
                 <span className="text-[12px] text-[#808080] mt-0.5">10:15:40</span>
+              </div>
+              <div className="flex items-center gap-[12px]">
+                <span className="text-[11px] font-semibold px-[10px] py-[4px] rounded-[28px] bg-[rgba(220,38,38,0.10)] text-[#DC2626] whitespace-nowrap font-poppins">
+                  17 Apr 2026, 09:00
+                </span>
+                <span className="text-[#121212] shrink-0">
+                  {CHEVRON_DOWN_ICON}
+                </span>
               </div>
             </div>
 
             {/* Activity item 3 */}
-            <div className="flex flex-col relative">
+            <div className="flex items-center justify-between w-full py-[8px] pl-[12px] relative">
               {/* Timeline dot circle indicator */}
-              <div className="absolute left-[-29px] top-0 w-[18px] h-[18px] rounded-full bg-[#DCFCE7] flex items-center justify-center border border-white">
+              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#DCFCE7] flex items-center justify-center border-2 border-white z-10">
                 {PHONE_CALL_ICON}
               </div>
               <div className="flex flex-col">
-                <div className="flex items-baseline gap-[6px]">
-                  <span className="text-[13px] font-semibold text-[#121212]">Marcus</span>
-                  <span className="text-[11px] font-medium text-[#EA580C]">18 Apr 2026, 11:45</span>
-                </div>
+                <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">Marcus</span>
                 <span className="text-[12px] text-[#808080] mt-0.5">12:30:22</span>
+              </div>
+              <div className="flex items-center gap-[12px]">
+                <span className="text-[11px] font-semibold px-[10px] py-[4px] rounded-[28px] bg-[rgba(0,123,45,0.10)] text-[#007B2D] whitespace-nowrap font-poppins">
+                  18 Apr 2026, 11:45
+                </span>
+                <span className="text-[#121212] shrink-0">
+                  {CHEVRON_DOWN_ICON}
+                </span>
               </div>
             </div>
 
             {/* Activity item 4 */}
-            <div className="flex flex-col relative">
+            <div className="flex items-center justify-between w-full py-[8px] pl-[12px] relative">
               {/* Timeline dot circle indicator */}
-              <div className="absolute left-[-29px] top-0 w-[18px] h-[18px] rounded-full bg-[#DCFCE7] flex items-center justify-center border border-white">
+              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#DCFCE7] flex items-center justify-center border-2 border-white z-10">
                 {PHONE_CALL_ICON}
               </div>
               <div className="flex flex-col">
-                <div className="flex items-baseline gap-[6px]">
-                  <span className="text-[13px] font-semibold text-[#121212]">Vikash (You)</span>
-                  <span className="text-[11px] font-medium text-[#EA580C]">19 Apr 2026, 14:20</span>
-                </div>
+                <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">Vikash (You)</span>
                 <span className="text-[12px] text-[#808080] mt-0.5">13:05:17</span>
+              </div>
+              <div className="flex items-center gap-[12px]">
+                <span className="text-[11px] font-semibold px-[10px] py-[4px] rounded-[28px] bg-[rgba(0,123,45,0.10)] text-[#007B2D] whitespace-nowrap font-poppins font-poppins">
+                  19 Apr 2026, 14:20
+                </span>
+                <span className="text-[#121212] shrink-0">
+                  {CHEVRON_DOWN_ICON}
+                </span>
               </div>
             </div>
 
             {/* Activity item 5 (System log) */}
-            <div className="flex flex-col relative">
+            <div className="flex items-center justify-between w-full py-[8px] pl-[12px] relative">
               {/* Timeline dot circle indicator */}
-              <div className="absolute left-[-29px] top-0 w-[18px] h-[18px] rounded-full bg-[#F1F5F9] flex items-center justify-center border border-white">
+              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#F1F5F9] flex items-center justify-center border-2 border-white z-10">
                 {SYSTEM_LOG_ICON}
               </div>
               <div className="flex flex-col">
-                <div className="flex items-baseline gap-[6px]">
-                  <span className="text-[13px] font-semibold text-[#121212]">System</span>
-                </div>
+                <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">System</span>
                 <span className="text-[12px] text-[#808080] mt-0.5">13:05:17</span>
               </div>
+              <div className="w-[100px]" />
             </div>
 
           </div>
 
           {/* Custom metadata items */}
-          <div className="flex flex-col gap-[8px] mt-[24px] border-t border-[#E5E9EC] pt-[16px]">
-            <div className="text-[13px] text-[#121212] font-normal leading-normal">
+          <div className="flex flex-col gap-[8px] mt-[24px] border-t border-[#E5E9EC] pt-[16px] pl-[44px]">
+            <div className="text-[13px] text-[#121212] font-normal leading-normal font-poppins">
               <span className="text-[#808080] inline-block w-[90px]">Source -</span> FaceBook_University_Admit
             </div>
-            <div className="text-[13px] text-[#121212] font-normal leading-normal">
+            <div className="text-[13px] text-[#121212] font-normal leading-normal font-poppins">
               <span className="text-[#808080] inline-block w-[90px]">Campaign -</span> teotla_university_2026_Online_Ad...
             </div>
-            <div className="text-[13px] text-[#121212] font-normal leading-normal">
+            <div className="text-[13px] text-[#121212] font-normal leading-normal font-poppins">
               <span className="text-[#808080] inline-block w-[90px]">Source URL -</span> <a href="https://degreefyd.com/colleges/ign" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] hover:underline">https://degreefyd.com/colleges/ign...</a>
             </div>
           </div>
 
           {/* Custom Questions with input/text layout */}
-          <div className="flex flex-col gap-[12px] mt-[16px]">
+          <div className="flex flex-col gap-[12px] mt-[16px] pl-[44px] pr-[16px]">
             
             <div className="w-full border border-[#E5E9EC] rounded-[8px] p-[12px] flex flex-col bg-white">
-              <span className="text-[11px] text-[#808080] font-normal">which_course_are_you_most_interested_in?</span>
-              <span className="text-[13px] font-semibold text-[#121212] mt-[4px]">online_bca</span>
+              <span className="text-[11px] text-[#808080] font-normal font-poppins">which_course_are_you_most_interested_in?</span>
+              <span className="text-[13px] font-semibold text-[#121212] mt-[4px] font-poppins">online_bca</span>
             </div>
 
             <div className="w-full border border-[#E5E9EC] rounded-[8px] p-[12px] flex flex-col bg-white">
-              <span className="text-[11px] text-[#808080] font-normal">when_do_you_plan_to_enroll_in_your_online_program?</span>
-              <span className="text-[13px] font-semibold text-[#121212] mt-[4px]">within_the_next_month</span>
+              <span className="text-[11px] text-[#808080] font-normal font-poppins">when_do_you_plan_to_enroll_in_your_online_program?</span>
+              <span className="text-[13px] font-semibold text-[#121212] mt-[4px] font-poppins">within_the_next_month</span>
             </div>
 
             <div className="w-full border border-[#E5E9EC] rounded-[8px] p-[12px] flex flex-col bg-white">
-              <span className="text-[11px] text-[#808080] font-normal">phone</span>
-              <span className="text-[13px] font-semibold text-[#121212] mt-[4px]">+917838481891</span>
+              <span className="text-[11px] text-[#808080] font-normal font-poppins">phone</span>
+              <span className="text-[13px] font-semibold text-[#121212] mt-[4px] font-poppins">+917838481891</span>
             </div>
 
           </div>
 
           {/* Additional timeline log entry at bottom */}
-          <div className="flex flex-col relative pl-[20px] border-l-2 border-[#E5E9EC] ml-[10px] mt-[24px] pb-6">
-            <div className="flex flex-col relative">
+          <div className="flex flex-col relative pl-[28px] border-l-2 border-[#E5E9EC] ml-[16px] mt-[24px] pb-6">
+            <div className="flex items-center justify-between w-full py-[8px] pl-[12px] relative">
               {/* Timeline dot circle indicator */}
-              <div className="absolute left-[-29px] top-0 w-[18px] h-[18px] rounded-full bg-[#FEE2E2] flex items-center justify-center border border-white">
+              <div className="absolute left-[-17px] top-1/2 -translate-y-1/2 w-[32px] h-[32px] rounded-full bg-[#FEE2E2] flex items-center justify-center border-2 border-white z-10">
                 {PHONE_MISSED_ICON}
               </div>
               <div className="flex flex-col">
-                <div className="flex items-baseline gap-[6px]">
-                  <span className="text-[13px] font-semibold text-[#121212]">Elena</span>
-                  <span className="text-[11px] font-medium text-[#EA580C]">17 Apr 2026, 09:00</span>
-                </div>
+                <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">Elena</span>
                 <span className="text-[12px] text-[#808080] mt-0.5">10:15:40</span>
+              </div>
+              <div className="flex items-center gap-[12px]">
+                <span className="text-[11px] font-semibold px-[10px] py-[4px] rounded-[28px] bg-[rgba(220,38,38,0.10)] text-[#DC2626] whitespace-nowrap font-poppins">
+                  17 Apr 2026, 09:00
+                </span>
+                <span className="text-[#121212] shrink-0">
+                  {CHEVRON_DOWN_ICON}
+                </span>
               </div>
             </div>
           </div>
