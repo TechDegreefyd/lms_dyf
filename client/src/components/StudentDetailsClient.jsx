@@ -351,27 +351,27 @@ export default function StudentDetailsClient({ leadId }) {
       </div>
 
       {/* Right Column (Student Activity Sidebar) - docked, matches Figma full height specs */}
-      <div className="flex w-[372px] h-full flex-col items-start gap-[8px] p-[12px] bg-white border-l border-[#ECECEC] shrink-0 overflow-y-auto no-scrollbar">
+      <div className="flex w-[372px] h-[1069px] flex-col items-start gap-[8px] p-[12px] bg-white border-l border-[#ECECEC] shrink-0 overflow-y-auto no-scrollbar">
         
-        {/* Header title and filter dropdown */}
-        <div className="flex items-center justify-between w-full pb-[16px] border-b border-[#E5E9EC] shrink-0">
-          <span className="text-[16px] font-bold text-[#121212] font-poppins">
-            Student Activity
+        {/* Header title */}
+        <span className="text-[16px] font-bold text-[#121212] font-poppins mb-[4px] block select-none">
+          Student Activity
+        </span>
+        
+        {/* Filter dropdown */}
+        <div className="relative mb-[16px]">
+          <select
+            value={activityFilter}
+            onChange={(e) => setActivityFilter(e.target.value)}
+            className="w-[120px] h-[36px] border border-[#CFD8DE] rounded-[8px] pl-[12px] pr-[28px] bg-white text-[13px] text-[#121212] font-poppins font-normal outline-none appearance-none cursor-pointer"
+          >
+            <option value="All">All</option>
+            <option value="Calls">Calls</option>
+            <option value="System">System</option>
+          </select>
+          <span className="pointer-events-none absolute right-[10px] top-1/2 -translate-y-1/2">
+            {CHEVRON_DOWN_ICON}
           </span>
-          <div className="relative">
-            <select
-              value={activityFilter}
-              onChange={(e) => setActivityFilter(e.target.value)}
-              className="border border-[#CFD8DE] rounded-[8px] pl-[12px] pr-[28px] py-[6px] bg-white text-[13px] text-[#121212] font-poppins font-normal outline-none appearance-none cursor-pointer"
-            >
-              <option value="All">All</option>
-              <option value="Calls">Calls</option>
-              <option value="System">System</option>
-            </select>
-            <span className="pointer-events-none absolute right-[8px] top-1/2 -translate-y-1/2">
-              {CHEVRON_DOWN_ICON}
-            </span>
-          </div>
         </div>
 
         {/* Scrollable Timeline activities content */}
@@ -404,11 +404,7 @@ export default function StudentDetailsClient({ leadId }) {
                 </div>
                 <div className="flex items-center gap-[12px]">
                   <span 
-                    className="text-[11px] font-semibold px-[10px] py-[4px] rounded-[28px] whitespace-nowrap font-poppins font-semibold"
-                    style={{
-                      backgroundColor: entry.answered ? "rgba(0, 123, 45, 0.10)" : "rgba(220, 38, 38, 0.10)",
-                      color: entry.answered ? "#007B2D" : "#DC2626",
-                    }}
+                    className="text-[11px] font-semibold px-[10px] py-[4px] rounded-[28px] whitespace-nowrap font-poppins text-[#ED923D] bg-[rgba(237,146,61,0.10)]"
                   >
                     {entry.badgeDate}
                   </span>
@@ -468,7 +464,7 @@ export default function StudentDetailsClient({ leadId }) {
                 <span className="text-[13px] font-semibold text-[#121212] leading-tight font-poppins">{TRAILING_ACTIVITY.name}</span>
                 <span className="text-[12px] text-[#808080] mt-0.5">{TRAILING_ACTIVITY.time}</span>
               </div>
-              <span className="text-[12px] font-semibold rounded-[6px] px-[10px] py-[5px] bg-[#FCEAEA] text-[#D64545] whitespace-nowrap font-poppins">
+              <span className="text-[11px] font-semibold rounded-[28px] px-[10px] py-[4px] bg-[rgba(237,146,61,0.10)] text-[#ED923D] whitespace-nowrap font-poppins">
                 {TRAILING_ACTIVITY.badgeDate}
               </span>
             </div>
