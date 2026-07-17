@@ -2,7 +2,6 @@
 
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
-import Footer from "@/components/layout/Footer";
 import StudentDetailsClient from "@/components/StudentDetailsClient";
 import { use } from "react";
 
@@ -15,18 +14,16 @@ export default function StudentDetailsPage({ params }) {
   const leadId = unwrappedParams.leadId;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F8FA] font-poppins">
+    <div className="h-screen flex flex-col bg-[#F7F8FA] font-poppins overflow-hidden">
       <Header />
 
-      <div className="flex flex-1 w-full max-w-[1440px] mx-auto px-[24px] pt-[24px] gap-[24px]">
+      <div className="flex flex-1 w-full mx-auto min-h-0 overflow-hidden">
         <Sidebar />
 
-        <main className="flex-1 min-w-0">
+        <main className="flex-1 min-w-0 h-full overflow-hidden">
           <StudentDetailsClient leadId={leadId} />
         </main>
       </div>
-
-      <Footer />
     </div>
   );
 }
