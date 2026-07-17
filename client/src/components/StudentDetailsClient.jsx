@@ -919,26 +919,10 @@ function ShortlistedTab({ dbStudent }) {
                           <span className="w-[110px] shrink-0 text-[#717171]">
                             {courseItem.totalFee}
                           </span>
-                          <span className="w-[100px] shrink-0 flex justify-end">
-                            <button 
-                              onClick={() => toggleShortlist(idx, cIdx)}
-                              className={`flex items-center gap-[8px] h-[30px] px-[12px] py-[6px] border rounded-[6px] text-[12px] font-medium transition-colors cursor-pointer select-none ${
-                                shortlistedCourses[`${idx}-${cIdx}`]
-                                  ? "border-[#007B2D] bg-[#E7F7EE] text-[#007B2D]"
-                                  : "border-[#CFD8DE] bg-white text-[#5B6B79]"
-                              }`}
-                            >
-                              <span className={`w-[14px] h-[14px] rounded-[3px] border flex items-center justify-center bg-white shrink-0 ${
-                                shortlistedCourses[`${idx}-${cIdx}`] ? "border-[#007B2D]" : "border-[#CFD8DE]"
-                              }`}>
-                                {shortlistedCourses[`${idx}-${cIdx}`] && (
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#007B2D" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                  </svg>
-                                )}
-                              </span>
-                              <span>Shortlist</span>
-                            </button>
+                          <span className="w-[100px] shrink-0 flex justify-end pr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007B2D" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-[#007B2D] shrink-0 select-none">
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
                           </span>
                         </div>
                       ))}
