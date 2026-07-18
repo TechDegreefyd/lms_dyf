@@ -1,7 +1,39 @@
 "use client";
 
+import { useSearchParams } from 'next/navigation';
 import React, { useState, useRef, useEffect } from "react";
 import filterOptions from "@/app/mock-data/filter-options.json";
+
+// Safe accessor: works whether filterOptions is { data: {...} } or the flat object itself,
+// and never throws if a key is missing — returns [] instead of crashing the dropdown.
+const FILTER_DATA = filterOptions?.data ?? filterOptions ?? {};
+const getOptions = (key) => FILTER_DATA?.[key] ?? [];
+
+// Central place to confirm/adjust the JSON keys backing each dropdown.
+// >>> Verify "calling_status" and "university_name" match your actual filter-options.json <<<
+const FILTER_KEYS = {
+  source: "first_source_url",
+  leadStatus: "course_status",
+  subStatus: "calling_sub_status",
+  campaign: "campaign_name",
+  callingStatus: "calling_status",
+  universityName: "university_name",
+};
+
+// Single source of truth for the empty/default filter state — reused by
+// useState's initializer and by handleClearAll so they can never drift apart.
+const EMPTY_FILTERS = {
+  dateFrom: "",
+  dateTo: "",
+  source: "",
+  leadStatus: "",
+  CallingStatus: "",
+  UniversityName: "",
+  subStatus: "",
+  campaign: "",
+  connectionStatus: "", // 'Connected' | 'Not Connected'
+  unreadMessages: "",   // 'Yes' | 'No'
+};
 
 // Trash can icon SVG for Clear All button
 const TRASH_ICON = (
@@ -38,18 +70,57 @@ const CLOSE_ICON = (
   </svg>
 );
 
+// Shared dropdown chevron background, reused by every <select>
+const SELECT_CHEVRON_STYLE = {
+  backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "right 12px center",
+  backgroundSize: "16px",
+};
+
 export default function FiltersDrawer({ show, onClose, onApply }) {
-  const [dateFrom, setDateFrom] = useState("");
-  const [dateTo, setDateTo] = useState("");
-  const [source, setSource] = useState("");
-  const [leadStatus, setLeadStatus] = useState("");
-  const [subStatus, setSubStatus] = useState("");
-  const [campaign, setCampaign] = useState("");
-  const [connectionStatus, setConnectionStatus] = useState(""); // 'Connected' | 'Not Connected'
-  const [unreadMessages, setUnreadMessages] = useState(""); // 'Yes' | 'No'
+  // Consolidated filter state — one object instead of 10 separate useState calls.
+  // This is what fixes the "cascading renders" warning: the effect below now
+  // calls setFilters exactly once instead of setDateFrom/setDateTo/... ten times.
+  const [filters, setFilters] = useState(EMPTY_FILTERS);
+
+  const searchParams = useSearchParams();
+
+  // Load filter values from URL search params when the drawer is shown.
+  //
+  // NOTE: this is intentionally NOT a useEffect. It's the "adjusting state
+  // when a prop changes" pattern from the React docs — calling setState
+  // directly during render (guarded by a prevShow comparison) instead of
+  // inside an effect. That's what avoids the "cascading renders" warning:
+  // React bails out and re-renders immediately with the new state before
+  // anything is painted, so there's no extra effect-triggered commit.
+  // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  const [prevShow, setPrevShow] = useState(show);
+  if (show !== prevShow) {
+    setPrevShow(show);
+    if (show) {
+      setFilters({
+        dateFrom: searchParams?.get("dateFrom") || "",
+        dateTo: searchParams?.get("dateTo") || "",
+        source: searchParams?.get("source") || "",
+        leadStatus: searchParams?.get("leadStatus") || "",
+        CallingStatus: searchParams?.get("CallingStatus") || "",
+        UniversityName: searchParams?.get("UniversityName") || "",
+        subStatus: searchParams?.get("subStatus") || "",
+        campaign: searchParams?.get("campaign") || "",
+        connectionStatus: searchParams?.get("connectionStatus") || "",
+        unreadMessages: searchParams?.get("unreadMessages") || "",
+      });
+    }
+  }
+
+  // Small helper so every field update stays a one-liner: setField("source", value)
+  const setField = (key, value) => {
+    setFilters((prev) => ({ ...prev, [key]: value }));
+  };
 
   // Dropdown states
-  const [activeDropdown, setActiveDropdown] = useState(""); // 'source' | 'leadStatus' | 'subStatus' | 'campaign'
+  const [activeDropdown, setActiveDropdown] = useState(""); // 'source' | 'leadStatus' | 'subStatus' | 'campaign' / 'callingStatus
 
   // Calendar states
   const [showCalendarFrom, setShowCalendarFrom] = useState(false);
@@ -74,28 +145,15 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
   }, []);
 
   const handleClearAll = () => {
-    setDateFrom("");
-    setDateTo("");
-    setSource("");
-    setLeadStatus("");
-    setSubStatus("");
-    setCampaign("");
-    setConnectionStatus("");
-    setUnreadMessages("");
+    setFilters(EMPTY_FILTERS);
+    if (onApply) {
+      onApply(EMPTY_FILTERS);
+    }
   };
 
   const handleApply = () => {
     if (onApply) {
-      onApply({
-        dateFrom,
-        dateTo,
-        source,
-        leadStatus,
-        subStatus,
-        campaign,
-        connectionStatus,
-        unreadMessages
-      });
+      onApply(filters);
     }
     onClose();
   };
@@ -150,8 +208,8 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                   onClick={() => setShowCalendarFrom(!showCalendarFrom)}
                   className="flex items-center justify-between border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white cursor-pointer select-none text-[14px] text-[#121212] font-poppins font-normal leading-normal h-[38px]"
                 >
-                  <span className={dateFrom ? "text-[#121212] font-normal font-poppins" : "text-[#9CA3AF] font-normal font-poppins"}>
-                    {dateFrom || "dd/mm/yyyy"}
+                  <span className={filters.dateFrom ? "text-[#121212] font-normal font-poppins" : "text-[#9CA3AF] font-normal font-poppins"}>
+                    {filters.dateFrom || "dd/mm/yyyy"}
                   </span>
                   {CALENDAR_ICON}
                 </div>
@@ -184,7 +242,7 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                             key={`day-${dayNum}`}
                             onClick={() => {
                               setSelectedCalendarDay(dayNum);
-                              setDateFrom(`${dayNum.toString().padStart(2, '0')}/03/2026`);
+                              setField("dateFrom", `${dayNum.toString().padStart(2, '0')}/03/2026`);
                               setShowCalendarFrom(false);
                             }}
                             className={`w-[28px] h-[28px] flex items-center justify-center rounded-full mx-auto relative cursor-pointer hover:bg-slate-100 ${
@@ -213,8 +271,8 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                   onClick={() => setShowCalendarTo(!showCalendarTo)}
                   className="flex items-center justify-between border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white cursor-pointer select-none text-[14px] text-[#121212] font-poppins font-normal leading-normal h-[38px]"
                 >
-                  <span className={dateTo ? "text-[#121212] font-normal font-poppins" : "text-[#9CA3AF] font-normal font-poppins"}>
-                    {dateTo || "dd/mm/yyyy"}
+                  <span className={filters.dateTo ? "text-[#121212] font-normal font-poppins" : "text-[#9CA3AF] font-normal font-poppins"}>
+                    {filters.dateTo || "dd/mm/yyyy"}
                   </span>
                   {CALENDAR_ICON}
                 </div>
@@ -242,7 +300,7 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                           <div 
                             key={`day-to-${dayNum}`}
                             onClick={() => {
-                              setDateTo(`${dayNum.toString().padStart(2, '0')}/03/2026`);
+                              setField("dateTo", `${dayNum.toString().padStart(2, '0')}/03/2026`);
                               setShowCalendarTo(false);
                             }}
                             className="w-[28px] h-[28px] flex items-center justify-center rounded-full mx-auto cursor-pointer hover:bg-slate-100 text-[#121212]"
@@ -264,13 +322,13 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
               Source
             </span>
             <select 
-              value={source}
-              onChange={(e) => setSource(e.target.value)}
+              value={filters.source}
+              onChange={(e) => setField("source", e.target.value)}
               className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[14px] text-[#121212] font-poppins font-normal leading-normal outline-none appearance-none cursor-pointer h-[38px]"
-              style={{ backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center", backgroundSize: "16px" }}
+              style={SELECT_CHEVRON_STYLE}
             >
               <option value="">Select Source</option>
-              {filterOptions.data.first_source_url.map((opt) => (
+              {getOptions(FILTER_KEYS.source).map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
               ))}
             </select>
@@ -282,13 +340,13 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
               Lead Status
             </span>
             <select 
-              value={leadStatus}
-              onChange={(e) => setLeadStatus(e.target.value)}
+              value={filters.leadStatus}
+              onChange={(e) => setField("leadStatus", e.target.value)}
               className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[14px] text-[#121212] font-poppins font-normal leading-normal outline-none appearance-none cursor-pointer h-[38px]"
-              style={{ backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center", backgroundSize: "16px" }}
+              style={SELECT_CHEVRON_STYLE}
             >
               <option value="">Select status</option>
-              {filterOptions.data.course_status.map((opt) => (
+              {getOptions(FILTER_KEYS.leadStatus).map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
               ))}
             </select>
@@ -300,13 +358,49 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
               NI Sub Status
             </span>
             <select 
-              value={subStatus}
-              onChange={(e) => setSubStatus(e.target.value)}
+              value={filters.subStatus}
+              onChange={(e) => setField("subStatus", e.target.value)}
               className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[14px] text-[#121212] font-poppins font-normal leading-normal outline-none appearance-none cursor-pointer h-[38px]"
-              style={{ backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center", backgroundSize: "16px" }}
+              style={SELECT_CHEVRON_STYLE}
             >
               <option value="">Select status</option>
-              {filterOptions.data.calling_sub_status.map((opt) => (
+              {getOptions(FILTER_KEYS.subStatus).map((opt) => (
+                <option key={opt} value={opt}>{opt}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Calling Status Dropdown */}
+          <div className="flex flex-col gap-[8px] w-full relative">
+            <span className="text-[14px] font-normal text-[#121212] font-poppins leading-normal">
+              Calling Status
+            </span>
+            <select
+              value={filters.CallingStatus}
+              onChange={(e) => setField("CallingStatus", e.target.value)}
+              className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[14px] text-[#121212] font-poppins font-normal leading-normal outline-none appearance-none cursor-pointer h-[38px]"
+              style={SELECT_CHEVRON_STYLE}
+            >
+              <option value="">Select status</option>
+              {getOptions(FILTER_KEYS.callingStatus).map((opt) => (
+                <option key={opt} value={opt}>{opt}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* University Name Dropdown */}
+          <div className="flex flex-col gap-[8px] w-full relative">
+            <span className="text-[14px] font-normal text-[#121212] font-poppins leading-normal">
+              University Name
+            </span>
+            <select
+              value={filters.UniversityName}
+              onChange={(e) => setField("UniversityName", e.target.value)}
+              className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[14px] text-[#121212] font-poppins font-normal leading-normal outline-none appearance-none cursor-pointer h-[38px]"
+              style={SELECT_CHEVRON_STYLE}
+            >
+              <option value="">Select university</option>
+              {getOptions(FILTER_KEYS.universityName).map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
               ))}
             </select>
@@ -318,13 +412,13 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
               Campaign name
             </span>
             <select 
-              value={campaign}
-              onChange={(e) => setCampaign(e.target.value)}
+              value={filters.campaign}
+              onChange={(e) => setField("campaign", e.target.value)}
               className="w-full border border-[#CFD8DE] rounded-[8px] px-3 py-[9px] bg-white text-[14px] text-[#121212] font-poppins font-normal leading-normal outline-none appearance-none cursor-pointer h-[38px]"
-              style={{ backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center", backgroundSize: "16px" }}
+              style={SELECT_CHEVRON_STYLE}
             >
               <option value="">Select status</option>
-              {filterOptions.data.campaign_name.map((opt) => (
+              {getOptions(FILTER_KEYS.campaign).map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
               ))}
             </select>
@@ -341,8 +435,8 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                   type="radio" 
                   name="connectionStatus" 
                   value="Connected"
-                  checked={connectionStatus === "Connected"}
-                  onChange={() => setConnectionStatus("Connected")}
+                  checked={filters.connectionStatus === "Connected"}
+                  onChange={() => setField("connectionStatus", "Connected")}
                   className="w-[16px] h-[16px] border border-[#CFD8DE] text-[#0D3B59] focus:ring-[#0D3B59] accent-[#0D3B59]"
                 />
                 <span>Connected</span>
@@ -352,8 +446,8 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                   type="radio" 
                   name="connectionStatus" 
                   value="Not Connected"
-                  checked={connectionStatus === "Not Connected"}
-                  onChange={() => setConnectionStatus("Not Connected")}
+                  checked={filters.connectionStatus === "Not Connected"}
+                  onChange={() => setField("connectionStatus", "Not Connected")}
                   className="w-[16px] h-[16px] border border-[#CFD8DE] text-[#0D3B59] focus:ring-[#0D3B59] accent-[#0D3B59]"
                 />
                 <span>Not Connected</span>
@@ -372,8 +466,8 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                   type="radio" 
                   name="unreadMessages" 
                   value="Yes"
-                  checked={unreadMessages === "Yes"}
-                  onChange={() => setUnreadMessages("Yes")}
+                  checked={filters.unreadMessages === "Yes"}
+                  onChange={() => setField("unreadMessages", "Yes")}
                   className="w-[16px] h-[16px] border border-[#CFD8DE] text-[#0D3B59] focus:ring-[#0D3B59] accent-[#0D3B59]"
                 />
                 <span>Yes</span>
@@ -383,8 +477,8 @@ export default function FiltersDrawer({ show, onClose, onApply }) {
                   type="radio" 
                   name="unreadMessages" 
                   value="No"
-                  checked={unreadMessages === "No"}
-                  onChange={() => setUnreadMessages("No")}
+                  checked={filters.unreadMessages === "No"}
+                  onChange={() => setField("unreadMessages", "No")}
                   className="w-[16px] h-[16px] border border-[#CFD8DE] text-[#0D3B59] focus:ring-[#0D3B59] accent-[#0D3B59]"
                 />
                 <span>No</span>

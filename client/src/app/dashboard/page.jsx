@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import FiltersDrawer from "@/components/layout/FiltersDrawer";
 import mockLeadsResponse from "@/app/mock-data/leads-response.json";
 
@@ -68,7 +69,10 @@ const getStatsData = (stats) => [
   { label: "Total leads", value: String(stats.total ?? 0), icon: TOTAL_LEADS_ICON, borderColor: "#475569" },
 ];
 
-export default function DashboardOverview() {
+function DashboardOverview() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [leads, setLeads] = useState([]);
   const [stats, setStats] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
@@ -77,7 +81,51 @@ export default function DashboardOverview() {
   useEffect(() => {
     setLeads(mockLeadsResponse.data || []);
     setStats(mockLeadsResponse.overallStats || {});
-  }, []);
+    setSearchTerm(searchParams.get("search") || "");
+  }, [searchParams]);
+
+  const handleSearchChange = (e) => {
+    const term = e.target.value;
+    setSearchTerm(term);
+    const params = new URLSearchParams(searchParams.toString());
+    if (term) {
+      params.set("search", term);
+    } else {
+      params.delete("search");
+    }
+    router.push(`?${params.toString()}`);
+  };
+
+  const handleClearSearch = () => {
+    setSearchTerm("");
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("search");
+    router.push(`?${params.toString()}`);
+  };
+
+  const handleApplyFilters = (newFilters) => {
+    const params = new URLSearchParams(searchParams.toString());
+    Object.entries(newFilters).forEach(([key, val]) => {
+      if (val) {
+        params.set(key, val);
+      } else {
+        params.delete(key);
+      }
+    });
+    router.push(`?${params.toString()}`);
+  };
+
+  const getActiveFiltersCount = () => {
+    let count = 0;
+    const filterKeys = ["dateFrom", "dateTo", "source", "leadStatus", "subStatus", "campaign", "connectionStatus", "unreadMessages"];
+    filterKeys.forEach((key) => {
+      if (searchParams.get(key)) {
+        count++;
+      }
+    });
+    return count;
+  };
+  const activeFiltersCount = getActiveFiltersCount();
 
   const renderSortIndicator = () => (
     <svg className="inline ml-1 text-slate-400" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -87,16 +135,41 @@ export default function DashboardOverview() {
 
   const filteredLeads = leads.filter(
     (lead) => {
+      // 1. Search term filter
       const name = lead.student_name || "";
       const leadId = lead.student_id || "";
       const email = lead.student_email || "";
       const phone = lead.student_phone || "";
-      return (
+      const matchSearch =
         name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         leadId.toLowerCase().includes(searchTerm.toLowerCase()) ||
         email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        phone.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+        phone.toLowerCase().includes(searchTerm.toLowerCase());
+
+      if (!matchSearch) return false;
+
+      // 2. Source filter (first_source_url mapping)
+      const filterSource = searchParams.get("source");
+      if (filterSource && lead.source !== filterSource) {
+        return false;
+      }
+
+      // 3. Lead status filter (course_status mapping)
+      const filterLeadStatus = searchParams.get("leadStatus");
+      if (filterLeadStatus && lead.course_status !== filterLeadStatus) {
+        return false;
+      }
+
+      // 4. Campaign filter (lead_activities mapping)
+      const filterCampaign = searchParams.get("campaign");
+      if (filterCampaign) {
+        const leadCampaign = lead.lead_activities?.[0]?.utm_campaign || "";
+        if (leadCampaign !== filterCampaign) {
+          return false;
+        }
+      }
+
+      return true;
     }
   );
 
@@ -133,7 +206,7 @@ export default function DashboardOverview() {
             type="text"
             placeholder="Search by name, email, phone, lead ID..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleSearchChange}
             className="w-full h-[40px] pl-10 pr-4 bg-white border border-[#CFD8DE] rounded-[8px] text-[13px] outline-none focus:border-[#0D3B59] transition-colors placeholder-slate-400"
           />
           <svg className="absolute left-3.5 top-[12px] text-slate-400" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -142,7 +215,7 @@ export default function DashboardOverview() {
           </svg>
         </div>
 
-        {/* Filter Button (Funnel icon with blue badge showing count "4") */}
+        {/* Filter Button (Funnel icon with blue badge showing count) */}
         <button 
           onClick={() => setShowFilters(true)}
           className="relative w-[40px] h-[40px] bg-white border border-[#CFD8DE] rounded-[8px] flex items-center justify-center text-[#0D3B59] hover:bg-slate-50 transition-colors cursor-pointer shrink-0"
@@ -150,12 +223,16 @@ export default function DashboardOverview() {
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
           </svg>
-          <span className="absolute -top-1.5 -right-1.5 bg-[#0D3B59] text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">4</span>
+          {activeFiltersCount > 0 && (
+            <span className="absolute -top-1.5 -right-1.5 bg-[#0D3B59] text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white">
+              {activeFiltersCount}
+            </span>
+          )}
         </button>
 
         {/* Clear All Button (Red outlined, trash icon + text) */}
         <button
-          onClick={() => setSearchTerm("")}
+          onClick={handleClearSearch}
           className="h-[40px] px-4 border border-[#BC3B3B] text-[#BC3B3B] hover:bg-red-55 rounded-[8px] text-[13px] font-medium transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -328,8 +405,16 @@ export default function DashboardOverview() {
       </div>
 
       {/* Filters sliding sidebar drawer */}
-      <FiltersDrawer show={showFilters} onClose={() => setShowFilters(false)} />
+      <FiltersDrawer show={showFilters} onClose={() => setShowFilters(false)} onApply={handleApplyFilters} />
 
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-slate-400 font-poppins">Loading dashboard...</div>}>
+      <DashboardOverview />
+    </Suspense>
   );
 }
